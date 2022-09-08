@@ -1,19 +1,12 @@
 ﻿using System.Collections.Generic;
-using Godot;
 using TowerCreep.Towers;
+using UnityEngine;
 
 namespace TowerCreep.Player.TowerCollection
 {
-    public class PlayerTowerCollection : Node
+    public class PlayerTowerCollection : MonoBehaviour
     {
-        public static PlayerTowerCollection S;
-
         private List<TowerCollectionSlot> playerTowerCollection;
-
-        public override void _EnterTree()
-        {
-            S = this;
-        }
 
         public void SetTowerCollection(List<TowerData> selectedTowers)
         {

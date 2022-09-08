@@ -1,14 +1,15 @@
-using Godot;
+using UnityEngine;
 
 namespace TowerCreep.Towers
 {
-    public class TowerData : Resource
+    [CreateAssetMenu(fileName = "Data", menuName = "TowerCreep/TowerData", order = 1)]
+    public class TowerData : ScriptableObject
     {
-        [Export] public Texture towerIcon;
-        [Export] public Texture disabledTowerIcon;
-        [Export] public string towerName = "Test Data";
-        [Export] public int towerBaseCost = 100;
-        [Export] public PackedScene towerPrefab;
-        [Export(PropertyHint.MultilineText)] public string towerInformation = "";
+        public Texture towerIcon;
+        public Texture disabledTowerIcon;
+        public string towerName = "Test Data";
+        public int towerBaseCost = 100;
+        public Tower towerPrefab;
+        public string towerInformation = "";
     }
 }

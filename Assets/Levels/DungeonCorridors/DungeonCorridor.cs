@@ -1,9 +1,10 @@
-using Godot;
+
 using TowerCreep.Levels.DungeonLevels;
+using UnityEngine;
 
 namespace TowerCreep.Levels.DungeonCorridors
 {
-    public class DungeonCorridor : Node2D
+    public class DungeonCorridor : MonoBehaviour
     {
         private DungeonLevel northLevel;
         private DungeonLevel southLevel;

@@ -1,8 +1,6 @@
-﻿using Godot;
-
-namespace TowerCreep.Player.TowerCollection
+﻿namespace TowerCreep.Player.TowerCollection
 {
-    public class TowerProgressionData : Object
+    public class TowerProgressionData
     {
     }
 }

@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Godot;
 using TowerCreep.Towers.Shooting;
+using UnityEngine;
 
 namespace TowerCreep.Towers.Archer
 {
@@ -10,34 +9,31 @@ namespace TowerCreep.Towers.Archer
         // External Nodes
         private TowerRangeDetection towerRangeDetection;
 
-        // Exported Properties
-        [Export] private float shootingDelay = 0.5f;
-        [Export] private PackedScene arrowStatueProjectileScene;
+        // SerializeFielded Properties
+        [SerializeField] private float shootingDelay = 0.5f;
+        [SerializeField] private Projectile arrowStatueProjectilePrefab;
 
         // Internal State
         private List<Enemy.Enemy> allEnemiesInRange;
         private Enemy.Enemy currentEnemy;
         private float currentCooldown = 0.0f;
 
-        private AudioStreamPlayer2D soundPlayer;
 
-        public override void _Ready()
+        private void Start()
         {
-            soundPlayer = GetNode<AudioStreamPlayer2D>("TowerSoundPlayer");
             allEnemiesInRange = new List<Enemy.Enemy>();
         }
 
-        public override void _EnterTree()
+        private void OnEnable()
         {
-            towerRangeDetection = GetNode<TowerRangeDetection>("TowerRangeDetection");
+            towerRangeDetection = GetComponentInChildren<TowerRangeDetection>();
             towerRangeDetection.OnEnemyHasEnteredRange += AddEnemy;
             towerRangeDetection.OnEnemyHasExitedRange += RemoveEnemy;
 
             Enemy.Enemy.OnDie += HandleEnemyDie;
         }
 
-
-        public override void _ExitTree()
+        private void OnDisable()
         {
             towerRangeDetection.OnEnemyHasEnteredRange -= AddEnemy;
             towerRangeDetection.OnEnemyHasExitedRange -= RemoveEnemy;
@@ -45,12 +41,12 @@ namespace TowerCreep.Towers.Archer
             Enemy.Enemy.OnDie -= HandleEnemyDie;
         }
 
-        public override void _Process(float delta)
+        private void Update()
         {
             // Cooldown ticks down to 0 or less
             if (currentCooldown > 0)
             {
-                currentCooldown -= delta;
+                currentCooldown -= Time.deltaTime;
                 return;
             }
 
@@ -63,10 +59,8 @@ namespace TowerCreep.Towers.Archer
 
         private void FireShot()
         {
-            Projectile projectile = arrowStatueProjectileScene.Instance<Projectile>();
-            AddChild(projectile);
+            Projectile projectile = Instantiate(arrowStatueProjectilePrefab);
             projectile.FireAt(currentEnemy);
-            soundPlayer.Play();
         }
 
         private void HandleEnemyDie(Enemy.Enemy enemy)
@@ -105,10 +99,11 @@ namespace TowerCreep.Towers.Archer
             if (allEnemiesInRange.Count > 0)
             {
                 currentEnemy = allEnemiesInRange[0];
-                float closestDistance = Position.DistanceSquaredTo(currentEnemy.Position);
+                Vector2 position = transform.position;
+                float closestDistance = Vector2.Distance(position, currentEnemy.transform.position);
                 for (int i = 1; i < allEnemiesInRange.Count; i++)
                 {
-                    float tempDist = Position.DistanceSquaredTo(allEnemiesInRange[i].Position);
+                    float tempDist = Vector2.Distance(position, allEnemiesInRange[i].transform.position);
                     if (tempDist < closestDistance)
                     {
                         closestDistance = tempDist;

@@ -1,53 +1,32 @@
-using Godot;
+using UnityEngine;
 
 namespace TowerCreep.Player
 {
-    /// <summary>
-    /// Handles player movement
-    /// </summary>
-    public class PlayerController : KinematicBody2D
+    public class PlayerController : MonoBehaviour
     {
-        [Export] private float speed;
+        [SerializeField] private float speed;
+        [SerializeField] private PlayerSprite playerSprite;
 
-        private Vector2 inputVector = Vector2.Zero;
-        private PlayerSprite playerSprite;
+        private Vector2 inputVector = Vector2.zero;
+        private GameInputActions gameInputActions;
 
-        public override void _Ready()
+        private void Start()
         {
-            playerSprite = GetNode<PlayerSprite>("PlayerSprite");
+            gameInputActions = new GameInputActions();
+            gameInputActions.Enable();
         }
 
         private void HandleInput()
         {
-            Vector2 tempInput = Vector2.Zero;
-            if (Input.IsActionPressed("MoveUp"))
-            {
-                tempInput.y -= 1;
-            }
-
-            if (Input.IsActionPressed("MoveDown"))
-            {
-                tempInput.y += 1;
-            }
-
-            if (Input.IsActionPressed("MoveLeft"))
-            {
-                tempInput.x -= 1;
-            }
-
-            if (Input.IsActionPressed("MoveRight"))
-            {
-                tempInput.x += 1;
-            }
-
-            inputVector = tempInput.Normalized();
+            Vector2 tempInput = gameInputActions.PlayerActions.Movement.ReadValue<Vector2>();
+            inputVector = tempInput.normalized;
         }
 
-        public override void _PhysicsProcess(float delta)
+        private void FixedUpdate()
         {
             HandleInput();
-            Vector2 result = MoveAndSlide(inputVector * speed);
-            playerSprite.UpdateAnimation(result);
+            // Vector2 result = MoveAndSlide(inputVector * speed);
+            playerSprite.UpdateAnimation(inputVector);
         }
     }
 }

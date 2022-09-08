@@ -1,10 +1,11 @@
 using System;
-using Godot;
+
 using TowerCreep.Player;
+using UnityEngine;
 
 namespace TowerCreep.Map.Doors
 {
-    public class Door : StaticBody2D
+    public class Door : MonoBehaviour
     {
         public Action<Door> OnPlayerHasCrossedDoor;
 
@@ -23,25 +24,20 @@ namespace TowerCreep.Map.Doors
             Open
         }
 
-        [Export] private DoorState currentState = DoorState.Locked;
-        [Export] private DoorType doorType = DoorType.EntranceDoor;
-        [Export] private bool doNotUnlock = false;
+        [SerializeField] private DoorState currentState = DoorState.Locked;
+        [SerializeField] private DoorType doorType = DoorType.EntranceDoor;
+        [SerializeField] private bool doNotUnlock = false;
 
-        private Sprite openDoorSprite;
-        private Sprite closedDoorSprite;
-        private Area2D doorCrossedArea;
+        [SerializeField] private SpriteRenderer openDoorSprite;
+        [SerializeField] private SpriteRenderer closedDoorSprite;
+        [SerializeField] private BoxCollider2D doorCollider;
+        [SerializeField] private BoxCollider2D doorCrossedArea;
 
         private uint initialCollisionLayers;
         private uint initialCollisionMask;
 
-        public override void _Ready()
+        private void Start()
         {
-            openDoorSprite = GetNode<Sprite>("OpenDoorSprite");
-            closedDoorSprite = GetNode<Sprite>("ClosedDoorSprite");
-
-            doorCrossedArea = GetNode<Area2D>("DoorCrossedArea");
-            doorCrossedArea.Connect("body_exited", this, nameof(HandleBodyExited));
-
             if (doorType == DoorType.EntranceDoor && !doNotUnlock)
             {
                 UnlockDoor();
@@ -55,8 +51,8 @@ namespace TowerCreep.Map.Doors
             if (currentState == DoorState.Locked)
             {
                 currentState = DoorState.Unlocked;
-                openDoorSprite.Visible = true;
-                closedDoorSprite.Visible = false;
+                openDoorSprite.enabled = true;
+                closedDoorSprite.enabled = false;
 
                 DisableCollisions();
             }
@@ -67,8 +63,8 @@ namespace TowerCreep.Map.Doors
             if (currentState != DoorState.Locked)
             {
                 currentState = DoorState.Locked;
-                openDoorSprite.Visible = false;
-                closedDoorSprite.Visible = true;
+                openDoorSprite.enabled = false;
+                closedDoorSprite.enabled = true;
 
                 EnableCollisions();
             }
@@ -76,23 +72,19 @@ namespace TowerCreep.Map.Doors
 
         private void DisableCollisions()
         {
-            initialCollisionLayers = CollisionLayer;
-            CollisionLayer = 0;
-            initialCollisionMask = CollisionMask;
-            CollisionMask = 0;
+            doorCollider.enabled = false;
         }
 
         private void EnableCollisions()
         {
-            CollisionLayer = initialCollisionLayers;
-            CollisionMask = initialCollisionMask;
+            doorCollider.enabled = true;
         }
 
-        private void HandleBodyExited(Node body)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            if (body is PlayerController pc)
+            if (other.TryGetComponent(out PlayerController pc))
             {
-                if (pc.GlobalPosition.y < GlobalPosition.y)
+                if (pc.transform.position.y > transform.position.y)
                 {
                     OnPlayerHasCrossedDoor?.Invoke(this);
                 }

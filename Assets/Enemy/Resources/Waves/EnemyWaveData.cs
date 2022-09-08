@@ -1,14 +1,13 @@
-using System;
-using Godot;
+using UnityEngine;
 
 namespace TowerCreep.Enemy.Resources.Waves
 {
-    [Serializable]
-    public class EnemyWaveData : Resource
+    [CreateAssetMenu(fileName = "Data", menuName = "TowerCreep/Wave", order = 1)]
+    public class EnemyWaveData : ScriptableObject
     {
-        [Export] public PackedScene enemyBaseScene;
-        [Export] public MonsterData.MonsterData monsterData;
-        [Export] public int spawnCount = 10;
-        [Export] public float spawnInterval = 1.0f;
+        [SerializeField] public Enemy enemyBasePrefab;
+        [SerializeField] public MonsterData.MonsterData monsterData;
+        [SerializeField] public int spawnCount = 10;
+        [SerializeField] public float spawnInterval = 1.0f;
     }
 }

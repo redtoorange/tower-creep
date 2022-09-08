@@ -1,9 +1,10 @@
-﻿using Godot;
+﻿
 using TowerCreep.Player.TowerCollection;
+using UnityEngine;
 
 namespace TowerCreep.Towers
 {
-    public class Tower : StaticBody2D
+    public class Tower : MonoBehaviour
     {
         public TowerCollectionSlot CollectionSlotData { get; set; }
     }

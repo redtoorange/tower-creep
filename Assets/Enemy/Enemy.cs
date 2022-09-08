@@ -1,6 +1,7 @@
 ﻿using System;
-using Godot;
+using System.Collections.Generic;
 using TowerCreep.Enemy.Resources.MonsterData;
+using UnityEngine;
 using Portal = TowerCreep.Map.Portals.Portal;
 
 namespace TowerCreep.Enemy
@@ -13,7 +14,7 @@ namespace TowerCreep.Enemy
         Dead
     }
 
-    public class Enemy : KinematicBody2D
+    public class Enemy : MonoBehaviour
     {
         public static Action<Enemy> OnDie;
         public static Action<Enemy> OnNeedsNewPath;
@@ -27,18 +28,15 @@ namespace TowerCreep.Enemy
         private Vector2[] movementPath;
         private MonsterData enemyData;
         private int routeIndex;
-        private ProgressBar healthBar;
-        private Sprite monsterSprite;
+        // private ProgressBar healthBar;
+        private SpriteRenderer monsterSpriteRenderer;
 
-
-        public override void _Ready()
+        private void Start()
         {
-            base._Ready();
-
-            healthBar = GetNode<ProgressBar>("HealthBar/ProgressBar");
-            monsterSprite = GetNode<Sprite>("Sprite");
-            monsterSprite.Texture = enemyData.mobSprite;
-            healthBar.Visible = false;
+            // healthBar = GetNode<ProgressBar>("HealthBar/ProgressBar");
+            monsterSpriteRenderer = GetComponent<SpriteRenderer>();
+            monsterSpriteRenderer.sprite = enemyData.mobSprite;
+            // healthBar.Visible = false;
         }
 
         public void Initialize(Vector2[] movementPath, MonsterData enemyData)
@@ -54,18 +52,18 @@ namespace TowerCreep.Enemy
         public virtual void Die()
         {
             OnDie?.Invoke(this);
-            Visible = false;
-            QueueFree();
+            monsterSpriteRenderer.enabled = false;
+            Destroy(gameObject);
         }
 
         public void TakeDamage(float damage)
         {
             health -= damage;
-            healthBar.Value = 100.0f * (health / maxHealth);
-            if (healthBar.Value < 100.0f)
-            {
-                healthBar.Visible = true;
-            }
+            // healthBar.Value = 100.0f * (health / maxHealth);
+            // if (healthBar.Value < 100.0f)
+            // {
+            //     healthBar.Visible = true;
+            // }
 
             if (health <= 0)
             {
@@ -73,23 +71,24 @@ namespace TowerCreep.Enemy
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+
+        private void FixedUpdate()
         {
-            if (routeIndex < movementPath.Length)
-            {
-                // Handle movement using the Physics engine
-                Vector2 targetPoint = movementPath[routeIndex];
-                float dist = Position.DistanceTo(targetPoint);
-                if (dist > navigationThreshold)
-                {
-                    Vector2 direction = targetPoint - Position;
-                    MoveAndCollide(direction.Normalized() * speed * delta);
-                }
-                else
-                {
-                    routeIndex++;
-                }
-            }
+            // if (routeIndex < movementPath.Length)
+            // {
+            //     // Handle movement using the Physics engine
+            //     Vector2 targetPoint = movementPath[routeIndex];
+            //     float dist = Position.DistanceTo(targetPoint);
+            //     if (dist > navigationThreshold)
+            //     {
+            //         Vector2 direction = targetPoint - Position;
+            //         MoveAndCollide(direction.Normalized() * speed * delta);
+            //     }
+            //     else
+            //     {
+            //         routeIndex++;
+            //     }
+            // }
         }
 
         public void TeleportToSpawn(Portal spawnLocation)
@@ -100,7 +99,7 @@ namespace TowerCreep.Enemy
         public void ResetPath()
         {
             routeIndex = 0;
-            Position = movementPath[routeIndex];
+            transform.position = movementPath[routeIndex];
         }
     }
 }

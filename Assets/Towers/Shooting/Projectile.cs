@@ -1,90 +1,79 @@
-using Godot;
-using TowerCreep.Map.Doors;
+using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
 {
-    public class Projectile : KinematicBody2D
+    public class Projectile : MonoBehaviour
     {
-        // Exported Properties
-        [Export] private float speed = 100.0f;
-        [Export] private float damage = 1.0f;
-        [Export] private bool keepOnMap = true;
+        // SerializeFielded Properties
+        [SerializeField] private float speed = 100.0f;
+        [SerializeField] private float damage = 1.0f;
+        [SerializeField] private bool keepOnMap = true;
 
         // External Nodes
-        private CollisionShape2D collisionShape2D;
-        private AudioStreamPlayer2D impactAudioPlayer;
+        private Rigidbody2D rigidBody;
 
         // Internal State
-        private bool hasTarget = false;
+        private bool hasTarget;
         private Vector2 targetPoint;
         private Vector2 targetDirection;
 
-        public override void _Ready()
+        private void Start()
         {
-            collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
-            impactAudioPlayer = GetNode<AudioStreamPlayer2D>("ImpactAudioPlayer");
-            impactAudioPlayer.Connect("finished", this, nameof(OnAudioPlayerFinished));
+            rigidBody = GetComponent<Rigidbody2D>();
         }
 
         public void FireAt(Enemy.Enemy enemy)
         {
             if (enemy != null)
             {
-                targetPoint = enemy.GlobalPosition;
-                targetDirection = (targetPoint - GlobalPosition).Normalized();
-                Rotation = targetDirection.Angle();
+                Vector2 position = transform.position;
+                targetPoint = enemy.transform.position;
+                targetDirection = (targetPoint - position).normalized;
+                transform.rotation = Quaternion.LookRotation(targetDirection);
 
                 hasTarget = true;
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+        private void FixedUpdate()
         {
             if (!hasTarget) return;
 
-            MoveAndSlide(targetDirection * speed);
-            int slideCount = GetSlideCount();
-            for (int i = 0; i < slideCount; i++)
-            {
-                KinematicCollision2D collision = GetSlideCollision(i);
-                if (collision != null)
-                {
-                    bool playSound = false;
-                    if (collision.Collider is Enemy.Enemy e)
-                    {
-                        playSound = true;
-                        e.TakeDamage(damage);
-                        hasTarget = false;
-                        collisionShape2D.Disabled = true;
-                        Visible = false;
-                        keepOnMap = false;
-                    }
-                    else if (collision.Collider is TileMap sb || collision.Collider is Door d)
-                    {
-                        playSound = true;
-                        hasTarget = false;
-                        collisionShape2D.Disabled = true;
-
-                        if (!keepOnMap)
-                        {
-                            Visible = false;
-                        }
-                    }
-
-                    if (playSound)
-                    {
-                        impactAudioPlayer.Play();
-                    }
-                }
-            }
-        }
-
-        private void OnAudioPlayerFinished()
-        {
-            if (!keepOnMap)
-            {
-                QueueFree();
-            }
+            // MoveAndSlide(targetDirection * speed);
+            // int slideCount = GetSlideCount();
+            // for (int i = 0; i < slideCount; i++)
+            // {
+            //     KinematicCollision2D collision = GetSlideCollision(i);
+            //     if (collision != null)
+            //     {
+            //         bool playSound = false;
+            //         if (collision.Collider is Enemy.Enemy e)
+            //         {
+            //             playSound = true;
+            //             e.TakeDamage(damage);
+            //             hasTarget = false;
+            //             rigidBody.Disabled = true;
+            //             Visible = false;
+            //             keepOnMap = false;
+            //         }
+            //         else if (collision.Collider is TileMap sb || collision.Collider is Door d)
+            //         {
+            //             playSound = true;
+            //             hasTarget = false;
+            //             rigidBody.Disabled = true;
+            //
+            //             if (!keepOnMap)
+            //             {
+            //                 Visible = false;
+            //             }
+            //         }
+            //
+            //         if (playSound)
+            //         {
+            //             // Play sound
+            //         }
+            //     }
+            // }
         }
     }
 }

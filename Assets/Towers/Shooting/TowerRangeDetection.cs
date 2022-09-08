@@ -1,30 +1,24 @@
 using System;
-using Godot;
+using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
 {
-    public class TowerRangeDetection : Area2D
+    public class TowerRangeDetection : MonoBehaviour
     {
         public Action<Enemy.Enemy> OnEnemyHasEnteredRange;
         public Action<Enemy.Enemy> OnEnemyHasExitedRange;
 
-        public override void _Ready()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Connect("body_entered", this, nameof(HandleOnBodyEntered));
-            Connect("body_exited", this, nameof(HandleOnBodyExited));
-        }
-
-        private void HandleOnBodyEntered(Node other)
-        {
-            if (other is Enemy.Enemy e)
+            if (other.TryGetComponent(out Enemy.Enemy e))
             {
                 OnEnemyHasEnteredRange?.Invoke(e);
             }
         }
 
-        private void HandleOnBodyExited(Node other)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            if (other is Enemy.Enemy e)
+            if (other.TryGetComponent(out Enemy.Enemy e))
             {
                 OnEnemyHasExitedRange?.Invoke(e);
             }

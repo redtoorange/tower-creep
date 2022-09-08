@@ -1,20 +1,18 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
+using UnityEngine;
 
 namespace TowerCreep.Map.Doors
 {
-    public class DoorController : Node2D
+    public class DoorController : MonoBehaviour
     {
         public Action OnPlayerHasEnteredRoom;
         public Action OnPlayerHasExitedRoom;
 
-        [Export] private NodePath enemyControllerPath;
-
         private List<Door> controlledDoors;
-        private EnemyController enemyController;
+        [SerializeField] private EnemyController enemyController;
 
         private void HandleEnemyControllerEvent(EnemyControllerEvent ece)
         {
@@ -24,26 +22,22 @@ namespace TowerCreep.Map.Doors
             }
         }
 
-        public override void _Ready()
+        private void Start()
         {
-            controlledDoors = new List<Door>();
-            for (int i = 0; i < GetChildCount(); i++)
+            controlledDoors = new List<Door>(GetComponentsInChildren<Door>());
+            for (int i = 0; i < controlledDoors.Count; i++)
             {
-                if (GetChild(i) is Door d)
+                Door d = controlledDoors[i];
+                if (d.GetDoorType() == Door.DoorType.ExitDoor)
                 {
-                    controlledDoors.Add(d);
-                    if (d.GetDoorType() == Door.DoorType.ExitDoor)
-                    {
-                        d.OnPlayerHasCrossedDoor += HandlePlayerCrossedExitDoor;
-                    }
-                    else if (d.GetDoorType() == Door.DoorType.EntranceDoor)
-                    {
-                        d.OnPlayerHasCrossedDoor += HandlePlayerCrossedEntranceDoor;
-                    }
+                    d.OnPlayerHasCrossedDoor += HandlePlayerCrossedExitDoor;
+                }
+                else if (d.GetDoorType() == Door.DoorType.EntranceDoor)
+                {
+                    d.OnPlayerHasCrossedDoor += HandlePlayerCrossedEntranceDoor;
                 }
             }
 
-            enemyController = GetNode<EnemyController>(enemyControllerPath);
             EnemyController.OnEnemyControllerEvent += HandleEnemyControllerEvent;
         }
 

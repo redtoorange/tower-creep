@@ -1,8 +1,8 @@
-using Godot;
+using UnityEngine;
 
 namespace TowerCreep.Towers.Placement
 {
-    public class BuildableTile : Node2D
+    public class BuildableTile : MonoBehaviour
     {
         public Vector2 centerOffset;
         public bool isOccupied;
