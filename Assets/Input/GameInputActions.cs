@@ -41,7 +41,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""58e9750d-8038-4e06-a2dc-4d7e4409e01c"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

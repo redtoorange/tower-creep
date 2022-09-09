@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TowerCreep.Enemy.Resources.Waves
 {
-    [CreateAssetMenu(fileName = "Data", menuName = "TowerCreep/Wave", order = 1)]
+    [CreateAssetMenu(fileName = "Data", menuName = "TowerCreep/WaveData", order = 1)]
     public class EnemyWaveData : ScriptableObject
     {
         [SerializeField] public Enemy enemyBasePrefab;

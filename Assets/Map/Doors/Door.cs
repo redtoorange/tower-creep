@@ -31,10 +31,6 @@ namespace TowerCreep.Map.Doors
         [SerializeField] private SpriteRenderer openDoorSprite;
         [SerializeField] private SpriteRenderer closedDoorSprite;
         [SerializeField] private BoxCollider2D doorCollider;
-        [SerializeField] private BoxCollider2D doorCrossedArea;
-
-        private uint initialCollisionLayers;
-        private uint initialCollisionMask;
 
         private void Start()
         {
@@ -72,12 +68,12 @@ namespace TowerCreep.Map.Doors
 
         private void DisableCollisions()
         {
-            doorCollider.enabled = false;
+            doorCollider.isTrigger = true;
         }
 
         private void EnableCollisions()
         {
-            doorCollider.enabled = true;
+            doorCollider.isTrigger = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)

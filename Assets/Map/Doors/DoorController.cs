@@ -11,13 +11,14 @@ namespace TowerCreep.Map.Doors
         public Action OnPlayerHasEnteredRoom;
         public Action OnPlayerHasExitedRoom;
 
-        private List<Door> controlledDoors;
+        [SerializeField] private List<Door> controlledDoors;
         [SerializeField] private EnemyController enemyController;
 
         private void HandleEnemyControllerEvent(EnemyControllerEvent ece)
         {
             if (ece.controller == enemyController && ece.type == EnemyControllerEventType.AllWavesComplete)
             {
+                Debug.Log("Unlocking all doors");
                 UnlockAllExits();
             }
         }

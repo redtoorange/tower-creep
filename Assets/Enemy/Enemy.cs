@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using TowerCreep.Enemy.Resources.MonsterData;
+using TowerCreep.Map.Portals;
 using UnityEngine;
-using Portal = TowerCreep.Map.Portals.Portal;
 
 namespace TowerCreep.Enemy
 {
@@ -26,9 +25,10 @@ namespace TowerCreep.Enemy
 
         private float navigationThreshold = 1.5f;
         private Vector2[] movementPath;
-        private MonsterData enemyData;
+        [SerializeField] private MonsterData enemyData;
         private int routeIndex;
         // private ProgressBar healthBar;
+        
         private SpriteRenderer monsterSpriteRenderer;
 
         private void Start()

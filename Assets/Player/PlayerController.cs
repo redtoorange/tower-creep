@@ -9,11 +9,14 @@ namespace TowerCreep.Player
 
         private Vector2 inputVector = Vector2.zero;
         private GameInputActions gameInputActions;
+        private Rigidbody2D rigidbody2D;
 
         private void Start()
         {
             gameInputActions = new GameInputActions();
             gameInputActions.Enable();
+
+            rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         private void HandleInput()
@@ -25,7 +28,7 @@ namespace TowerCreep.Player
         private void FixedUpdate()
         {
             HandleInput();
-            // Vector2 result = MoveAndSlide(inputVector * speed);
+            rigidbody2D.MovePosition(rigidbody2D.position + inputVector * (speed * Time.fixedDeltaTime));
             playerSprite.UpdateAnimation(inputVector);
         }
     }
