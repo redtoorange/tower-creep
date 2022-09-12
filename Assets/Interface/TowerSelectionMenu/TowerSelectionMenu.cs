@@ -69,7 +69,7 @@ namespace TowerCreep.Interface.TowerSelectionMenu
         private void HandleReadyPressed()
         {
             List<TowerData> selectedTowers = selectedTowerContainer.GetSelectedTowers();
-            PlayerTowerCollection.S.SetTowerCollection(selectedTowers);
+            PlayerTowerCollectionManager.S.SetTowerCollection(selectedTowers);
 
             SceneManager.LoadScene(0);
         }

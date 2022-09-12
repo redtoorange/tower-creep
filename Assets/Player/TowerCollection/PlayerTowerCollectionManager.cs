@@ -4,12 +4,27 @@ using UnityEngine;
 
 namespace TowerCreep.Player.TowerCollection
 {
-    public class PlayerTowerCollection : MonoBehaviour
+    public class PlayerTowerCollectionManager : MonoBehaviour
     {
 
-        public static PlayerTowerCollection S;
+        public static PlayerTowerCollectionManager S;
         
         private List<TowerCollectionSlot> playerTowerCollection;
+
+        private void Awake()
+        {
+            if (S == null)
+            {
+                S = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Debug.LogError("Multiple PlayerTowerCollectionManager detected");
+                Destroy(this);
+                enabled = false;
+            }
+        }
 
         public void SetTowerCollection(List<TowerData> selectedTowers)
         {

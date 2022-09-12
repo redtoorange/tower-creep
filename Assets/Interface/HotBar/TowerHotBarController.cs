@@ -4,25 +4,25 @@ using TowerCreep.Player.TowerCollection;
 using TowerCreep.Towers.Placement;
 using UnityEngine;
 
-namespace TowerCreep.Interface.Hotbar
+namespace TowerCreep.Interface.HotBar
 {
-    public class HotbarController : MonoBehaviour
+    public class TowerHotBarController : MonoBehaviour
     {
         // External Events
         public static Action<TowerCollectionSlot> OnBuildingSelected;
 
         // External Nodes
-        [SerializeField] private List<TowerHotbarSlot> towerSlots;
+        [SerializeField] private List<TowerHotBarSlot> towerSlots;
 
         // Internal State
-        private TowerHotbarSlot currentSlot;
+        private TowerHotBarSlot currentSlot;
 
         private void Start()
         {
-            List<TowerCollectionSlot> towerCollection = PlayerTowerCollection.S.GetTowerCollection();
+            List<TowerCollectionSlot> towerCollection = PlayerTowerCollectionManager.S.GetTowerCollection();
             for (int i = 0; i < towerSlots.Count; i++)
             {
-                TowerHotbarSlot hbs = towerSlots[i];
+                TowerHotBarSlot hbs = towerSlots[i];
                 hbs.OnButtonSlotPressed += HandleOnButtonSlotPressed;
                 if (towerCollection != null && i < towerCollection.Count)
                 {
@@ -50,7 +50,7 @@ namespace TowerCreep.Interface.Hotbar
             HandleOnButtonSlotPressed(null);
         }
 
-        private void HandleOnButtonSlotPressed(TowerHotbarSlot newSlot)
+        private void HandleOnButtonSlotPressed(TowerHotBarSlot newSlot)
         {
             if (newSlot != currentSlot)
             {
@@ -73,7 +73,7 @@ namespace TowerCreep.Interface.Hotbar
         // {
         //     for (int i = 0; i < 9; i++)
         //     {
-        //         TowerHotbarSlot current = towerSlots[i];
+        //         TowerHotBarSlot current = towerSlots[i];
         //         if (@event.IsActionPressed(current.Name) && current.IsAvailable)
         //         {
         //             HandleOnButtonSlotPressed(towerSlots[i]);

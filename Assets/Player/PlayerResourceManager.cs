@@ -23,7 +23,7 @@ namespace TowerCreep.Player
         [SerializeField] private int startingExperience = 0;
 
         private Dictionary<PlayerResourceType, PlayerResource> playerResources;
-
+        
         private void Start()
         {
             playerResources = new Dictionary<PlayerResourceType, PlayerResource>();

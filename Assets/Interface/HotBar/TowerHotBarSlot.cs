@@ -1,16 +1,17 @@
 using System;
 using TowerCreep.Player.TowerCollection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace TowerCreep.Interface.Hotbar
+namespace TowerCreep.Interface.HotBar
 {
-    public class TowerHotbarSlot : MonoBehaviour
+    public class TowerHotBarSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         // Bubble up events
-        public Action<TowerHotbarSlot> OnButtonSlotPressed;
+        public Action<TowerHotBarSlot> OnButtonSlotPressed;
 
-        [SerializeField] private Sprite numberTexture;
+        [SerializeField] private Sprite numberSprite;
         public TowerCollectionSlot CollectionSlot
         {
             get => _collectionSlot;
@@ -19,14 +20,14 @@ namespace TowerCreep.Interface.Hotbar
         private TowerCollectionSlot _collectionSlot;
 
         // Internal Nodes
-        [SerializeField] private Image selectedBorder;
-        [SerializeField] private Image unselectedBorder;
-        [SerializeField] private Image numberLabel;
-        [SerializeField] private Image displayImage;
+        [SerializeField] private Image selectedBorderImage;
+        [SerializeField] private Image unselectedBorderImage;
+        [SerializeField] private Image numberImage;
+        [SerializeField] private Image towerDisplayImage;
 
         // Internal State
-        private bool isSelected;
-        private bool isHovered;
+        private bool isSelected = false;
+        private bool isHovered = false;
         public bool IsAvailable { get; private set; }
 
         private void Start()
@@ -35,15 +36,21 @@ namespace TowerCreep.Interface.Hotbar
             UpdateSelected();
         }
 
-
-        private void HandleMouseEnter()
+        public void OnPointerEnter(PointerEventData eventData)
         {
             isHovered = true;
+            SetSelected(true);
         }
 
-        private void HandleMouseExit()
+        public void OnPointerExit(PointerEventData eventData)
         {
             isHovered = false;
+            SetSelected(false);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnButtonSlotPressed?.Invoke(this);
         }
 
         // public override void _Input(InputEvent @event)
@@ -61,9 +68,9 @@ namespace TowerCreep.Interface.Hotbar
 
         private void UpdateLabel()
         {
-            if (numberLabel == null) return;
+            if (numberImage == null) return;
 
-            numberLabel.sprite = numberTexture;
+            numberImage.sprite = numberSprite;
         }
 
         private void SetCollectionData(TowerCollectionSlot collectionSlot)
@@ -84,10 +91,10 @@ namespace TowerCreep.Interface.Hotbar
 
         private void UpdateSelected()
         {
-            if (selectedBorder == null || unselectedBorder == null) return;
+            if (selectedBorderImage == null || unselectedBorderImage == null) return;
 
-            selectedBorder.enabled = isSelected;
-            unselectedBorder.enabled = !isSelected;
+            selectedBorderImage.gameObject.SetActive(isSelected);
+            unselectedBorderImage.gameObject.SetActive(!isSelected);
         }
 
         public bool IsSelected()
@@ -100,11 +107,11 @@ namespace TowerCreep.Interface.Hotbar
             IsAvailable = available;
             if (!IsAvailable)
             {
-                displayImage.sprite = _collectionSlot.CollectionTowerData.disabledTowerIcon;
+                towerDisplayImage.sprite = _collectionSlot.CollectionTowerData.disabledTowerIcon;
             }
             else
             {
-                displayImage.sprite = _collectionSlot.CollectionTowerData.towerIcon;
+                towerDisplayImage.sprite = _collectionSlot.CollectionTowerData.towerIcon;
             }
         }
     }
