@@ -6,6 +6,9 @@ namespace TowerCreep.Player.TowerCollection
 {
     public class PlayerTowerCollection : MonoBehaviour
     {
+
+        public static PlayerTowerCollection S;
+        
         private List<TowerCollectionSlot> playerTowerCollection;
 
         public void SetTowerCollection(List<TowerData> selectedTowers)

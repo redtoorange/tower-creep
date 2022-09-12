@@ -1,10 +1,11 @@
-﻿using TowerCreep.Towers;
+﻿using TowerCreep.Interface.Hotbar;
+using TowerCreep.Towers;
 
 namespace TowerCreep.Player.TowerCollection
 {
     public class TowerCollectionSlot
     {
-        // public TowerHotbarSlot CollectionHotBarSlot { get; set; }
+        public TowerHotbarSlot CollectionHotBarSlot { get; set; }
         public TowerData CollectionTowerData { get; private set; }
         public TowerProgressionData TowerProgressionData { get; private set; }
         public bool IsPlaced { get; set; }
