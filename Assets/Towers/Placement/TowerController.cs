@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TowerCreep.Interface.HotBar;
 using TowerCreep.Levels.DungeonLevels;
 using TowerCreep.Player;
 using TowerCreep.Player.TowerCollection;
@@ -33,12 +34,14 @@ namespace TowerCreep.Towers.Placement
 
         private void OnEnable()
         {
+            TowerHotBarController.OnBuildingSelected += HandleEnterBuildingPlaceMode;
             DungeonLevel.OnPlayerExitedLevel += HandlePlayerExitedLevel;
         }
 
 
         private void OnDisable()
         {
+            TowerHotBarController.OnBuildingSelected -= HandleEnterBuildingPlaceMode;
             DungeonLevel.OnPlayerExitedLevel -= HandlePlayerExitedLevel;
         }
 
@@ -155,7 +158,6 @@ namespace TowerCreep.Towers.Placement
 
         private void DeconstructTower(Tower which)
         {
-            // which.CollectionSlotData
             TowerCollectionSlot collectionSlot = which.CollectionSlotData;
             collectionSlot.IsPlaced = false;
             OnSetTowerAsAvailable?.Invoke(collectionSlot);

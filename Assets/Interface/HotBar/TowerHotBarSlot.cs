@@ -39,32 +39,17 @@ namespace TowerCreep.Interface.HotBar
         public void OnPointerEnter(PointerEventData eventData)
         {
             isHovered = true;
-            SetSelected(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             isHovered = false;
-            SetSelected(false);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             OnButtonSlotPressed?.Invoke(this);
         }
-
-        // public override void _Input(InputEvent @event)
-        // {
-        //     if (!isHovered || !IsAvailable) return;
-        //
-        //     if (@event is InputEventMouseButton mb)
-        //     {
-        //         if (mb.Pressed && mb.ButtonIndex == (int)ButtonList.Left)
-        //         {
-        //             OnButtonSlotPressed?.Invoke(this);
-        //         }
-        //     }
-        // }
 
         private void UpdateLabel()
         {
@@ -76,7 +61,6 @@ namespace TowerCreep.Interface.HotBar
         private void SetCollectionData(TowerCollectionSlot collectionSlot)
         {
             _collectionSlot = collectionSlot;
-            // HintTooltip = _collectionSlot.CollectionTowerData.towerName;
             SetAvailable(true);
         }
 

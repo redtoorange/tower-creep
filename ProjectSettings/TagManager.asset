@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - World
+  - Tower
+  - TowerProjectile
+  - PlayerProjectile
   - 
   - 
   - 
@@ -40,4 +40,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 1088732819
+    locked: 0
+  - name: Walls
+    uniqueID: 2706147659
+    locked: 0
+  - name: Doodads
+    uniqueID: 3999381539
+    locked: 0
+  - name: Projectiles
+    uniqueID: 3975334915
+    locked: 0
+  - name: Enemies
+    uniqueID: 2346131563
+    locked: 0
+  - name: Towers
+    uniqueID: 3823239173
+    locked: 0
+  - name: Player
+    uniqueID: 1247034259
+    locked: 0
+  - name: Overhangs
+    uniqueID: 3374650207
     locked: 0

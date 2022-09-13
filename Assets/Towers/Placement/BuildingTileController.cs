@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace TowerCreep.Towers.Placement
 {
@@ -8,19 +9,28 @@ namespace TowerCreep.Towers.Placement
     public class BuildingTileController : MonoBehaviour
     {
         [SerializeField] private BuildableTile buildingSlotPrefab;
+        [SerializeField] private Tilemap buildableTilemap;
 
         private void Start()
         {
-            // TileMap buildingSlotMap = GetChild(0) as TileMap;
-            // Array<Vector2> usedCells = new Array<Vector2>(buildingSlotMap.GetUsedCells());
-            // for (int i = 0; i < usedCells.Count; i++)
-            // {
-            //     BuildableTile buildSlot = Instantiate(buildingSlotPrefab, transform);
-            //     buildSlot.Position = buildingSlotMap.MapToWorld(usedCells[i]) + new Vector2(8, 8);
-            //     buildSlot.Initialize(new Vector2(8, 8));
-            // }
-            //
-            // buildingSlotMap.QueueFree();
+            BoundsInt bounds = buildableTilemap.cellBounds;
+            for (int x = bounds.x; x < bounds.size.x; x++)
+            {
+                for (int y = bounds.y; y < bounds.size.y; y++)
+                {
+                    Vector3Int pos = new(x, y);
+                    if (buildableTilemap.HasTile(pos))
+                    {
+                        Instantiate(buildingSlotPrefab,
+                            buildableTilemap.GetCellCenterWorld(pos),
+                            Quaternion.identity,
+                            transform
+                        );
+                    }
+                }
+            }
+
+            buildableTilemap.gameObject.SetActive(false);
         }
     }
 }

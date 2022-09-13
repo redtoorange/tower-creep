@@ -17,6 +17,8 @@ namespace TowerCreep.Enemy
         private EnemyWaveData currentWaveDef;
         private float spawnCooldown;
         private int numberSpawned;
+        
+        [SerializeField]
         private MobSpawnerState spawnerState = MobSpawnerState.NotStarted;
         private int currentWave = 0;
         [SerializeField] private float waveCooldown = 10.0f;

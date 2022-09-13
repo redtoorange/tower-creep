@@ -19,25 +19,17 @@ namespace TowerCreep.Enemy
         public static Action<Enemy> OnNeedsNewPath;
         public static Action<Enemy> OnNeedsToResetToSpawn;
 
+        [SerializeField] private MonsterData enemyData;
+        [SerializeField] private Rigidbody2D rigidbody2D;
+        [SerializeField] private SpriteRenderer monsterSpriteRenderer;
+
         private float maxHealth = 10.0f;
         private float health = 10.0f;
         private float speed = 15.0f;
 
-        private float navigationThreshold = 1.5f;
         private Vector2[] movementPath;
-        [SerializeField] private MonsterData enemyData;
+        [SerializeField] private float navigationThreshold = 0.1f;
         private int routeIndex;
-        // private ProgressBar healthBar;
-        
-        private SpriteRenderer monsterSpriteRenderer;
-
-        private void Start()
-        {
-            // healthBar = GetNode<ProgressBar>("HealthBar/ProgressBar");
-            monsterSpriteRenderer = GetComponent<SpriteRenderer>();
-            monsterSpriteRenderer.sprite = enemyData.mobSprite;
-            // healthBar.Visible = false;
-        }
 
         public void Initialize(Vector2[] movementPath, MonsterData enemyData)
         {
@@ -47,6 +39,7 @@ namespace TowerCreep.Enemy
             maxHealth = enemyData.mobHealth;
             health = maxHealth;
             speed = enemyData.mobSpeed;
+            monsterSpriteRenderer.sprite = enemyData.mobSprite;
         }
 
         public virtual void Die()
@@ -74,21 +67,22 @@ namespace TowerCreep.Enemy
 
         private void FixedUpdate()
         {
-            // if (routeIndex < movementPath.Length)
-            // {
-            //     // Handle movement using the Physics engine
-            //     Vector2 targetPoint = movementPath[routeIndex];
-            //     float dist = Position.DistanceTo(targetPoint);
-            //     if (dist > navigationThreshold)
-            //     {
-            //         Vector2 direction = targetPoint - Position;
-            //         MoveAndCollide(direction.Normalized() * speed * delta);
-            //     }
-            //     else
-            //     {
-            //         routeIndex++;
-            //     }
-            // }
+            if (routeIndex < movementPath.Length)
+            {
+                // Handle movement using the Physics engine
+                Vector2 targetPoint = movementPath[routeIndex];
+                float dist = Vector3.Distance(targetPoint, transform.position);
+                if (dist > navigationThreshold)
+                {
+                    Vector2 direction = targetPoint - (Vector2)transform.position;
+                    rigidbody2D.MovePosition(rigidbody2D.position +
+                                             (direction.normalized * (speed * Time.fixedDeltaTime)));
+                }
+                else
+                {
+                    routeIndex++;
+                }
+            }
         }
 
         public void TeleportToSpawn(Portal spawnLocation)

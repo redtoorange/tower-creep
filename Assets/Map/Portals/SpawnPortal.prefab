@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3649732807096157729}
   - component: {fileID: 3649732807096157731}
   - component: {fileID: 3649732807096157730}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpawnPortal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
