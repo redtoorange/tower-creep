@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using TowerCreep.Interface.HotBar;
 using TowerCreep.Levels.DungeonLevels;
-using TowerCreep.Player;
 using TowerCreep.Player.TowerCollection;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TowerCreep.Towers.Placement
 {
@@ -15,21 +15,46 @@ namespace TowerCreep.Towers.Placement
         public static Action<TowerCollectionSlot> OnSetTowerAsAvailable;
 
         private BuildableTile hoveredTile;
-        [SerializeField] private PlayerResourceManager playerResourceManager;
-
         private TowerCollectionSlot currentlySelectedTower;
         private bool isPlacingTower;
 
         private bool isValidPlacement = false;
         private bool tileIsDirty = false;
-        [SerializeField] private SpriteRenderer validPlacementIcon;
-        [SerializeField] private SpriteRenderer invalidPlacementIcon;
+
+        [SerializeField] private GameObject validPlacementIcon;
+        [SerializeField] private GameObject invalidPlacementIcon;
+        [SerializeField] private ContactFilter2D buildableTileFilter;
 
         private List<Tower> controlledTowers;
+        private GameInputActions inputActions;
+        private Camera mainCamera;
 
         private void Start()
         {
+            mainCamera = Camera.main;
             controlledTowers = new List<Tower>();
+            
+            inputActions = new GameInputActions();
+            inputActions.Enable();
+
+            inputActions.PlayerActions.StopBuilding.performed += HandleStopBuildingPressed;
+            inputActions.PlayerActions.PlaceBuilding.performed += HandlePlaceBuildingPressed;
+        }
+
+        private void HandlePlaceBuildingPressed(InputAction.CallbackContext obj)
+        {
+            if (isPlacingTower)
+            {
+                PlaceTower();
+            }
+        }
+
+        private void HandleStopBuildingPressed(InputAction.CallbackContext obj)
+        {
+            if (isPlacingTower)
+            {
+                StopPlacingTower();
+            }
         }
 
         private void OnEnable()
@@ -53,31 +78,38 @@ namespace TowerCreep.Towers.Placement
 
         private void Update()
         {
-            if (!isPlacingTower || currentlySelectedTower == null) return;
+            // if (!isPlacingTower || currentlySelectedTower == null) return;
 
-            // BuildableTile tempHovered = GetHoveredTile();
-            // if (hoveredTile != tempHovered || tileIsDirty)
-            // {
-            //     hoveredTile = tempHovered;
-            //     isValidPlacement = hoveredTile != null &&
-            //                        !hoveredTile.isOccupied;
-            //     UpdatePlacementIcon();
-            //
-            //     tileIsDirty = false;
-            // }
+            if (!isPlacingTower) return;
+            
+            BuildableTile tempHovered = GetHoveredTile();
+            if (hoveredTile != tempHovered || tileIsDirty)
+            {
+                hoveredTile = tempHovered;
+                isValidPlacement = hoveredTile != null &&
+                                   !hoveredTile.isOccupied;
+                UpdatePlacementIcon();
+            
+                tileIsDirty = false;
+            }
         }
 
-        // public override void _UnhandledInput(InputEvent @event)
-        // {
-        //     if (@event.IsActionPressed("BuildTower"))
-        //     {
-        //         PlaceTower();
-        //     }
-        //     else if (@event.IsActionPressed("CancelBuilding"))
-        //     {
-        //         StopPlacingTower();
-        //     }
-        // }
+        private BuildableTile GetHoveredTile()
+        {
+            Collider2D[] collisions = new Collider2D[1];
+            int colliderCount = Physics2D.OverlapPoint(
+                mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()),
+                buildableTileFilter,
+                collisions
+            );
+
+            if (colliderCount > 0 && collisions[0].TryGetComponent(out BuildableTile bt))
+            {
+                return bt;
+            }
+
+            return null;
+        }
 
         private void StopPlacingTower()
         {
@@ -92,22 +124,22 @@ namespace TowerCreep.Towers.Placement
         {
             if (hoveredTile == null)
             {
-                validPlacementIcon.enabled = false;
-                invalidPlacementIcon.enabled = false;
+                validPlacementIcon.SetActive(false);
+                invalidPlacementIcon.SetActive(false);
             }
             else
             {
                 if (isValidPlacement)
                 {
-                    validPlacementIcon.enabled = true;
-                    invalidPlacementIcon.enabled = false;
+                    validPlacementIcon.SetActive(true);
+                    invalidPlacementIcon.SetActive(false);
                     validPlacementIcon.transform.position =
                         hoveredTile.transform.position;
                 }
                 else
                 {
-                    validPlacementIcon.enabled = false;
-                    invalidPlacementIcon.enabled = true;
+                    validPlacementIcon.SetActive(false);
+                    invalidPlacementIcon.SetActive(true);
                     invalidPlacementIcon.transform.position =
                         hoveredTile.transform.position;
                 }
@@ -133,28 +165,6 @@ namespace TowerCreep.Towers.Placement
                 StopPlacingTower();
             }
         }
-
-        // private BuildableTile GetHoveredTile()
-        // {
-        //     World2D world = GetWorld2d();
-        //     Array<Dictionary> results = new Array<Dictionary>(
-        //         world.DirectSpaceState.IntersectPoint(GetLocalMousePosition(), collideWithAreas: true)
-        //     );
-        //     if (results.Count > 0)
-        //     {
-        //         for (int i = 0; i < results.Count; i++)
-        //         {
-        //             Godot.Collections.Dictionary<string, object> data =
-        //                 new Godot.Collections.Dictionary<string, object>(results[i]);
-        //             if (data["collider"] is BuildableTile buildableTile)
-        //             {
-        //                 return buildableTile;
-        //             }
-        //         }
-        //     }
-        //
-        //     return null;
-        // }
 
         private void DeconstructTower(Tower which)
         {
