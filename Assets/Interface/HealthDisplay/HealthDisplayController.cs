@@ -1,20 +1,20 @@
-﻿using Godot;
+﻿using TMPro;
 using TowerCreep.Player;
+using UnityEngine;
 
 namespace TowerCreep.Interface.HealthDisplay
 {
-    public class HealthDisplayController : Control
+    public class HealthDisplayController : MonoBehaviour
     {
-        private Label healthLabel;
+        [SerializeField] private TMP_Text healthLabel;
         private int currentHealth = 0;
 
-        public override void _EnterTree()
+        private void OnEnable()
         {
-            healthLabel = GetNode<Label>("HealthLabel");
             PlayerResourceManager.OnResourceChange += HandlePlayerResourceChange;
         }
 
-        public override void _ExitTree()
+        private void OnDisable()
         {
             PlayerResourceManager.OnResourceChange -= HandlePlayerResourceChange;
         }
@@ -30,7 +30,7 @@ namespace TowerCreep.Interface.HealthDisplay
         public void SetHealth(int newHealth)
         {
             currentHealth = newHealth;
-            healthLabel.Text = currentHealth.ToString();
+            healthLabel.SetText(currentHealth.ToString());
         }
     }
 }

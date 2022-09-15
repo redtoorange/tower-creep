@@ -1,20 +1,20 @@
 using System;
-using Godot;
-using TowerCreep.Player;
+using UnityEngine;
 
 namespace TowerCreep.Map.Portals
 {
+    [Serializable]
     public enum PortalType
     {
         Entrance,
         Exit
     }
 
-    public class Portal : Area2D
+    public class Portal : MonoBehaviour
     {
         public static Action OnEnemyReachedExit;
 
-        [Export] private PortalType portalType = PortalType.Entrance;
+        [SerializeField] private PortalType portalType = PortalType.Entrance;
 
         private Portal spawnLocation;
 
@@ -23,17 +23,11 @@ namespace TowerCreep.Map.Portals
             this.spawnLocation = spawnLocation;
         }
 
-        public override void _Ready()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (portalType == PortalType.Exit)
-            {
-                Connect("body_entered", this, nameof(HandleBodyEntered));
-            }
-        }
+            if (portalType != PortalType.Exit) return;
 
-        private void HandleBodyEntered(Node body)
-        {
-            if (body is Enemy.Enemy e)
+            if (other.TryGetComponent(out Enemy.Enemy e))
             {
                 OnEnemyReachedExit?.Invoke();
                 e.TeleportToSpawn(spawnLocation);

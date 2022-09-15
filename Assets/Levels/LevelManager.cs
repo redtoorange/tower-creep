@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using Godot;
+
 using TowerCreep.Levels.DungeonLevels;
+using UnityEngine;
 
 namespace TowerCreep.Levels
 {
-    public class LevelManager : Node
+    public class LevelManager : MonoBehaviour
     {
         public static Action OnGameWin;
-        [Export] private List<PackedScene> levels;
-        [Export] private int currentLevelIndex = 0;
+        [SerializeField] private List<DungeonLevel> levels;
+        [SerializeField] private int currentLevelIndex = 0;
 
         private List<DungeonLevel> instancedLevels;
 
-        public override void _Ready()
+        private void Start()
         {
-            instancedLevels = new List<DungeonLevel>();
-            for (int i = 0; i < GetChildCount(); i++)
-            {
-                if (GetChild(i) is DungeonLevel dl)
-                {
-                    instancedLevels.Add(dl);
-                }
-            }
+            
+            instancedLevels = new List<DungeonLevel>(GetComponentsInChildren<DungeonLevel>());
 
             // Automatically start the first level found
             if (instancedLevels.Count > 0)
@@ -37,11 +32,10 @@ namespace TowerCreep.Levels
             }
         }
 
-        public DungeonLevel LoadLevel(PackedScene level)
+        public DungeonLevel LoadLevel(DungeonLevel level)
         {
-            DungeonLevel newLevel = level.Instance<DungeonLevel>();
+            DungeonLevel newLevel = Instantiate(level, transform);
             newLevel.OnDungeonLevelComplete += HandleDungeonLevelComplete;
-            AddChild(newLevel);
             instancedLevels.Add(newLevel);
             return newLevel;
         }

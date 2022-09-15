@@ -1,10 +1,11 @@
-using Godot;
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace TowerCreep.Interface.LevelProgress
 {
-    public class ProgressBarController : Node
+    public class ProgressBarController : MonoBehaviour
     {
         private enum ProgressBarState
         {
@@ -15,23 +16,22 @@ namespace TowerCreep.Interface.LevelProgress
 
         private ProgressBarState currentState = ProgressBarState.None;
 
-        private TextureProgress waveProgressBar;
-        private TextureProgress cooldownProgressBar;
-        private Tween.TransitionType progressBarTransition = Tween.TransitionType.Linear;
-        private Tween tweener;
+        [SerializeField] private ProgressBar waveProgressBar;
+        [SerializeField] private ProgressBar cooldownProgressBar;
+        // private Tween.TransitionType progressBarTransition = Tween.TransitionType.Linear;
+        // private Tween tweener;
 
-        public override void _Ready()
+        private void Start()
         {
-            waveProgressBar = GetNode<TextureProgress>("WaveProgress");
-            cooldownProgressBar = GetNode<TextureProgress>("CooldownProgress");
-            tweener = GetNode<Tween>("Tween");
-
             HideBars();
+        }
 
+        private void OnEnable()
+        {
             EnemyController.OnEnemyControllerEvent += HandleEnemyControllerEvent;
         }
 
-        public override void _ExitTree()
+        private void OnDisable()
         {
             EnemyController.OnEnemyControllerEvent -= HandleEnemyControllerEvent;
         }
@@ -55,7 +55,7 @@ namespace TowerCreep.Interface.LevelProgress
                     }
                 }
             }
-            else if(ece.type == EnemyControllerEventType.AllWavesComplete)
+            else if (ece.type == EnemyControllerEventType.AllWavesComplete)
             {
                 HideBars();
             }
@@ -63,59 +63,59 @@ namespace TowerCreep.Interface.LevelProgress
 
         private void StartWave(float time)
         {
-            if (tweener.IsActive())
-            {
-                tweener.StopAll();
-            }
-
-            tweener.InterpolateProperty(waveProgressBar, "value", 0, 100, time, progressBarTransition);
-            tweener.Start();
+            // if (tweener.IsActive())
+            // {
+            //     tweener.StopAll();
+            // }
+            //
+            // tweener.InterpolateProperty(waveProgressBar, "value", 0, 100, time, progressBarTransition);
+            // tweener.Start();
 
             if (currentState != ProgressBarState.Wave)
             {
-                cooldownProgressBar.Visible = false;
-                waveProgressBar.Visible = true;
+                cooldownProgressBar.SetEnabled(false);
+                waveProgressBar.SetEnabled(true);
                 currentState = ProgressBarState.Wave;
             }
         }
 
         private void StartCooldown(float time)
         {
-            if (tweener.IsActive())
-            {
-                tweener.StopAll();
-            }
-
-            tweener.InterpolateProperty(cooldownProgressBar, "value", 0, 100, time, progressBarTransition);
-            tweener.Start();
+            // if (tweener.IsActive())
+            // {
+            //     tweener.StopAll();
+            // }
+            //
+            // tweener.InterpolateProperty(cooldownProgressBar, "value", 0, 100, time, progressBarTransition);
+            // tweener.Start();
 
             if (currentState != ProgressBarState.Cooldown)
             {
-                waveProgressBar.Visible = false;
-                cooldownProgressBar.Visible = true;
+                waveProgressBar.SetEnabled(false);
+                cooldownProgressBar.SetEnabled(true);
                 currentState = ProgressBarState.Cooldown;
             }
         }
 
         private void HideBars()
         {
-            waveProgressBar.Visible = false;
-            waveProgressBar.Value = 0;
+            waveProgressBar.SetEnabled(false);
+            waveProgressBar.value = 0;
 
-            cooldownProgressBar.Visible = false;
-            cooldownProgressBar.Value = 0;
+            cooldownProgressBar.SetEnabled(false);
+            cooldownProgressBar.value = 0;
 
             currentState = ProgressBarState.None;
         }
 
         private bool IsCooldownRunning()
         {
-            return currentState == ProgressBarState.Cooldown && tweener.IsActive();
+            return currentState == ProgressBarState.Cooldown;
         }
 
         private bool IsWaveRunning()
         {
-            return currentState == ProgressBarState.Wave && tweener.IsActive();
+            return currentState == ProgressBarState.Wave;
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿namespace TowerCreep.Enemy
+﻿using System;
+
+namespace TowerCreep.Enemy
 {
+    [Serializable]
     public enum MobSpawnerState
     {
         NotStarted,

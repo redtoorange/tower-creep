@@ -1,11 +1,10 @@
-using Godot;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class LoseScreen : Control
+public class LoseScreen : MonoBehaviour
 {
-    [Export] private PackedScene mainMenuScene;
-
     public void OnMainMenuPressed()
     {
-        GetTree().ChangeSceneTo(mainMenuScene);
+        SceneManager.LoadScene(0);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Godot;
+using UnityEngine;
 using Portal = TowerCreep.Map.Portals.Portal;
 
 namespace TowerCreep.Player
@@ -8,7 +8,7 @@ namespace TowerCreep.Player
     /// <summary>
     /// Generic manager for different resources
     /// </summary>
-    public class PlayerResourceManager : Node
+    public class PlayerResourceManager : MonoBehaviour
     {
         public static Action OnPlayerDie;
 
@@ -16,17 +16,16 @@ namespace TowerCreep.Player
 
         public static event ResourceChangeHandler OnResourceChange;
 
-        [Export] private int startingHealth = 100;
-        [Export] private int startingMana = 400;
-        [Export] private int startingGold = 0;
-        [Export] private int startingEnergy = 0;
-        [Export] private int startingExperience = 0;
+        [SerializeField] private int startingHealth = 100;
+        [SerializeField] private int startingMana = 400;
+        [SerializeField] private int startingGold = 0;
+        [SerializeField] private int startingEnergy = 0;
+        [SerializeField] private int startingExperience = 0;
 
         private Dictionary<PlayerResourceType, PlayerResource> playerResources;
-
-        public override void _Ready()
+        
+        private void Start()
         {
-            GD.Print("Creating new resource manager");
             playerResources = new Dictionary<PlayerResourceType, PlayerResource>();
 
             playerResources[PlayerResourceType.Health] = new PlayerResource(startingHealth);
@@ -39,11 +38,9 @@ namespace TowerCreep.Player
             OnResourceChange?.Invoke(PlayerResourceType.Health, 100, startingHealth);
 
             Portal.OnEnemyReachedExit += PlayerTakeDamage;
-            
-            GD.Print("Player Health: ", playerResources[PlayerResourceType.Health]);
         }
 
-        public override void _ExitTree()
+        private void OnDisable()
         {
             Portal.OnEnemyReachedExit -= PlayerTakeDamage;
         }

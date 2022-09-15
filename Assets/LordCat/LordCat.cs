@@ -1,8 +1,10 @@
-using Godot;
+
+
+using UnityEngine;
 
 namespace TowerCreep.LordCat
 {
-    public class LordCat : KinematicBody2D
+    public class LordCat : MonoBehaviour
     {
     }
 }

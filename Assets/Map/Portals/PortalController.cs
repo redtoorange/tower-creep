@@ -1,16 +1,16 @@
-using Godot;
+
+
+using UnityEngine;
 
 namespace TowerCreep.Map.Portals
 {
-    public class PortalController : Node2D
+    public class PortalController : MonoBehaviour
     {
-        private Portal spawnPortal;
-        private Portal exitPortal;
+        [SerializeField] private Portal spawnPortal;
+        [SerializeField] private Portal exitPortal;
 
-        public override void _Ready()
+        private void Start()
         {
-            spawnPortal = GetNode<Portal>("SpawnPortal");
-            exitPortal = GetNode<Portal>("ExitPortal");
             exitPortal.ExitInitialize(spawnPortal);
         }
     }

@@ -1,51 +1,50 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 using TowerCreep.Enemy.EnemyControllerEvents;
 using TowerCreep.Enemy.Resources.Waves;
-using TowerCreep.Map;
+using UnityEngine;
 
 namespace TowerCreep.Enemy
 {
-    public class EnemyController : Node2D
+    public class EnemyController : MonoBehaviour
     {
         public static Action<EnemyControllerEvent> OnEnemyControllerEvent;
 
-        [Export] private float initialWait = 10.0f;
-        [Export] private List<EnemyWaveData> enemyWaveDefs;
+        [SerializeField] private float initialWait = 10.0f;
+        [SerializeField] private List<EnemyWaveData> enemyWaveDefs;
 
         // Spawning Logic
         private EnemyWaveData currentWaveDef;
         private float spawnCooldown;
         private int numberSpawned;
+        
+        [SerializeField]
         private MobSpawnerState spawnerState = MobSpawnerState.NotStarted;
         private int currentWave = 0;
-        [Export] private float waveCooldown = 10.0f;
+        [SerializeField] private float waveCooldown = 10.0f;
         private float waveCooldownElapsed = 0.0f;
 
         // Enemy Pathing
-        [Export] private NodePath mobMovementRoutePath;
-        private Line2D mobMovementRoute;
+        [SerializeField] private LineRenderer mobMovementRoutePath;
 
         // Enemy Tracking
         private List<Enemy> enemies;
 
-        public override void _Ready()
+        private void Start()
         {
-            mobMovementRoute = GetNode<Line2D>(mobMovementRoutePath);
-
             enemies = new List<Enemy>();
             spawnCooldown = initialWait;
+            mobMovementRoutePath.enabled = false;
         }
 
-        public override void _EnterTree()
+        private void OnEnable()
         {
             Enemy.OnDie += HandleEnemyOnDie;
             Enemy.OnNeedsToResetToSpawn += HandleResetToSpawn;
         }
 
 
-        public override void _ExitTree()
+        private void OnDisable()
         {
             Enemy.OnDie -= HandleEnemyOnDie;
             Enemy.OnNeedsToResetToSpawn -= HandleResetToSpawn;
@@ -61,7 +60,7 @@ namespace TowerCreep.Enemy
             which.ResetPath();
         }
 
-        public override void _Process(float delta)
+        private void Update()
         {
             switch (spawnerState)
             {
@@ -69,19 +68,19 @@ namespace TowerCreep.Enemy
                 case MobSpawnerState.Done:
                     return;
                 case MobSpawnerState.Initial:
-                    ProcessInitialState(delta);
+                    ProcessInitialState(Time.deltaTime);
                     break;
                 case MobSpawnerState.Idle:
                     ProcessIdleState();
                     break;
                 case MobSpawnerState.Spawning:
-                    ProcessSpawningState(delta);
+                    ProcessSpawningState(Time.deltaTime);
                     break;
                 case MobSpawnerState.Waiting:
                     ProcessWaitingState();
                     break;
                 case MobSpawnerState.Cooldown:
-                    ProcessCooldownState(delta);
+                    ProcessCooldownState(Time.deltaTime);
                     break;
             }
         }
@@ -171,12 +170,21 @@ namespace TowerCreep.Enemy
 
         public void SpawnWave()
         {
-            Enemy e = currentWaveDef.enemyBaseScene.Instance<Enemy>();
-            e.Initialize(mobMovementRoute.Points, currentWaveDef.monsterData);
-            e.Position = mobMovementRoute.GetPointPosition(0);
-            enemies.Add(e);
+            Enemy e = Instantiate(currentWaveDef.enemyBasePrefab, transform);
 
-            AddChild(e);
+            if (mobMovementRoutePath != null && mobMovementRoutePath.positionCount > 0)
+            {
+                Vector2[] positions = new Vector2[mobMovementRoutePath.positionCount];
+                for (int i = 0; i < mobMovementRoutePath.positionCount; i++)
+                {
+                    positions[i] = mobMovementRoutePath.GetPosition(i);
+                }
+
+                e.Initialize(positions, currentWaveDef.monsterData);
+                e.transform.position = positions[0];
+            }
+
+            enemies.Add(e);
         }
 
         /// <summary>

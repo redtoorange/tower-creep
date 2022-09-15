@@ -1,4 +1,6 @@
-using Godot;
+
+
+using UnityEngine;
 
 namespace TowerCreep.Player
 {
@@ -16,22 +18,17 @@ namespace TowerCreep.Player
         Right
     }
 
-    public class PlayerSprite : Node2D
+    public class PlayerSprite : MonoBehaviour
     {
-        private AnimatedSprite animatedSprite;
+        [SerializeField] private SpriteRenderer animatedSprite;
         private PlayerMovementState movementState = PlayerMovementState.Idle;
         private PlayerMovementDirection movementDirection = PlayerMovementDirection.Front;
-
-        public override void _Ready()
-        {
-            animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        }
 
         public void UpdateAnimation(Vector2 actualMovement)
         {
             bool animationDirty = false;
             PlayerMovementState newMovementState = movementState;
-            if (actualMovement.LengthSquared() > 0)
+            if (actualMovement.sqrMagnitude > 0)
             {
                 newMovementState = PlayerMovementState.Moving;
             }
@@ -86,7 +83,7 @@ namespace TowerCreep.Player
         private void ChangeAnimation()
         {
             string movementString = (movementState == PlayerMovementState.Idle ? "idle" : "walk") + "_";
-            animatedSprite.FlipH = false;
+            animatedSprite.flipX = false;
 
             if (movementDirection == PlayerMovementDirection.Front)
             {
@@ -103,10 +100,10 @@ namespace TowerCreep.Player
             else if (movementDirection == PlayerMovementDirection.Left)
             {
                 movementString += "side";
-                animatedSprite.FlipH = true;
+                animatedSprite.flipX = true;
             }
 
-            animatedSprite.Animation = movementString;
+            // animatedSprite.Animation = movementString;
         }
     }
 }

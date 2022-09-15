@@ -1,34 +1,35 @@
-using Godot;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TowerCreep.Interface.Menu
 {
     /// <summary>
     /// Main menu for the game, will be the first screen we see.
     /// </summary>
-    public class MainMenu : Control
+    public class MainMenu : MonoBehaviour
     {
-        [Export(PropertyHint.ResourceType, "PackedScene")] private PackedScene newGameScene;
-        [Export(PropertyHint.ResourceType, "PackedScene")] private PackedScene loadGameScene;
-        [Export(PropertyHint.ResourceType, "PackedScene")] private PackedScene settingsScene;
+        [SerializeField] private string newGameScene;
+        [SerializeField] private string loadGameScene;
+        [SerializeField] private string settingsScene;
 
         public void OnNewGamePressed()
         {
-            GetTree().ChangeSceneTo(newGameScene);
+            SceneManager.LoadScene(newGameScene);
         }
 
         public void OnLoadGamePressed()
         {
-            GetTree().ChangeSceneTo(loadGameScene);
+            SceneManager.LoadScene(loadGameScene);
         }
 
         public void OnSettingsPressed()
         {
-            GetTree().ChangeSceneTo(settingsScene);
+            SceneManager.LoadScene(settingsScene);
         }
 
         public void OnQuitPressed()
         {
-            GetTree().Quit();
+            Application.Quit();
         }
     }
 }

@@ -1,36 +1,36 @@
 using System;
-using Godot;
+
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
 using TowerCreep.Map.Doors;
 using TowerCreep.Towers.Placement;
+using UnityEngine;
 
 namespace TowerCreep.Levels.DungeonLevels
 {
-    public class DungeonLevel : Node2D
+    public class DungeonLevel : MonoBehaviour
     {
         public Action OnDungeonLevelComplete;
+        public Action<DungeonLevel> OnPlayerExitedLevel;
+
 
         public static Action<DungeonLevel> OnPlayerEnteredLevel;
-        public static Action<DungeonLevel> OnPlayerExitedLevel;
 
-        private EnemyController enemyController;
-        private DoorController doorController;
+        [SerializeField] private EnemyController enemyController;
+        [SerializeField] private DoorController doorController;
 
-        [Export] private bool debugStart = false;
+        [SerializeField] private bool debugStart = false;
 
-        public override void _EnterTree()
+        private void OnEnable()
         {
-            doorController = GetNode<DoorController>("DoorController");
             doorController.OnPlayerHasEnteredRoom += HandlePlayerEnteredRoom;
             doorController.OnPlayerHasExitedRoom += HandlePlayerExitedRoom;
 
-            enemyController = GetNode<EnemyController>("EnemyController");
             EnemyController.OnEnemyControllerEvent += HandleEnemyControllerEvent;
 
             if (debugStart)
             {
-                GD.PrintErr("Warning: Debug Start is enabled for ", Name);
+                Debug.LogError("Warning: Debug Start is enabled for ");
                 StartLevel();
             }
         }
@@ -48,7 +48,7 @@ namespace TowerCreep.Levels.DungeonLevels
             StartLevel();
         }
 
-        public override void _ExitTree()
+        private void OnDisable()
         {
             EnemyController.OnEnemyControllerEvent -= HandleEnemyControllerEvent;
         }

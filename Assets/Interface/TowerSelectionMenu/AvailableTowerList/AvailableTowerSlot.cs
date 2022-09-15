@@ -1,6 +1,7 @@
 using System;
-using Godot;
 using TowerCreep.Towers;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
 {
@@ -9,28 +10,24 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
         public static Action<AvailableTowerSlot> OnAddToSelected;
         public static Action<AvailableTowerSlot> OnOpenManual;
 
-        [Export] private TowerData towerData;
-        [Export] private PackedScene previewPrefab;
+        [SerializeField] private TowerData towerData;
+        [SerializeField] private GameObject previewPrefab;
 
-        private TextureRect slotSprite;
+        private Image slotSprite;
 
-        public override void _Ready()
+        private void Start()
         {
-            base._Ready();
-
-            slotSprite = GetNode<TextureRect>("SlotSprite");
             if (towerData != null)
             {
-                slotSprite.Texture = towerData.towerIcon;
-                HintTooltip = towerData.towerName;
+                slotSprite.sprite = towerData.towerIcon;
             }
         }
 
-        public override object GetDragData(Vector2 position)
+        public object GetDragData(Vector2 position)
         {
-            TextureRect tr = new TextureRect();
-            tr.Texture = towerData.towerIcon;
-            SetDragPreview(tr);
+            // TextureRect tr = new TextureRect();
+            // tr.Texture = towerData.towerIcon;
+            // SetDragPreview(tr);
             return new TowerSelectionPayload(towerData);
         }
 

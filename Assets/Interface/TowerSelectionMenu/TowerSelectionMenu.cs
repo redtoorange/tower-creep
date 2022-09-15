@@ -1,41 +1,33 @@
 using System.Collections.Generic;
-using Godot;
 using TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList;
 using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
 using TowerCreep.Player.TowerCollection;
 using TowerCreep.Towers;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu
 {
-    public class TowerSelectionMenu : Control
+    public class TowerSelectionMenu : MonoBehaviour
     {
-        [Export] private int minimumTowers = 9;
+        [SerializeField] private int minimumTowers = 9;
+        [SerializeField] private DetailsPanel.DetailsPanel detailsPanel;
+        [SerializeField] private SelectedTowerContainer selectedTowerContainer;
+        [SerializeField] private Button readyButton;
 
-        [Export] private NodePath detailsPanelPath;
-        private DetailsPanel.DetailsPanel detailsPanel;
-
-        [Export] private NodePath selectedTowerContainerPath;
-        private SelectedTowerContainer selectedTowerContainer;
-
-        [Export] private NodePath readyButtonPath;
-        private Button readyButton;
-
-
-        public override void _Ready()
+        private void Start()
         {
-            detailsPanel = GetNode<DetailsPanel.DetailsPanel>(detailsPanelPath);
-            selectedTowerContainer = GetNode<SelectedTowerContainer>(selectedTowerContainerPath);
             selectedTowerContainer.OnReadyCountChanged += HandleOnReadyCountChanged;
-            readyButton = GetNode<Button>(readyButtonPath);
-            readyButton.Connect("pressed", this, nameof(HandleReadyPressed));
+            readyButton.onClick.AddListener(HandleReadyPressed);
         }
 
         private void HandleOnReadyCountChanged(int newCount)
         {
-            readyButton.Disabled = newCount < minimumTowers;
+            readyButton.enabled = newCount < minimumTowers;
         }
 
-        public override void _EnterTree()
+        private void OnEnable()
         {
             AvailableTowerSlot.OnOpenManual += HandleOpenManual;
             AvailableTowerSlot.OnAddToSelected += HandleAddToSelected;
@@ -44,7 +36,8 @@ namespace TowerCreep.Interface.TowerSelectionMenu
             SelectedTowerSlot.OnRemoveFromSelected += HandleRemoveFromSelected;
         }
 
-        public override void _ExitTree()
+
+        private void OnDisable()
         {
             AvailableTowerSlot.OnOpenManual -= HandleOpenManual;
             AvailableTowerSlot.OnAddToSelected -= HandleAddToSelected;
@@ -76,9 +69,9 @@ namespace TowerCreep.Interface.TowerSelectionMenu
         private void HandleReadyPressed()
         {
             List<TowerData> selectedTowers = selectedTowerContainer.GetSelectedTowers();
-            PlayerTowerCollection.S.SetTowerCollection(selectedTowers);
+            PlayerTowerCollectionManager.S.SetTowerCollection(selectedTowers);
 
-            GetTree().ChangeScene("res://Main/MainGame.tscn");
+            SceneManager.LoadScene(0);
         }
     }
 }
