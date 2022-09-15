@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace TowerCreep.Interface.HotBar
 {
-    public class TowerHotBarSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class TowerHotBarSlot : MonoBehaviour, IPointerClickHandler
     {
         // Bubble up events
         public Action<TowerHotBarSlot> OnButtonSlotPressed;
@@ -27,23 +27,12 @@ namespace TowerCreep.Interface.HotBar
 
         // Internal State
         private bool isSelected = false;
-        private bool isHovered = false;
         public bool IsAvailable { get; private set; }
 
         private void Start()
         {
             UpdateLabel();
             UpdateSelected();
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            isHovered = true;
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            isHovered = false;
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -61,7 +50,17 @@ namespace TowerCreep.Interface.HotBar
         private void SetCollectionData(TowerCollectionSlot collectionSlot)
         {
             _collectionSlot = collectionSlot;
-            SetAvailable(true);
+
+            if (_collectionSlot != null)
+            {
+                towerDisplayImage.gameObject.SetActive(true);
+                SetAvailable(true);
+            }
+            else
+            {
+                towerDisplayImage.gameObject.SetActive(false);
+                SetAvailable(false);
+            }
         }
 
         public void SetSelected(bool isSelected)

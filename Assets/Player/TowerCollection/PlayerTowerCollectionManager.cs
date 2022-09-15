@@ -6,10 +6,10 @@ namespace TowerCreep.Player.TowerCollection
 {
     public class PlayerTowerCollectionManager : MonoBehaviour
     {
-
         public static PlayerTowerCollectionManager S;
-        
+
         private List<TowerCollectionSlot> playerTowerCollection;
+        [SerializeField] private List<TowerData> debuggingInitialTowerData;
 
         private void Awake()
         {
@@ -23,6 +23,12 @@ namespace TowerCreep.Player.TowerCollection
                 Debug.LogError("Multiple PlayerTowerCollectionManager detected");
                 Destroy(this);
                 enabled = false;
+            }
+
+            if (debuggingInitialTowerData != null && debuggingInitialTowerData.Count > 0)
+            {
+                Debug.Log("Using debugging tower data");
+                SetTowerCollection(debuggingInitialTowerData);
             }
         }
 

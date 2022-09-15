@@ -65,8 +65,18 @@ namespace TowerCreep.Towers.Placement
 
         private void HandleEnterBuildingPlaceMode(TowerCollectionSlot selectedTower)
         {
-            currentlySelectedTower = selectedTower;
-            isPlacingTower = true;
+            if (!selectedTower.IsPlaced)
+            {
+                Debug.Log("Selected: " + selectedTower);
+                currentlySelectedTower = selectedTower;
+                isPlacingTower = true;
+            }
+            else
+            {
+                Debug.Log("Tower is already placed");
+                currentlySelectedTower = null;
+                isPlacingTower = false;
+            }
         }
 
         private void Update()
@@ -141,22 +151,31 @@ namespace TowerCreep.Towers.Placement
 
         private void PlaceTower()
         {
-            if (isValidPlacement && currentlySelectedTower != null)
+            if (!isValidPlacement)
             {
-                hoveredTile.isOccupied = true;
-
-                Tower tower = Instantiate(currentlySelectedTower.CollectionTowerData.towerPrefab, transform);
-                tower.transform.position = hoveredTile.transform.position;
-                hoveredTile.towerController.AddTower(tower);
-
-                currentlySelectedTower.IsPlaced = true;
-                tower.CollectionSlotData = currentlySelectedTower;
-                OnSetTowerAsUsed?.Invoke(currentlySelectedTower);
-
-                currentlySelectedTower = null;
-                tileIsDirty = true;
-                StopPlacingTower();
+                Debug.Log("Invalid Placement");
+                return;
             }
+
+            if (currentlySelectedTower == null)
+            {
+                Debug.Log("currentlySelectedTower is null");
+                return;
+            }
+
+            hoveredTile.isOccupied = true;
+
+            Tower tower = Instantiate(currentlySelectedTower.CollectionTowerData.towerPrefab, transform);
+            tower.transform.position = hoveredTile.transform.position;
+            hoveredTile.towerController.AddTower(tower);
+
+            currentlySelectedTower.IsPlaced = true;
+            tower.CollectionSlotData = currentlySelectedTower;
+            OnSetTowerAsUsed?.Invoke(currentlySelectedTower);
+
+            currentlySelectedTower = null;
+            tileIsDirty = true;
+            StopPlacingTower();
         }
     }
 }

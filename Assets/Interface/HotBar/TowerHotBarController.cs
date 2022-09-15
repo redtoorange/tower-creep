@@ -58,28 +58,15 @@ namespace TowerCreep.Interface.HotBar
                 {
                     currentSlot.SetSelected(false);
                 }
-
+                
                 currentSlot = newSlot;
 
-                if (currentSlot != null)
+                if (currentSlot != null && currentSlot.IsAvailable)
                 {
                     currentSlot.SetSelected(true);
                     OnBuildingSelected?.Invoke(currentSlot.CollectionSlot);
                 }
             }
         }
-
-        // public override void _Input(InputEvent @event)
-        // {
-        //     for (int i = 0; i < 9; i++)
-        //     {
-        //         TowerHotBarSlot current = towerSlots[i];
-        //         if (@event.IsActionPressed(current.Name) && current.IsAvailable)
-        //         {
-        //             HandleOnButtonSlotPressed(towerSlots[i]);
-        //             return;
-        //         }
-        //     }
-        // }
     }
 }

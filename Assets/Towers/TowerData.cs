@@ -8,7 +8,6 @@ namespace TowerCreep.Towers
         public Sprite towerIcon;
         public Sprite disabledTowerIcon;
         public string towerName = "Test Data";
-        public int towerBaseCost = 100;
         public Tower towerPrefab;
         public string towerInformation = "";
     }
