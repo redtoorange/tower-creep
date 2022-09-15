@@ -170,7 +170,7 @@ namespace TowerCreep.Towers.Placement
             hoveredTile.towerController.AddTower(tower);
 
             currentlySelectedTower.IsPlaced = true;
-            tower.CollectionSlotData = currentlySelectedTower;
+            tower.PlaceTower(currentlySelectedTower);
             OnSetTowerAsUsed?.Invoke(currentlySelectedTower);
 
             currentlySelectedTower = null;

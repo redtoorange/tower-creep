@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f85fbd5dadab2b4483ced5169ddc506, type: 3}
-  m_Name: ArcherTowerData
+  m_Name: ArcaneTowerData
   m_EditorClassIdentifier: 
-  towerIcon: {fileID: 21300000, guid: 03c29a61d6700c54cad453174333e7db, type: 3}
-  disabledTowerIcon: {fileID: 21300000, guid: 48bbc166601b80f4f83c4c6d78a4379e, type: 3}
-  towerName: Archer
-  towerPrefab: {fileID: 7367271184813491224, guid: ffc78908a6e6f9e4895434ea365edeed, type: 3}
-  towerInformation: Some random crap
+  towerIcon: {fileID: 21300000, guid: 28065ff778453a84ca6e53bb2a82b748, type: 3}
+  disabledTowerIcon: {fileID: 21300000, guid: b7692928264460344a12066a032767e7, type: 3}
+  towerName: Arcane Tower
+  towerPrefab: {fileID: 4935235318904667842, guid: cadd4d578cb745e43bf86c5f6680305a, type: 3}
+  towerInformation: 

@@ -37,7 +37,7 @@ namespace TowerCreep.Towers.Placement
         
         private void DeconstructTower(Tower which)
         {
-            TowerCollectionSlot collectionSlot = which.CollectionSlotData;
+            TowerCollectionSlot collectionSlot = which.GetCollectionSlotData();
             collectionSlot.IsPlaced = false;
             OnSetTowerAsAvailable?.Invoke(collectionSlot);
         }

@@ -10,17 +10,12 @@ namespace TowerCreep.Towers.Shooting
         [SerializeField] private bool keepOnMap = true;
 
         // External Nodes
-        private Rigidbody2D rigidBody;
+        [SerializeField] private Rigidbody2D rigidBody;
 
         // Internal State
         private bool hasTarget;
         private Vector2 targetPoint;
         private Vector2 targetDirection;
-
-        private void Start()
-        {
-            rigidBody = GetComponent<Rigidbody2D>();
-        }
 
         public void FireAt(Enemy.Enemy enemy)
         {
@@ -29,51 +24,29 @@ namespace TowerCreep.Towers.Shooting
                 Vector2 position = transform.position;
                 targetPoint = enemy.transform.position;
                 targetDirection = (targetPoint - position).normalized;
-                transform.rotation = Quaternion.LookRotation(targetDirection);
+                
+                float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90.0f;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                
+                rigidBody.velocity = speed * targetDirection;
 
                 hasTarget = true;
             }
         }
 
-        private void FixedUpdate()
+        private void OnCollisionEnter2D(Collision2D col)
         {
-            if (!hasTarget) return;
-
-            // MoveAndSlide(targetDirection * speed);
-            // int slideCount = GetSlideCount();
-            // for (int i = 0; i < slideCount; i++)
-            // {
-            //     KinematicCollision2D collision = GetSlideCollision(i);
-            //     if (collision != null)
-            //     {
-            //         bool playSound = false;
-            //         if (collision.Collider is Enemy.Enemy e)
-            //         {
-            //             playSound = true;
-            //             e.TakeDamage(damage);
-            //             hasTarget = false;
-            //             rigidBody.Disabled = true;
-            //             Visible = false;
-            //             keepOnMap = false;
-            //         }
-            //         else if (collision.Collider is TileMap sb || collision.Collider is Door d)
-            //         {
-            //             playSound = true;
-            //             hasTarget = false;
-            //             rigidBody.Disabled = true;
-            //
-            //             if (!keepOnMap)
-            //             {
-            //                 Visible = false;
-            //             }
-            //         }
-            //
-            //         if (playSound)
-            //         {
-            //             // Play sound
-            //         }
-            //     }
-            // }
+            if (col.collider.TryGetComponent(out Enemy.Enemy e))
+            {
+                e.TakeDamage(damage);
+                Destroy(gameObject);
+            }
+            else
+            {
+                rigidBody.velocity = Vector2.zero;
+                rigidBody.simulated = false;
+                rigidBody.Sleep();
+            }
         }
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace TowerCreep.Towers.Archer
 {
-    public class ArcherTower : Tower
+    public class ArcherTower : MonoBehaviour
     {
         // External Nodes
-        private TowerRangeDetection towerRangeDetection;
+        [SerializeField] private TowerRangeDetection towerRangeDetection;
 
         // SerializeFielded Properties
         [SerializeField] private float shootingDelay = 0.5f;
@@ -59,7 +59,7 @@ namespace TowerCreep.Towers.Archer
 
         private void FireShot()
         {
-            Projectile projectile = Instantiate(arrowStatueProjectilePrefab);
+            Projectile projectile = Instantiate(arrowStatueProjectilePrefab, transform.position, Quaternion.identity, transform);
             projectile.FireAt(currentEnemy);
         }
 
