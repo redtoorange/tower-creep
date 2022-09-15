@@ -6,10 +6,11 @@ namespace TowerCreep.Towers.Placement
     /// <summary>
     /// Scan the map on first load and replace the "Buildable" tilemap with instances of the BuildableTileNode.
     /// </summary>
-    public class BuildingTileController : MonoBehaviour
+    public class BuildingTileConstructor : MonoBehaviour
     {
         [SerializeField] private BuildableTile buildingSlotPrefab;
         [SerializeField] private Tilemap buildableTilemap;
+        [SerializeField] private TowerController towerController;
 
         private void Start()
         {
@@ -21,11 +22,14 @@ namespace TowerCreep.Towers.Placement
                     Vector3Int pos = new(x, y);
                     if (buildableTilemap.HasTile(pos))
                     {
-                        Instantiate(buildingSlotPrefab,
+                        BuildableTile tile = Instantiate(buildingSlotPrefab,
                             buildableTilemap.GetCellCenterWorld(pos),
                             Quaternion.identity,
                             transform
                         );
+
+                        tile.isOccupied = false;
+                        tile.towerController = towerController;
                     }
                 }
             }

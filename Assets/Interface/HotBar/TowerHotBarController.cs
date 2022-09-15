@@ -32,9 +32,9 @@ namespace TowerCreep.Interface.HotBar
                 }
             }
 
-            TowerController.OnStopPlacingTower += HandleStopPlacingTower;
+            TowerPlacementController.OnStopPlacingTower += HandleStopPlacingTower;
             TowerController.OnSetTowerAsAvailable += (slot) => HandleSetTowerAsAvailable(slot, true);
-            TowerController.OnSetTowerAsUsed += (slot) => HandleSetTowerAsAvailable(slot, false);
+            TowerPlacementController.OnSetTowerAsUsed += (slot) => HandleSetTowerAsAvailable(slot, false);
         }
 
         private void HandleSetTowerAsAvailable(TowerCollectionSlot collectionSlot, bool available)

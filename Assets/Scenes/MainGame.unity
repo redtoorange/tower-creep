@@ -2516,6 +2516,67 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &682032116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 682032118}
+  - component: {fileID: 682032117}
+  m_Layer: 0
+  m_Name: TowerPlacementController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &682032117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682032116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313b43dc271278b4bb80de1e861b700f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validPlacementIcon: {fileID: 829831820}
+  invalidPlacementIcon: {fileID: 893571397}
+  buildableTileFilter:
+    useTriggers: 1
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 4096
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!4 &682032118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682032116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1715292168}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &796585183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,7 +2867,7 @@ GameObject:
   - component: {fileID: 1181028629}
   - component: {fileID: 1181028630}
   m_Layer: 0
-  m_Name: BuildableTileController
+  m_Name: BuildableTileConstructor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2841,6 +2902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingSlotPrefab: {fileID: 4582243027672373624, guid: 02d8058fbe048a1409490e2e05a82b14, type: 3}
   buildableTilemap: {fileID: 245643997}
+  towerController: {fileID: 1930264256}
 --- !u!1 &1218387832
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,8 +3199,8 @@ Transform:
   m_Children:
   - {fileID: 829831821}
   - {fileID: 893571398}
-  m_Father: {fileID: 1930264255}
-  m_RootOrder: 0
+  m_Father: {fileID: 682032118}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768826477
 GameObject:
@@ -3321,6 +3383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1909548670}
+  - component: {fileID: 1909548671}
   m_Layer: 0
   m_Name: Dungeon_1
   m_TagString: Untagged
@@ -3347,8 +3410,23 @@ Transform:
   - {fileID: 796585185}
   - {fileID: 1930264255}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1909548671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909548669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92b6eb9ca9286941b0b1d2986fe09a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyController: {fileID: 796585184}
+  doorController: {fileID: 885947674}
+  debugStart: 0
 --- !u!1 &1930264254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,8 +3455,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1715292168}
+  m_Children: []
   m_Father: {fileID: 1909548670}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3394,22 +3471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76432d13f408bb1439c8bfcb29891067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validPlacementIcon: {fileID: 829831820}
-  invalidPlacementIcon: {fileID: 893571397}
-  buildableTileFilter:
-    useTriggers: 1
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 4096
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
+  currentDungeonLevel: {fileID: 1909548671}
 --- !u!1001 &1940527661
 PrefabInstance:
   m_ObjectHideFlags: 0

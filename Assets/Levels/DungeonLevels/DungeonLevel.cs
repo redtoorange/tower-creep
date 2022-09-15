@@ -11,9 +11,10 @@ namespace TowerCreep.Levels.DungeonLevels
     public class DungeonLevel : MonoBehaviour
     {
         public Action OnDungeonLevelComplete;
+        public Action<DungeonLevel> OnPlayerExitedLevel;
+
 
         public static Action<DungeonLevel> OnPlayerEnteredLevel;
-        public static Action<DungeonLevel> OnPlayerExitedLevel;
 
         [SerializeField] private EnemyController enemyController;
         [SerializeField] private DoorController doorController;
