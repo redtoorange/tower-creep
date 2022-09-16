@@ -1,4 +1,5 @@
 ﻿using System;
+using TowerCreep.Enemy.HealthBar;
 using TowerCreep.Enemy.Resources.MonsterData;
 using TowerCreep.Map.Portals;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace TowerCreep.Enemy
         [SerializeField] private MonsterData enemyData;
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private SpriteRenderer monsterSpriteRenderer;
+        [SerializeField] private EnemyHealthBar healthBar;
 
         private float maxHealth = 10.0f;
         private float health = 10.0f;
@@ -52,11 +54,7 @@ namespace TowerCreep.Enemy
         public void TakeDamage(float damage)
         {
             health -= damage;
-            // healthBar.Value = 100.0f * (health / maxHealth);
-            // if (healthBar.Value < 100.0f)
-            // {
-            //     healthBar.Visible = true;
-            // }
+            healthBar.SetFillPercent(health / maxHealth);
 
             if (health <= 0)
             {

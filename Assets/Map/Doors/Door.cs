@@ -73,7 +73,7 @@ namespace TowerCreep.Map.Doors
 
         private void EnableCollisions()
         {
-            doorCollider.isTrigger = true;
+            doorCollider.isTrigger = false;
         }
 
         private void OnTriggerExit2D(Collider2D other)

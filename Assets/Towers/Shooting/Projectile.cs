@@ -13,7 +13,6 @@ namespace TowerCreep.Towers.Shooting
         [SerializeField] private Rigidbody2D rigidBody;
 
         // Internal State
-        private bool hasTarget;
         private Vector2 targetPoint;
         private Vector2 targetDirection;
 
@@ -24,13 +23,11 @@ namespace TowerCreep.Towers.Shooting
                 Vector2 position = transform.position;
                 targetPoint = enemy.transform.position;
                 targetDirection = (targetPoint - position).normalized;
-                
+
                 float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90.0f;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                
-                rigidBody.velocity = speed * targetDirection;
 
-                hasTarget = true;
+                rigidBody.velocity = speed * targetDirection;
             }
         }
 
@@ -43,9 +40,16 @@ namespace TowerCreep.Towers.Shooting
             }
             else
             {
-                rigidBody.velocity = Vector2.zero;
-                rigidBody.simulated = false;
-                rigidBody.Sleep();
+                if (keepOnMap)
+                {
+                    rigidBody.velocity = Vector2.zero;
+                    rigidBody.simulated = false;
+                    rigidBody.Sleep();
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

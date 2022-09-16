@@ -67,13 +67,11 @@ namespace TowerCreep.Towers.Placement
         {
             if (!selectedTower.IsPlaced)
             {
-                Debug.Log("Selected: " + selectedTower);
                 currentlySelectedTower = selectedTower;
                 isPlacingTower = true;
             }
             else
             {
-                Debug.Log("Tower is already placed");
                 currentlySelectedTower = null;
                 isPlacingTower = false;
             }
@@ -151,15 +149,8 @@ namespace TowerCreep.Towers.Placement
 
         private void PlaceTower()
         {
-            if (!isValidPlacement)
+            if (!isValidPlacement || currentlySelectedTower == null)
             {
-                Debug.Log("Invalid Placement");
-                return;
-            }
-
-            if (currentlySelectedTower == null)
-            {
-                Debug.Log("currentlySelectedTower is null");
                 return;
             }
 
