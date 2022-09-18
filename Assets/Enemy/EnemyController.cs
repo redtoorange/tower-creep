@@ -17,7 +17,7 @@ namespace TowerCreep.Enemy
         private EnemyWaveData currentWaveDef;
         private float spawnCooldown;
         private int numberSpawned;
-        
+
         [SerializeField]
         private MobSpawnerState spawnerState = MobSpawnerState.NotStarted;
         private int currentWave = 0;
@@ -29,12 +29,19 @@ namespace TowerCreep.Enemy
 
         // Enemy Tracking
         private List<Enemy> enemies;
+        private Vector2[] routePosition;
 
         private void Start()
         {
             enemies = new List<Enemy>();
             spawnCooldown = initialWait;
             mobMovementRoutePath.enabled = false;
+
+            routePosition = new Vector2[mobMovementRoutePath.positionCount];
+            for (int i = 0; i < mobMovementRoutePath.positionCount; i++)
+            {
+                routePosition[i] = transform.TransformPoint(mobMovementRoutePath.GetPosition(i));
+            }
         }
 
         private void OnEnable()
@@ -174,14 +181,8 @@ namespace TowerCreep.Enemy
 
             if (mobMovementRoutePath != null && mobMovementRoutePath.positionCount > 0)
             {
-                Vector2[] positions = new Vector2[mobMovementRoutePath.positionCount];
-                for (int i = 0; i < mobMovementRoutePath.positionCount; i++)
-                {
-                    positions[i] = mobMovementRoutePath.GetPosition(i);
-                }
-
-                e.Initialize(positions, currentWaveDef.monsterData);
-                e.transform.position = positions[0];
+                e.Initialize(routePosition, currentWaveDef.monsterData);
+                e.transform.position = routePosition[0];
             }
 
             enemies.Add(e);

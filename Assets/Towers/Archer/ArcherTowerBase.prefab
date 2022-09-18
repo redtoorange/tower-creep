@@ -143,6 +143,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 772009346673346717, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
       insertIndex: 2
       addedObject: {fileID: -3288777459415426885}
+    - targetCorrespondingSourceObject: {fileID: 772009346673346717, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 8526324495598273370}
   m_SourcePrefab: {fileID: 100100000, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
 --- !u!4 &7367271184813491204 stripped
 Transform:
@@ -166,6 +169,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f593d117fb5ae4785c76f59a0a0fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8526324495598273370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367271184813491205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce273a804ee043a9b34f82517869081c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetingPriority: 0
   towerRangeDetection: {fileID: 5237442302969043118}
   shootingDelay: 0.5
-  arrowStatueProjectilePrefab: {fileID: 8534630128873049324, guid: 5160f006f8d46834b8ea198f98bc71dd, type: 3}
+  projectilePrefab: {fileID: 153109226857323618, guid: c70bf1387062efe4cbab420d98917c52, type: 3}
