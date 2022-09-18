@@ -1,9 +1,8 @@
 using System;
-
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
 using TowerCreep.Map.Doors;
-using TowerCreep.Towers.Placement;
+using TowerCreep.Player;
 using UnityEngine;
 
 namespace TowerCreep.Levels.DungeonLevels
@@ -11,15 +10,14 @@ namespace TowerCreep.Levels.DungeonLevels
     public class DungeonLevel : MonoBehaviour
     {
         public Action OnDungeonLevelComplete;
-        public Action<DungeonLevel> OnPlayerExitedLevel;
+        public Action OnPlayerExitedLevel;
 
 
         public static Action<DungeonLevel> OnPlayerEnteredLevel;
 
         [SerializeField] private EnemyController enemyController;
         [SerializeField] private DoorController doorController;
-
-        [SerializeField] private bool debugStart = false;
+        [SerializeField] private PlayerSpawnPoint playerSpawnPoint;
 
         private void OnEnable()
         {
@@ -27,18 +25,12 @@ namespace TowerCreep.Levels.DungeonLevels
             doorController.OnPlayerHasExitedRoom += HandlePlayerExitedRoom;
 
             EnemyController.OnEnemyControllerEvent += HandleEnemyControllerEvent;
-
-            if (debugStart)
-            {
-                Debug.LogError("Warning: Debug Start is enabled for ");
-                StartLevel();
-            }
         }
 
         private void HandlePlayerExitedRoom()
         {
             doorController.LockAllDoors();
-            OnPlayerExitedLevel?.Invoke(this);
+            OnPlayerExitedLevel?.Invoke();
         }
 
         private void HandlePlayerEnteredRoom()
@@ -64,6 +56,13 @@ namespace TowerCreep.Levels.DungeonLevels
         public void StartLevel()
         {
             enemyController.StartSpawningMonsters();
+        }
+
+        public void TeleportPlayer(PlayerController playerController, PlayerCamera playerCamera)
+        {
+            Vector3 position = playerSpawnPoint.transform.position;
+            playerController.transform.position = position;
+            playerCamera.Teleport(position);
         }
     }
 }
