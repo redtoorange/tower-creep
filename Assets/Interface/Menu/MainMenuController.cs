@@ -6,7 +6,7 @@ namespace TowerCreep.Interface.Menu
     /// <summary>
     /// Main menu for the game, will be the first screen we see.
     /// </summary>
-    public class MainMenu : MonoBehaviour
+    public class MainMenuController : MonoBehaviour
     {
         [SerializeField] private string newGameScene;
         [SerializeField] private string loadGameScene;

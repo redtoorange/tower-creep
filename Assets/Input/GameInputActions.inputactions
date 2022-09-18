@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PauseGame",
+                    "type": "Button",
+                    "id": "796719a4-243c-4410-b3e7-772569247922",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -91,17 +100,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dcc0d78e-6af7-44dd-8876-60fe7d94a167",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StopBuilding",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3def58f1-c007-4e54-b2b8-08e662c39aa0",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -119,6 +117,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlaceBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5eb2e6a-37a5-4ec8-9072-8db78bcbe32c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

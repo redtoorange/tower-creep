@@ -53,6 +53,15 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""796719a4-243c-4410-b3e7-772569247922"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -113,17 +122,6 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dcc0d78e-6af7-44dd-8876-60fe7d94a167"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""StopBuilding"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3def58f1-c007-4e54-b2b8-08e662c39aa0"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -141,6 +139,17 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlaceBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5eb2e6a-37a5-4ec8-9072-8db78bcbe32c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -359,6 +368,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         m_PlayerActions_Movement = m_PlayerActions.FindAction("Movement", throwIfNotFound: true);
         m_PlayerActions_StopBuilding = m_PlayerActions.FindAction("StopBuilding", throwIfNotFound: true);
         m_PlayerActions_PlaceBuilding = m_PlayerActions.FindAction("PlaceBuilding", throwIfNotFound: true);
+        m_PlayerActions_PauseGame = m_PlayerActions.FindAction("PauseGame", throwIfNotFound: true);
         // BuildBarKeys
         m_BuildBarKeys = asset.FindActionMap("BuildBarKeys", throwIfNotFound: true);
         m_BuildBarKeys_Slot_1 = m_BuildBarKeys.FindAction("Slot_1", throwIfNotFound: true);
@@ -432,6 +442,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Movement;
     private readonly InputAction m_PlayerActions_StopBuilding;
     private readonly InputAction m_PlayerActions_PlaceBuilding;
+    private readonly InputAction m_PlayerActions_PauseGame;
     public struct PlayerActionsActions
     {
         private @GameInputActions m_Wrapper;
@@ -439,6 +450,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerActions_Movement;
         public InputAction @StopBuilding => m_Wrapper.m_PlayerActions_StopBuilding;
         public InputAction @PlaceBuilding => m_Wrapper.m_PlayerActions_PlaceBuilding;
+        public InputAction @PauseGame => m_Wrapper.m_PlayerActions_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -457,6 +469,9 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 @PlaceBuilding.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPlaceBuilding;
                 @PlaceBuilding.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPlaceBuilding;
                 @PlaceBuilding.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPlaceBuilding;
+                @PauseGame.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPauseGame;
+                @PauseGame.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPauseGame;
+                @PauseGame.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPauseGame;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -470,6 +485,9 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 @PlaceBuilding.started += instance.OnPlaceBuilding;
                 @PlaceBuilding.performed += instance.OnPlaceBuilding;
                 @PlaceBuilding.canceled += instance.OnPlaceBuilding;
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
             }
         }
     }
@@ -585,6 +603,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnStopBuilding(InputAction.CallbackContext context);
         void OnPlaceBuilding(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
     public interface IBuildBarKeysActions
     {
