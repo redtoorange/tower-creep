@@ -28,8 +28,8 @@ namespace TowerCreep.Map.Doors
         [SerializeField] private DoorType doorType = DoorType.EntranceDoor;
         [SerializeField] private bool doNotUnlock = false;
 
-        [SerializeField] private SpriteRenderer openDoorSprite;
-        [SerializeField] private SpriteRenderer closedDoorSprite;
+        [SerializeField] private GameObject openDoorState;
+        [SerializeField] private GameObject closedDoorState;
         [SerializeField] private BoxCollider2D doorCollider;
 
         private void Start()
@@ -47,8 +47,8 @@ namespace TowerCreep.Map.Doors
             if (currentState == DoorState.Locked)
             {
                 currentState = DoorState.Unlocked;
-                openDoorSprite.enabled = true;
-                closedDoorSprite.enabled = false;
+                openDoorState.SetActive(true);
+                closedDoorState.SetActive(false);
 
                 DisableCollisions();
             }
@@ -59,8 +59,8 @@ namespace TowerCreep.Map.Doors
             if (currentState != DoorState.Locked)
             {
                 currentState = DoorState.Locked;
-                openDoorSprite.enabled = false;
-                closedDoorSprite.enabled = true;
+                openDoorState.SetActive(false);
+                closedDoorState.SetActive(true);
 
                 EnableCollisions();
             }

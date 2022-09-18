@@ -50,9 +50,6 @@ TagManager:
   - name: Doodads
     uniqueID: 3999381539
     locked: 0
-  - name: Projectiles
-    uniqueID: 3975334915
-    locked: 0
   - name: Enemies
     uniqueID: 2346131563
     locked: 0
@@ -61,6 +58,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1247034259
+    locked: 0
+  - name: Projectiles
+    uniqueID: 3975334915
     locked: 0
   - name: Overhangs
     uniqueID: 3374650207
