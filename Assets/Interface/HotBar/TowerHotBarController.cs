@@ -16,6 +16,7 @@ namespace TowerCreep.Interface.HotBar
 
         // Internal State
         private TowerHotBarSlot currentSlot;
+        private GameInputActions inputActions;
 
         private void Start()
         {
@@ -35,6 +36,23 @@ namespace TowerCreep.Interface.HotBar
             TowerPlacementController.OnStopPlacingTower += HandleStopPlacingTower;
             TowerController.OnSetTowerAsAvailable += (slot) => HandleSetTowerAsAvailable(slot, true);
             TowerPlacementController.OnSetTowerAsUsed += (slot) => HandleSetTowerAsAvailable(slot, false);
+
+            SetupInput();
+        }
+
+        private void SetupInput()
+        {
+            inputActions = new GameInputActions();
+            inputActions.BuildBarKeys.Slot_1.performed += _ => HandleOnButtonSlotPressed(towerSlots[0]);
+            inputActions.BuildBarKeys.Slot_2.performed += _ => HandleOnButtonSlotPressed(towerSlots[1]);
+            inputActions.BuildBarKeys.Slot_3.performed += _ => HandleOnButtonSlotPressed(towerSlots[2]);
+            inputActions.BuildBarKeys.Slot_4.performed += _ => HandleOnButtonSlotPressed(towerSlots[3]);
+            inputActions.BuildBarKeys.Slot_5.performed += _ => HandleOnButtonSlotPressed(towerSlots[4]);
+            inputActions.BuildBarKeys.Slot_6.performed += _ => HandleOnButtonSlotPressed(towerSlots[5]);
+            inputActions.BuildBarKeys.Slot_7.performed += _ => HandleOnButtonSlotPressed(towerSlots[6]);
+            inputActions.BuildBarKeys.Slot_8.performed += _ => HandleOnButtonSlotPressed(towerSlots[7]);
+            inputActions.BuildBarKeys.Slot_9.performed += _ => HandleOnButtonSlotPressed(towerSlots[8]);
+            inputActions.Enable();
         }
 
         private void HandleSetTowerAsAvailable(TowerCollectionSlot collectionSlot, bool available)
@@ -58,7 +76,7 @@ namespace TowerCreep.Interface.HotBar
                 {
                     currentSlot.SetSelected(false);
                 }
-                
+
                 currentSlot = newSlot;
 
                 if (currentSlot != null && currentSlot.IsAvailable)
