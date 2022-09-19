@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TowerCreep.Levels.DungeonLevels;
 using TowerCreep.Player;
+using TowerCreep.Utility;
 using UnityEngine;
 
 namespace TowerCreep.Levels
@@ -19,6 +20,9 @@ namespace TowerCreep.Levels
         private PlayerController playerController;
         private PlayerCamera playerCamera;
 
+        private string winScreen = "WinScreen";
+        private string loseScreen = "LoseScreen";
+
         private void Start()
         {
             instancedLevels = new List<DungeonLevel>(dungeonLevelContainer.GetComponentsInChildren<DungeonLevel>());
@@ -27,13 +31,8 @@ namespace TowerCreep.Levels
             if (instancedLevels.Count > 0)
             {
                 currentLevel = instancedLevels[0];
-                instancedLevels[0].StartLevel();
                 instancedLevels[instancedLevels.Count - 1].OnPlayerExitedLevel += HandleDungeonLevelComplete;
                 currentLevelIndex = instancedLevels.Count - 1;
-            }
-            else
-            {
-                LoadLevel(levels[currentLevelIndex]).StartLevel();
             }
 
             playerController = FindObjectOfType<PlayerController>();
@@ -70,7 +69,6 @@ namespace TowerCreep.Levels
             if (currentLevel != null)
             {
                 TransitionController.S.FadeIn();
-                currentLevel.StartLevel();
             }
         }
 
@@ -84,6 +82,7 @@ namespace TowerCreep.Levels
             else
             {
                 OnGameWin?.Invoke();
+                GameManager.S.ChangeToWinScreen();
             }
         }
     }
