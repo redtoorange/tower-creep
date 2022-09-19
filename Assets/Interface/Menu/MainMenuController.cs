@@ -1,3 +1,4 @@
+using TowerCreep.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +15,7 @@ namespace TowerCreep.Interface.Menu
 
         public void OnNewGamePressed()
         {
-            SceneManager.LoadScene(newGameScene);
+            GameManager.S.ChangeToGame();
         }
 
         public void OnLoadGamePressed()

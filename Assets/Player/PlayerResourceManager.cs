@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TowerCreep.Utility;
 using UnityEngine;
 using Portal = TowerCreep.Map.Portals.Portal;
 
@@ -63,6 +64,7 @@ namespace TowerCreep.Player
             if (type == PlayerResourceType.Health && resource.currentValue <= 0)
             {
                 OnPlayerDie?.Invoke();
+                GameManager.S.ChangeToLoseScreen();
             }
         }
 

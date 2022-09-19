@@ -1,3 +1,4 @@
+using TowerCreep.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,12 +8,12 @@ namespace TowerCreep.Interface.LoseScreen
     {
         public void OnMainMenuPressed()
         {
-            SceneManager.LoadScene("MainMenu");
+            GameManager.S.ChangeToMainMenu();
         }
 
         public void OnPlayAgainPressed()
         {
-            SceneManager.LoadScene("MainGame");
+            GameManager.S.ChangeToGame();
         }
     }
 }

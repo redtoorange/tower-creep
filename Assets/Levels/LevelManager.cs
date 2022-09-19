@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TowerCreep.Levels.DungeonLevels;
 using TowerCreep.Player;
+using TowerCreep.Utility;
 using UnityEngine;
 
 namespace TowerCreep.Levels
@@ -18,6 +19,9 @@ namespace TowerCreep.Levels
         private DungeonLevel currentLevel;
         private PlayerController playerController;
         private PlayerCamera playerCamera;
+
+        private string winScreen = "WinScreen";
+        private string loseScreen = "LoseScreen";
 
         private void Start()
         {
@@ -78,6 +82,7 @@ namespace TowerCreep.Levels
             else
             {
                 OnGameWin?.Invoke();
+                GameManager.S.ChangeToWinScreen();
             }
         }
     }
