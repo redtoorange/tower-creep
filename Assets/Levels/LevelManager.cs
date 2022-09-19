@@ -27,13 +27,8 @@ namespace TowerCreep.Levels
             if (instancedLevels.Count > 0)
             {
                 currentLevel = instancedLevels[0];
-                instancedLevels[0].StartLevel();
                 instancedLevels[instancedLevels.Count - 1].OnPlayerExitedLevel += HandleDungeonLevelComplete;
                 currentLevelIndex = instancedLevels.Count - 1;
-            }
-            else
-            {
-                LoadLevel(levels[currentLevelIndex]).StartLevel();
             }
 
             playerController = FindObjectOfType<PlayerController>();
@@ -70,7 +65,6 @@ namespace TowerCreep.Levels
             if (currentLevel != null)
             {
                 TransitionController.S.FadeIn();
-                currentLevel.StartLevel();
             }
         }
 
