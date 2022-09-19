@@ -5835,7 +5835,7 @@ Transform:
   - {fileID: 3607343978265494945}
   - {fileID: 278508701247359751}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3607343978245315937
 MonoBehaviour:
@@ -5851,7 +5851,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyController: {fileID: 3607343976994002942}
   doorController: {fileID: 3607343977087092228}
-  debugStart: 0
   playerSpawnPoint: {fileID: 3869417541512927769}
 --- !u!1 &3607343978265494944
 GameObject:
