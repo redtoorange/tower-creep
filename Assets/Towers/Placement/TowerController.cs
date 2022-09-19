@@ -24,7 +24,7 @@ namespace TowerCreep.Towers.Placement
             controlledTowers.Add(tower);
         }
         
-        private void HandlePlayerExitedLevel(DungeonLevel level)
+        private void HandlePlayerExitedLevel()
         {
             for (int i = 0; i < controlledTowers.Count; i++)
             {

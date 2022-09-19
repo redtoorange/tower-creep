@@ -1,9 +1,10 @@
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
-namespace TowerCreep.Interface.LevelProgress
+
+namespace TowerCreep.Interface.LevelProgressBar
 {
     public class ProgressBarController : MonoBehaviour
     {
@@ -16,10 +17,8 @@ namespace TowerCreep.Interface.LevelProgress
 
         private ProgressBarState currentState = ProgressBarState.None;
 
-        [SerializeField] private ProgressBar waveProgressBar;
-        [SerializeField] private ProgressBar cooldownProgressBar;
-        // private Tween.TransitionType progressBarTransition = Tween.TransitionType.Linear;
-        // private Tween tweener;
+        [SerializeField] private Slider waveProgressBar;
+        [SerializeField] private Slider cooldownProgressBar;
 
         private void Start()
         {
@@ -63,46 +62,32 @@ namespace TowerCreep.Interface.LevelProgress
 
         private void StartWave(float time)
         {
-            // if (tweener.IsActive())
-            // {
-            //     tweener.StopAll();
-            // }
-            //
-            // tweener.InterpolateProperty(waveProgressBar, "value", 0, 100, time, progressBarTransition);
-            // tweener.Start();
-
+            LeanTween.value(waveProgressBar.gameObject, f => waveProgressBar.value = f, 1.0f, 0.0f, time);
             if (currentState != ProgressBarState.Wave)
             {
-                cooldownProgressBar.SetEnabled(false);
-                waveProgressBar.SetEnabled(true);
+                cooldownProgressBar.gameObject.SetActive(false);
+                waveProgressBar.gameObject.SetActive(true);
                 currentState = ProgressBarState.Wave;
             }
         }
 
         private void StartCooldown(float time)
         {
-            // if (tweener.IsActive())
-            // {
-            //     tweener.StopAll();
-            // }
-            //
-            // tweener.InterpolateProperty(cooldownProgressBar, "value", 0, 100, time, progressBarTransition);
-            // tweener.Start();
-
+            LeanTween.value(cooldownProgressBar.gameObject, f => cooldownProgressBar.value = f, 1.0f, 0.0f, time);
             if (currentState != ProgressBarState.Cooldown)
             {
-                waveProgressBar.SetEnabled(false);
-                cooldownProgressBar.SetEnabled(true);
+                waveProgressBar.gameObject.SetActive(false);
+                cooldownProgressBar.gameObject.SetActive(true);
                 currentState = ProgressBarState.Cooldown;
             }
         }
 
         private void HideBars()
         {
-            waveProgressBar.SetEnabled(false);
+            waveProgressBar.gameObject.SetActive(false);
             waveProgressBar.value = 0;
 
-            cooldownProgressBar.SetEnabled(false);
+            cooldownProgressBar.gameObject.SetActive(false);
             cooldownProgressBar.value = 0;
 
             currentState = ProgressBarState.None;
