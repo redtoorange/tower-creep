@@ -10,6 +10,8 @@ namespace TowerCreep.Levels
     public class LevelManager : MonoBehaviour
     {
         public static Action OnGameWin;
+        public static Action OnNewLevelLoaded;
+        
         [SerializeField] private List<DungeonLevel> levels;
         [SerializeField] private int currentLevelIndex = 0;
 
@@ -78,6 +80,7 @@ namespace TowerCreep.Levels
             if (currentLevelIndex < levels.Count)
             {
                 LoadLevel(levels[currentLevelIndex]);
+                OnNewLevelLoaded?.Invoke();
             }
             else
             {

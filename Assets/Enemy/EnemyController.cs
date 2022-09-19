@@ -74,9 +74,6 @@ namespace TowerCreep.Enemy
                 case MobSpawnerState.NotStarted:
                 case MobSpawnerState.Done:
                     return;
-                case MobSpawnerState.Initial:
-                    ProcessInitialState(Time.deltaTime);
-                    break;
                 case MobSpawnerState.Idle:
                     ProcessIdleState();
                     break;
@@ -160,21 +157,6 @@ namespace TowerCreep.Enemy
             }
         }
 
-        private void ProcessInitialState(float delta)
-        {
-            waveCooldownElapsed += delta;
-
-            OnEnemyControllerEvent?.Invoke(
-                new EnemyControlledTimedEvent(this, EnemyControllerEventType.CooldownStarted, initialWait)
-            );
-
-            if (waveCooldownElapsed >= initialWait)
-            {
-                spawnerState = MobSpawnerState.Idle;
-                waveCooldownElapsed = 0;
-            }
-        }
-
         public void SpawnWave()
         {
             Enemy e = Instantiate(currentWaveDef.enemyBasePrefab, transform);
@@ -195,7 +177,7 @@ namespace TowerCreep.Enemy
         {
             if (spawnerState == MobSpawnerState.NotStarted)
             {
-                spawnerState = MobSpawnerState.Initial;
+                spawnerState = MobSpawnerState.Idle;
             }
         }
     }

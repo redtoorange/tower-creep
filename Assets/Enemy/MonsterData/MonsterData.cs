@@ -7,7 +7,7 @@ namespace TowerCreep.Enemy.Resources.MonsterData
     {
         [SerializeField] public Sprite mobSprite;
         [SerializeField] public int mobHealth = 10;
-        [SerializeField] public int mobSpeed = 50;
+        [SerializeField] public float mobSpeed = 50;
         [SerializeField] public int mobDamage = 1;
     }
 }
