@@ -1,48 +1,40 @@
-using Godot;
+using TMPro;
 using TowerCreep.Towers;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.DetailsPanel
 {
-    public class DetailsPanel : PanelContainer
+    public class DetailsPanel : MonoBehaviour
     {
-        private Label nameDisplay;
-        private TextureRect iconDisplay;
-        private RichTextLabel informationDisplay;
+        [SerializeField] TMP_Text nameDisplay;
+        [SerializeField] Image iconDisplay;
+        [SerializeField] TMP_Text informationDisplay;
         private bool isShown = false;
 
+        
 
-        public override void _Ready()
-        {
-            nameDisplay = GetNode<Label>("VBoxContainer/HBoxContainer/NameDisplay");
-            iconDisplay = GetNode<TextureRect>("VBoxContainer/HBoxContainer/IconDisplay");
-            informationDisplay =
-                GetNode<RichTextLabel>("VBoxContainer/Panel/MarginContainer/ScrollContainer/InformationDisplay");
-        }
-
-        public override void _Input(InputEvent @event)
-        {
-            if (isShown)
-            {
-                if (@event.IsActionPressed("CloseDetails"))
-                {
-                    OnCloseButtonPressed();
-                }
-            }
-        }
+        // public override void _Input(InputEvent @event)
+        // {
+        //     if (isShown)
+        //     {
+        //         if (@event.IsActionPressed("CloseDetails"))
+        //         {
+        //             OnCloseButtonPressed();
+        //         }
+        //     }
+        // }
 
         public void ShowTowerData(TowerData towerData)
         {
-            nameDisplay.Text = towerData.towerName;
-            iconDisplay.Texture = towerData.towerIcon;
-            informationDisplay.BbcodeText = towerData.towerInformation;
+            nameDisplay.text = towerData.towerName;
+            iconDisplay.sprite = towerData.towerIcon;
+            informationDisplay.text = towerData.towerInformation;
             isShown = true;
-
-            Show();
         }
 
         public void OnCloseButtonPressed()
         {
-            Hide();
             isShown = false;
         }
     }

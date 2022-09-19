@@ -1,7 +1,8 @@
 ﻿using System;
-using Godot;
+using TowerCreep.Enemy.HealthBar;
 using TowerCreep.Enemy.Resources.MonsterData;
-using Portal = TowerCreep.Map.Portals.Portal;
+using TowerCreep.Map.Portals;
+using UnityEngine;
 
 namespace TowerCreep.Enemy
 {
@@ -13,33 +14,24 @@ namespace TowerCreep.Enemy
         Dead
     }
 
-    public class Enemy : KinematicBody2D
+    public class Enemy : MonoBehaviour
     {
         public static Action<Enemy> OnDie;
         public static Action<Enemy> OnNeedsNewPath;
         public static Action<Enemy> OnNeedsToResetToSpawn;
 
+        [SerializeField] private MonsterData enemyData;
+        [SerializeField] private Rigidbody2D rigidbody2D;
+        [SerializeField] private SpriteRenderer monsterSpriteRenderer;
+        [SerializeField] private EnemyHealthBar healthBar;
+
         private float maxHealth = 10.0f;
         private float health = 10.0f;
         private float speed = 15.0f;
 
-        private float navigationThreshold = 1.5f;
         private Vector2[] movementPath;
-        private MonsterData enemyData;
+        [SerializeField] private float navigationThreshold = 0.1f;
         private int routeIndex;
-        private ProgressBar healthBar;
-        private Sprite monsterSprite;
-
-
-        public override void _Ready()
-        {
-            base._Ready();
-
-            healthBar = GetNode<ProgressBar>("HealthBar/ProgressBar");
-            monsterSprite = GetNode<Sprite>("Sprite");
-            monsterSprite.Texture = enemyData.mobSprite;
-            healthBar.Visible = false;
-        }
 
         public void Initialize(Vector2[] movementPath, MonsterData enemyData)
         {
@@ -49,23 +41,20 @@ namespace TowerCreep.Enemy
             maxHealth = enemyData.mobHealth;
             health = maxHealth;
             speed = enemyData.mobSpeed;
+            monsterSpriteRenderer.sprite = enemyData.mobSprite;
         }
 
         public virtual void Die()
         {
             OnDie?.Invoke(this);
-            Visible = false;
-            QueueFree();
+            monsterSpriteRenderer.enabled = false;
+            Destroy(gameObject);
         }
 
         public void TakeDamage(float damage)
         {
             health -= damage;
-            healthBar.Value = 100.0f * (health / maxHealth);
-            if (healthBar.Value < 100.0f)
-            {
-                healthBar.Visible = true;
-            }
+            healthBar.SetFillPercent(health / maxHealth);
 
             if (health <= 0)
             {
@@ -73,17 +62,19 @@ namespace TowerCreep.Enemy
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+
+        private void FixedUpdate()
         {
             if (routeIndex < movementPath.Length)
             {
                 // Handle movement using the Physics engine
                 Vector2 targetPoint = movementPath[routeIndex];
-                float dist = Position.DistanceTo(targetPoint);
+                float dist = Vector3.Distance(targetPoint, transform.position);
                 if (dist > navigationThreshold)
                 {
-                    Vector2 direction = targetPoint - Position;
-                    MoveAndCollide(direction.Normalized() * speed * delta);
+                    Vector2 direction = targetPoint - (Vector2)transform.position;
+                    rigidbody2D.MovePosition(rigidbody2D.position +
+                                             (direction.normalized * (speed * Time.fixedDeltaTime)));
                 }
                 else
                 {
@@ -100,7 +91,7 @@ namespace TowerCreep.Enemy
         public void ResetPath()
         {
             routeIndex = 0;
-            Position = movementPath[routeIndex];
+            transform.position = movementPath[routeIndex];
         }
     }
 }

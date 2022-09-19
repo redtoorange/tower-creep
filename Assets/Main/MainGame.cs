@@ -1,19 +1,20 @@
-using Godot;
+
 using TowerCreep.Levels;
 using TowerCreep.Player;
+using UnityEngine;
 
-public class MainGame : Node2D
+public class MainGame : MonoBehaviour
 {
-    [Export] private PackedScene winScreen;
-    [Export] private PackedScene loseScreen;
+    // [SerializeField] private PackedScene winScreen;
+    // [SerializeField] private PackedScene loseScreen;
 
-    public override void _Ready()
+    private void Start()
     {
         LevelManager.OnGameWin += HandleOnWin;
         PlayerResourceManager.OnPlayerDie += HandleOnLose;
     }
 
-    public override void _ExitTree()
+    private void OnDisable()
     {
         LevelManager.OnGameWin -= HandleOnWin;
         PlayerResourceManager.OnPlayerDie -= HandleOnLose;
@@ -21,13 +22,11 @@ public class MainGame : Node2D
 
     private void HandleOnWin()
     {
-        QueueFree();
-        GetTree().ChangeSceneTo(winScreen);
+  
     }
 
     private void HandleOnLose()
     {
-        QueueFree();
-        GetTree().ChangeSceneTo(loseScreen);
+
     }
 }

@@ -1,10 +1,9 @@
-﻿using Godot;
-using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
+﻿using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
 using TowerCreep.Towers;
 
 namespace TowerCreep.Interface.TowerSelectionMenu
 {
-    public class TowerSwapPayload : Object
+    public class TowerSwapPayload
     {
         public TowerData towerData;
         public SelectedTowerSlot sourceSlot;

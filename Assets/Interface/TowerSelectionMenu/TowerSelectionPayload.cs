@@ -1,9 +1,8 @@
-﻿using Godot;
-using TowerCreep.Towers;
+﻿using TowerCreep.Towers;
 
 namespace TowerCreep.Interface.TowerSelectionMenu
 {
-    public class TowerSelectionPayload : Object
+    public class TowerSelectionPayload
     {
         public TowerData towerData;
 

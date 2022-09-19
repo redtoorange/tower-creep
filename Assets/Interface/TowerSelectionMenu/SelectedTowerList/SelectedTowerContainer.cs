@@ -1,35 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using Godot;
 using TowerCreep.Towers;
+using UnityEngine;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
 {
-    public class SelectedTowerContainer : Control
+    public class SelectedTowerContainer : MonoBehaviour
     {
         public Action<int> OnReadyCountChanged;
 
-        [Export] private NodePath slotContainerPath;
-
-        private List<SelectedTowerSlot> selectedSlots;
+        [SerializeField] private List<SelectedTowerSlot> selectedSlots;
         private int readyCount = 0;
         private bool readyCountDirty = false;
 
-        public override void _Ready()
+        private void Start()
         {
-            selectedSlots = new List<SelectedTowerSlot>(9);
-            Node container = GetNode<Node>(slotContainerPath);
-            for (int i = 0; i < container.GetChildCount(); i++)
+            for (int i = 0; i < selectedSlots.Count; i++)
             {
-                if (container.GetChild(i) is SelectedTowerSlot sts)
-                {
-                    selectedSlots.Add(sts);
-                    sts.OnTowerDataChanged += HandleOnTowerDataChanged;
-                }
+                selectedSlots[i].OnTowerDataChanged += HandleOnTowerDataChanged;
             }
         }
 
-        public override void _Process(float delta)
+        private void Update()
         {
             if (readyCountDirty)
             {

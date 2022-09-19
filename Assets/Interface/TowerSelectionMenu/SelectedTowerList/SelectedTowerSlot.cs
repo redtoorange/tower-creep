@@ -1,6 +1,7 @@
 ﻿using System;
-using Godot;
 using TowerCreep.Towers;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
 {
@@ -10,36 +11,33 @@ namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
         public static Action<SelectedTowerSlot> OnOpenManual;
         public Action OnTowerDataChanged;
 
-        [Export] private Texture defaultSlotTexture;
-        [Export] private PackedScene previewPrefab;
+        [SerializeField] private Sprite defaultSlotTexture;
+        [SerializeField] private GameObject previewPrefab;
 
         private TowerData towerData;
-        private TextureRect towerDisplay;
+        [SerializeField] private Image towerDisplay;
 
-        public override void _Ready()
+        private void Start()
         {
-            base._Ready();
-
-            towerDisplay = GetNode<TextureRect>("TextureRect");
-            towerDisplay.Texture = defaultSlotTexture;
+            towerDisplay.sprite = defaultSlotTexture;
         }
 
-        public override object GetDragData(Vector2 position)
+        public object GetDragData(Vector2 position)
         {
             if (towerData == null) return null;
 
-            TextureRect tr = new TextureRect();
-            tr.Texture = towerData.towerIcon;
-            SetDragPreview(tr);
+            // TextureRect tr = new TextureRect();
+            // tr.Texture = towerData.towerIcon;
+            // SetDragPreview(tr);
             return new TowerSwapPayload(towerData, this);
         }
 
-        public override bool CanDropData(Vector2 position, object data)
+        public bool CanDropData(Vector2 position, object data)
         {
             return data is TowerSelectionPayload || data is TowerSwapPayload;
         }
 
-        public override void DropData(Vector2 position, object data)
+        public void DropData(Vector2 position, object data)
         {
             if (data is TowerSelectionPayload payload)
             {
@@ -63,16 +61,16 @@ namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
         public void ClearTowerData()
         {
             towerData = null;
-            towerDisplay.Texture = defaultSlotTexture;
-            HintTooltip = null;
+            towerDisplay.sprite = defaultSlotTexture;
+            // HintTooltip = null;
             OnTowerDataChanged?.Invoke();
         }
 
         public void SetTowerData(TowerData data)
         {
             towerData = data;
-            towerDisplay.Texture = towerData.towerIcon;
-            HintTooltip = data.towerName;
+            towerDisplay.sprite = towerData.towerIcon;
+            // HintTooltip = data.towerName;
             OnTowerDataChanged?.Invoke();
         }
 

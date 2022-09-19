@@ -1,89 +1,55 @@
-using Godot;
-using TowerCreep.Map.Doors;
+using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
 {
-    public class Projectile : KinematicBody2D
+    public class Projectile : MonoBehaviour
     {
-        // Exported Properties
-        [Export] private float speed = 100.0f;
-        [Export] private float damage = 1.0f;
-        [Export] private bool keepOnMap = true;
+        // SerializeFielded Properties
+        [SerializeField] private float speed = 100.0f;
+        [SerializeField] private float damage = 1.0f;
+        [SerializeField] private bool keepOnMap = true;
 
         // External Nodes
-        private CollisionShape2D collisionShape2D;
-        private AudioStreamPlayer2D impactAudioPlayer;
+        [SerializeField] private Rigidbody2D rigidBody;
 
         // Internal State
-        private bool hasTarget = false;
         private Vector2 targetPoint;
         private Vector2 targetDirection;
-
-        public override void _Ready()
-        {
-            collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
-            impactAudioPlayer = GetNode<AudioStreamPlayer2D>("ImpactAudioPlayer");
-            impactAudioPlayer.Connect("finished", this, nameof(OnAudioPlayerFinished));
-        }
 
         public void FireAt(Enemy.Enemy enemy)
         {
             if (enemy != null)
             {
-                targetPoint = enemy.GlobalPosition;
-                targetDirection = (targetPoint - GlobalPosition).Normalized();
-                Rotation = targetDirection.Angle();
+                Vector2 position = transform.position;
+                targetPoint = enemy.transform.position;
+                targetDirection = (targetPoint - position).normalized;
 
-                hasTarget = true;
+                float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90.0f;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+                rigidBody.velocity = speed * targetDirection;
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+        private void OnCollisionEnter2D(Collision2D col)
         {
-            if (!hasTarget) return;
-
-            MoveAndSlide(targetDirection * speed);
-            int slideCount = GetSlideCount();
-            for (int i = 0; i < slideCount; i++)
+            if (col.collider.TryGetComponent(out Enemy.Enemy e))
             {
-                KinematicCollision2D collision = GetSlideCollision(i);
-                if (collision != null)
+                e.TakeDamage(damage);
+                Destroy(gameObject);
+            }
+            else
+            {
+                if (keepOnMap)
                 {
-                    bool playSound = false;
-                    if (collision.Collider is Enemy.Enemy e)
-                    {
-                        playSound = true;
-                        e.TakeDamage(damage);
-                        hasTarget = false;
-                        collisionShape2D.Disabled = true;
-                        Visible = false;
-                        keepOnMap = false;
-                    }
-                    else if (collision.Collider is TileMap sb || collision.Collider is Door d)
-                    {
-                        playSound = true;
-                        hasTarget = false;
-                        collisionShape2D.Disabled = true;
-
-                        if (!keepOnMap)
-                        {
-                            Visible = false;
-                        }
-                    }
-
-                    if (playSound)
-                    {
-                        impactAudioPlayer.Play();
-                    }
+                    rigidBody.velocity = Vector2.zero;
+                    rigidBody.simulated = false;
+                    rigidBody.Sleep();
                 }
-            }
-        }
-
-        private void OnAudioPlayerFinished()
-        {
-            if (!keepOnMap)
-            {
-                QueueFree();
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

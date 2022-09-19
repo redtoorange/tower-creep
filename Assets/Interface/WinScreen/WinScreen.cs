@@ -1,11 +1,10 @@
-using Godot;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class WinScreen : Control
+public class WinScreen : MonoBehaviour
 {
-    [Export] private PackedScene mainMenuScene;
-    
     public void OnMainMenuPressed()
     {
-        GetTree().ChangeSceneTo(mainMenuScene);
+        SceneManager.LoadScene(0);
     }
 }

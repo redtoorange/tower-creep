@@ -1,44 +1,36 @@
 using System;
-using Godot;
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
 using TowerCreep.Map.Doors;
-using TowerCreep.Towers.Placement;
+using TowerCreep.Player;
+using UnityEngine;
 
 namespace TowerCreep.Levels.DungeonLevels
 {
-    public class DungeonLevel : Node2D
+    public class DungeonLevel : MonoBehaviour
     {
         public Action OnDungeonLevelComplete;
+        public Action OnPlayerExitedLevel;
+
 
         public static Action<DungeonLevel> OnPlayerEnteredLevel;
-        public static Action<DungeonLevel> OnPlayerExitedLevel;
 
-        private EnemyController enemyController;
-        private DoorController doorController;
+        [SerializeField] private EnemyController enemyController;
+        [SerializeField] private DoorController doorController;
+        [SerializeField] private PlayerSpawnPoint playerSpawnPoint;
 
-        [Export] private bool debugStart = false;
-
-        public override void _EnterTree()
+        private void OnEnable()
         {
-            doorController = GetNode<DoorController>("DoorController");
             doorController.OnPlayerHasEnteredRoom += HandlePlayerEnteredRoom;
             doorController.OnPlayerHasExitedRoom += HandlePlayerExitedRoom;
 
-            enemyController = GetNode<EnemyController>("EnemyController");
             EnemyController.OnEnemyControllerEvent += HandleEnemyControllerEvent;
-
-            if (debugStart)
-            {
-                GD.PrintErr("Warning: Debug Start is enabled for ", Name);
-                StartLevel();
-            }
         }
 
         private void HandlePlayerExitedRoom()
         {
             doorController.LockAllDoors();
-            OnPlayerExitedLevel?.Invoke(this);
+            OnPlayerExitedLevel?.Invoke();
         }
 
         private void HandlePlayerEnteredRoom()
@@ -48,7 +40,7 @@ namespace TowerCreep.Levels.DungeonLevels
             StartLevel();
         }
 
-        public override void _ExitTree()
+        private void OnDisable()
         {
             EnemyController.OnEnemyControllerEvent -= HandleEnemyControllerEvent;
         }
@@ -64,6 +56,13 @@ namespace TowerCreep.Levels.DungeonLevels
         public void StartLevel()
         {
             enemyController.StartSpawningMonsters();
+        }
+
+        public void TeleportPlayer(PlayerController playerController, PlayerCamera playerCamera)
+        {
+            Vector3 position = playerSpawnPoint.transform.position;
+            playerController.transform.position = position;
+            playerCamera.Teleport(position);
         }
     }
 }
