@@ -15,7 +15,7 @@ namespace TowerCreep.Interface.Menu
 
         public void OnNewGamePressed()
         {
-            GameManager.S.ChangeToGame();
+            GameManager.S.ChangeToTowerSelection();
         }
 
         public void OnLoadGamePressed()

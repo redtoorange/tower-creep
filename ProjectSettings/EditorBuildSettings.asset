@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menus/LoseScreen.unity
     guid: b209c11d3c748414db98bffb8ddbf150
+  - enabled: 1
+    path: Assets/Scenes/TowerSelection/TowerSelectionScreen.unity
+    guid: 97e4e5e9c4f5bda4ba47063eeeb81e44
   m_configObjects: {}

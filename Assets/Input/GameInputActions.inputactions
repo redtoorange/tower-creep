@@ -320,6 +320,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "TowerSelection",
+            "id": "7c73602b-c238-45e7-a583-b85f34dfe8a2",
+            "actions": [
+                {
+                    "name": "TowerDrag",
+                    "type": "Button",
+                    "id": "54988bd9-e338-441f-94c5-02d7095621a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenDescription",
+                    "type": "Button",
+                    "id": "4d5c89c3-7231-4798-9e33-5e0410e50df3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AddTower",
+                    "type": "Button",
+                    "id": "1daab2f0-c849-4f6c-9330-08a446ca0f29",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0d94f210-8333-43e3-bfc3-86256264368b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold(duration=0.05,pressPoint=0.1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TowerDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01821edc-6f11-43b4-87d0-f4c8c963ba09",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenDescription",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87f75d57-b49a-45ef-8a56-347d464d6949",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddTower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

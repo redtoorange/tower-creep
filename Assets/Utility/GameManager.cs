@@ -26,6 +26,11 @@ namespace TowerCreep.Utility
             SceneManager.LoadScene("MainMenu");
         }
         
+        public void ChangeToTowerSelection()
+        {
+            SceneManager.LoadScene("TowerSelectionScreen");
+        }
+        
         public void ChangeToGame()
         {
             SceneManager.LoadScene("MainGame");

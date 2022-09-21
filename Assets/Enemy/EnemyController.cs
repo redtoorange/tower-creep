@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TowerCreep.Enemy.EnemyControllerEvents;
-using TowerCreep.Enemy.Resources.Waves;
+using TowerCreep.Enemy.WaveData;
 using UnityEngine;
 
 namespace TowerCreep.Enemy
