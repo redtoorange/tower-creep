@@ -6,14 +6,21 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
 {
     public class AvailableTowerDragSource : DragAndDropSource
     {
+        private AvailableTowerSlot towerSlot;
+
+        private void Start()
+        {
+            towerSlot = GetComponent<AvailableTowerSlot>();
+        }
+        
         public override object GetDragAndDropData()
         {
-            return new TowerSelectionPayload(null);
+            return new TowerSelectionPayload(towerSlot.GetTowerData());
         }
 
         public override Sprite GetDragAndDropSprite()
         {
-            return GetComponent<Image>().sprite;
+            return towerSlot.GetSprite();
         }
     }
 }

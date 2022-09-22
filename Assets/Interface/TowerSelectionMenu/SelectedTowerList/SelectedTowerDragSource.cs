@@ -1,19 +1,28 @@
-﻿using System;
-using TowerCreep.Interface.DragAndDrop;
+﻿using TowerCreep.Interface.DragAndDrop;
 using UnityEngine;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
 {
     public class SelectedTowerDragSource : DragAndDropSource
     {
+        private SelectedTowerSlot towerSlot;
+
+        private void Start()
+        {
+            towerSlot = GetComponent<SelectedTowerSlot>();
+        }
+
         public override object GetDragAndDropData()
         {
-            throw new NotImplementedException();
+            return new TowerSwapPayload(
+                towerSlot.GetTowerData(),
+                towerSlot
+            );
         }
 
         public override Sprite GetDragAndDropSprite()
         {
-            throw new System.NotImplementedException();
+            return towerSlot.GetSprite();
         }
     }
 }

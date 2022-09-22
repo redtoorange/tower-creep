@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TowerCreep.Towers;
+using TowerCreep.Utility;
 using UnityEngine;
 
 namespace TowerCreep.Player.TowerCollection
@@ -21,11 +22,17 @@ namespace TowerCreep.Player.TowerCollection
             else
             {
                 Debug.LogError("Multiple PlayerTowerCollectionManager detected");
-                Destroy(this);
-                enabled = false;
+                gameObject.SetActive(false);
+                Destroy(gameObject);
             }
 
-            if (debuggingInitialTowerData != null && debuggingInitialTowerData.Count > 0)
+            List<TowerData> towerCollection = GameManager.S.GetTowerCollectionData();
+
+            if (towerCollection != null)
+            {
+                SetTowerCollection(towerCollection);
+            }
+            else if (debuggingInitialTowerData != null && debuggingInitialTowerData.Count > 0)
             {
                 Debug.Log("Using debugging tower data");
                 SetTowerCollection(debuggingInitialTowerData);

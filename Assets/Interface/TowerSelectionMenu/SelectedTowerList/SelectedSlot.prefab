@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1257562443545146981}
   - component: {fileID: 3352644825280256689}
   - component: {fileID: 755843281778696093}
+  - component: {fileID: 8881790824386075428}
   m_Layer: 5
   m_Name: SelectedSlot
   m_TagString: Untagged
@@ -34,6 +35,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1257562443733964084}
+  - {fileID: 8757787373286235263}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,6 +118,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae437e51e35a4c0fb24fb5e9f1c162f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerIconDisplay: {fileID: 877756045642091751}
+--- !u!114 &8881790824386075428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257562443545146977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba930b50fa3a4d10a6bd95e3fb1a8628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotNumber: 0
+  numberDisplay: {fileID: 1257562443733964085}
+  numberImages:
+  - {fileID: 21300000, guid: a336c8db530dbd44382703a7d001e6fa, type: 3}
+  - {fileID: 21300000, guid: afa4dc34176f4d2489779a9e6ac0341d, type: 3}
+  - {fileID: 21300000, guid: fe6b76cfcbf985c4494d5befa82865dd, type: 3}
+  - {fileID: 21300000, guid: 0c32efe6b2b79e743b4addeaa67d9fc8, type: 3}
+  - {fileID: 21300000, guid: 9b9b4ad1acf7dae4782635e71f52e68c, type: 3}
+  - {fileID: 21300000, guid: a4bd66aecec21be48967e18475caaa6d, type: 3}
+  - {fileID: 21300000, guid: d0d92dd39c2ccd6498176461d0f64464, type: 3}
+  - {fileID: 21300000, guid: 7f76169c2ddff6b4992c01cba2a93432, type: 3}
+  - {fileID: 21300000, guid: b76bd16ac31a8f84d9df3f15a1827902, type: 3}
+  - {fileID: 21300000, guid: 1b4ee21e003cb9d4e9e6e39635d85db8, type: 3}
 --- !u!1 &1257562443733964087
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +211,82 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: afa4dc34176f4d2489779a9e6ac0341d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7462568094500686602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8757787373286235263}
+  - component: {fileID: 9089530967728122964}
+  - component: {fileID: 877756045642091751}
+  m_Layer: 5
+  m_Name: TowerIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &8757787373286235263
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462568094500686602}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1257562443545146982}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.0000038146973, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &9089530967728122964
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462568094500686602}
+  m_CullTransparentMesh: 1
+--- !u!114 &877756045642091751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462568094500686602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
