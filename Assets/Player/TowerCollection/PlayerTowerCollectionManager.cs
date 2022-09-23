@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TowerCreep.Interface.HotBar;
 using TowerCreep.Towers;
 using TowerCreep.Utility;
 using UnityEngine;
@@ -7,25 +8,12 @@ namespace TowerCreep.Player.TowerCollection
 {
     public class PlayerTowerCollectionManager : MonoBehaviour
     {
-        public static PlayerTowerCollectionManager S;
-
         private List<TowerCollectionSlot> playerTowerCollection;
         [SerializeField] private List<TowerData> debuggingInitialTowerData;
+        private TowerHotBarController hotbar;
 
-        private void Awake()
+        private void Start()
         {
-            if (S == null)
-            {
-                S = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Debug.LogError("Multiple PlayerTowerCollectionManager detected");
-                gameObject.SetActive(false);
-                Destroy(gameObject);
-            }
-
             List<TowerData> towerCollection = GameManager.S.GetTowerCollectionData();
 
             if (towerCollection != null)
@@ -37,6 +25,12 @@ namespace TowerCreep.Player.TowerCollection
                 Debug.Log("Using debugging tower data");
                 SetTowerCollection(debuggingInitialTowerData);
             }
+
+            hotbar = FindObjectOfType<TowerHotBarController>();
+            if (hotbar)
+            {
+                hotbar.Initialize(playerTowerCollection);
+            }
         }
 
         public void SetTowerCollection(List<TowerData> selectedTowers)
@@ -45,14 +39,12 @@ namespace TowerCreep.Player.TowerCollection
             for (int i = 0; i < selectedTowers.Count; i++)
             {
                 TowerCollectionSlot newSlot = new TowerCollectionSlot();
-                newSlot.Initialize(selectedTowers[i]);
+                if (selectedTowers[i] != null)
+                {
+                    newSlot.Initialize(selectedTowers[i]);
+                }
                 playerTowerCollection.Add(newSlot);
             }
-        }
-
-        public List<TowerCollectionSlot> GetTowerCollection()
-        {
-            return playerTowerCollection;
         }
     }
 }

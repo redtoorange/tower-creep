@@ -12,12 +12,7 @@ namespace TowerCreep.Interface.HotBar
         public Action<TowerHotBarSlot> OnButtonSlotPressed;
 
         [SerializeField] private Sprite numberSprite;
-        public TowerCollectionSlot CollectionSlot
-        {
-            get => _collectionSlot;
-            set => SetCollectionData(value);
-        }
-        private TowerCollectionSlot _collectionSlot;
+        private TowerCollectionSlot collectionSlot;
 
         // Internal Nodes
         [SerializeField] private Image selectedBorderImage;
@@ -47,11 +42,13 @@ namespace TowerCreep.Interface.HotBar
             numberImage.sprite = numberSprite;
         }
 
-        private void SetCollectionData(TowerCollectionSlot collectionSlot)
-        {
-            _collectionSlot = collectionSlot;
+        public TowerCollectionSlot GetCollectionSlotData() => collectionSlot;
 
-            if (_collectionSlot != null)
+        public void SetCollectionSlotData(TowerCollectionSlot collectionSlot)
+        {
+            this.collectionSlot = collectionSlot;
+
+            if (collectionSlot != null && collectionSlot.CollectionTowerData != null)
             {
                 towerDisplayImage.gameObject.SetActive(true);
                 SetAvailable(true);
@@ -59,7 +56,6 @@ namespace TowerCreep.Interface.HotBar
             else
             {
                 towerDisplayImage.gameObject.SetActive(false);
-                SetAvailable(false);
             }
         }
 
@@ -90,11 +86,11 @@ namespace TowerCreep.Interface.HotBar
             IsAvailable = available;
             if (!IsAvailable)
             {
-                towerDisplayImage.sprite = _collectionSlot.CollectionTowerData.disabledTowerIcon;
+                towerDisplayImage.sprite = collectionSlot.CollectionTowerData.disabledTowerIcon;
             }
             else
             {
-                towerDisplayImage.sprite = _collectionSlot.CollectionTowerData.towerIcon;
+                towerDisplayImage.sprite = collectionSlot.CollectionTowerData.towerIcon;
             }
         }
     }
