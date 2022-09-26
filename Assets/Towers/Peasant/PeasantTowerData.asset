@@ -16,4 +16,13 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: ec3b5f99897afe04c9aeffe3ab07de5d, type: 3}
   towerName: Peasant
   towerPrefab: {fileID: 4523207255361160527, guid: 724d2c3f7a425934887bc264d32c9116, type: 3}
-  towerInformation: 
+  towerInformation: "Peasant\r\nKeywords: No Attack, Passive Ability (Mocking Blows),
+    Combo\r\nAttributes: N/A\r\n -Passive Ability: Mocking Blows: Between the Duration
+    of X - X seconds, random text boxes will periodically appear. The subject of
+    these text boxes will be filled with insults directed towards the player. No
+    tower active / passive abilities will be activated while a text box remains open.\r\n-Hidden
+    Combo (Tar & Feather: When a target with the oil debuff comes within a short
+    range of this target, a flurry of feathers will be thrown and cover the target.
+    This effect does not remove the Oil Debuff. \r\n-Combo: Combo attacks are passive
+    abilities that build up to a greater effect.\r\n-Passive Ability: An effect or
+    ability that occurs without activation.\r\n-No Attack: This tower cannot attack."

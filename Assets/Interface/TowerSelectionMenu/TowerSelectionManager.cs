@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TowerCreep.Interface.DetailsPanel;
 using TowerCreep.Interface.TowerSelectionMenu;
 using TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList;
 using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
@@ -14,6 +15,7 @@ namespace TowerCreep
 
         [SerializeField] private List<SelectedTowerSlot> selectedTowerSlots;
         [SerializeField] private TowerSelectionButtonController towerSelectionButtonController;
+        [SerializeField] private TowerDetailsPanel towerDetailsPanel;
 
         private void Awake()
         {
@@ -64,7 +66,18 @@ namespace TowerCreep
 
         private void HandleOnAvailableSlotDoubleClicked(AvailableTowerSlot slot)
         {
-            Debug.Log("Display information panel");
+            if (slot.GetTowerData() != null)
+            {
+                towerDetailsPanel.ShowTowerData(slot.GetTowerData());
+            }
+        }
+
+        private void HandleOnSelectedSlotDoubleClicked(SelectedTowerSlot slot)
+        {
+            if (slot.GetTowerData() != null)
+            {
+                towerDetailsPanel.ShowTowerData(slot.GetTowerData());
+            }
         }
 
         private void HandleOnSelectedSlotDataChanged(SelectedTowerSlot slot)
@@ -72,11 +85,6 @@ namespace TowerCreep
             int selectedTowers = GetSelectedCount();
             towerSelectionButtonController.SetReadyEnabled(selectedTowers > 0);
             towerSelectionButtonController.SetResetEnabled(selectedTowers > 0);
-        }
-
-        private void HandleOnSelectedSlotDoubleClicked(SelectedTowerSlot slot)
-        {
-            Debug.Log("Display information panel");
         }
 
         private void AddTowerToNextSlot(TowerData data)

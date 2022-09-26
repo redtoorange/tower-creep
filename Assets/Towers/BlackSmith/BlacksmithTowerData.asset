@@ -16,4 +16,17 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: 00e2e75372e4845429829a3e4a5bf429, type: 3}
   towerName: Blacksmith
   towerPrefab: {fileID: 8146667706124384404, guid: d7358670d238d9a45a13c95e58758bd6, type: 3}
-  towerInformation: 
+  towerInformation: "Blacksmith [Peasant]\r\nKeywords: No Attack, Passive Ability
+    (Reforge), Activated Ability (Overtime), Exhaustion, Buff\r\nAttributes: Medium
+    Range\r\nRange: X Squares\r\n -Passive Ability(Multichoice) Reforge: An option
+    of Slashing or Bludgeoning will need to be chosen. Aftwards, all towers that
+    deal that damage type will have a boost in damage %. \r\nDamage Bonus: X% / X%
+    / X%\r\n-Activated Ability (Overtime):Double the current effects of Reforge for
+    Xs duration. At the end of the duration, this tower suffers from the Exhaustion
+    Keyword.\r\nExhaustion Timer: Xs\r\n-Passive Ability: An effect or ability that
+    occurs without activation.\r\n-No Attack: This tower cannot attack.\r\n-Activated
+    Ability: An ability that must be activated or toggled by the player. Some activated
+    abilities may cost a specific class resource. After an ability has been activated,
+    it must finish a cooldown period before being activated again. \r\n-Exhaustion:
+    A tower under this keyword will no longer be able to provide any passive ability
+    and buff. It may not activate any ability. Until an Exhaustion timer has faded. "

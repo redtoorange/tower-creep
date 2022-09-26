@@ -16,4 +16,19 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: a109ec3eaa8ff454b81b3e7e568d9076, type: 3}
   towerName: Axe
   towerPrefab: {fileID: 2385158641363053409, guid: bb8497175bb0aa64bb10fa8b5bfb81e3, type: 3}
-  towerInformation: 
+  towerInformation: "Axe (Warrior/Berserker Class)\r\nKeywords: Bleed, On hit, Activated
+    Ability\r\nAttributes: Short Range, Medium Attack Speed, Medium Damage, Physical.\r\nRange:
+    X, Speed: X, Damage Type: Physical\r\nDamage: X / X / X\r\n               \tBleed
+    on Hit: With each hit, a target will be applied a ticking damage-over-time. This
+    will not stack but each hit will refresh the damage-over-time duration. \r\nDamage:
+    X    / X  / X\t\t\t\tDuration: Xs / Xs / Xs\r\n      \t-Activated Ability (Powerful
+    Throw): When activated, the next spinning axe will bounce to three additional
+    targets dealing base damage and applying the bleed condition with an extended
+    duration.\r\nPowerful Bleed Duration: Xs / Xs / Xs\tCooldown: X seconds\r\n-Bleed:
+    Bleed is a flat damage amount that is applied over time to the target.\r\n-On
+    Hit: On hit effects are applied when a target is hit by the tower with this keyword.
+    \r\n-Physical Attack: Physical attacks are applied against a target\u2019s armor
+    value before damage is determined.\r\n-Activated Ability: An ability that must
+    be activated or toggled by the player. Some activated abilities may cost a specific
+    class resource. After an ability has been activated, it must finish a cooldown
+    period before being activated again. "

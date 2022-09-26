@@ -16,4 +16,21 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: a476fc7f86762bd43ac41d1f89e81666, type: 3}
   towerName: Dagger
   towerPrefab: {fileID: 8144894845220660406, guid: 8cf4baddcda723841bb63574fa3a2c6a, type: 3}
-  towerInformation: 
+  towerInformation: "Dagger (Rogue) \r\nKeywords: Combo (Hit \u2018em where it hurts!),
+    Activated ability, Expose Weakness, On hit\r\nAttributes: Medium Range, Fast
+    Attack Speed, Low Damage, \r\nRange: X Squares, Speed: X, Damage Type: Physical\r\nDamage:
+    X / X / X\r\n -Expose Weakness on Hit: With each hit a target will be applied
+    with a stacking debuff marker called \u201CExpose Weakness\u201D there is no
+    duration tied to this debuff marker.\r\n\t-Combo (Hit \u2018em where it hurts!):
+    When five(5) stacks of \u201CExpose Weakness\u201D are applied to a target this
+    tower\u2019s next hit will do triple damage with X% piercing. Afterwards remove
+    all stacks of Expose Weakness. \r\n\t-Activated Ability: Fan of Knives: When
+    activated, this tower\u2019s next three (3) attacks will hit all targets within
+    its range.\r\n\tCooldown: X seconds\r\n-Combo: Combo attacks are passive abilities
+    that build up to a greater effect.\r\n-On Hit: On hit effects are applied when
+    a target is hit by the tower with this keyword. \r\n-Expose Weakness: A stacking
+    debuff marker which is used in some Combos.\r\n-Physical Attack: Physical attacks
+    are applied against a target\u2019s armor value before damage is determined.\r\n-Activated
+    Ability: An ability that must be activated or toggled by the player. Some activated
+    abilities may cost a specific class resource. After an ability has been activated,
+    it must finish a cooldown period before being activated again. "

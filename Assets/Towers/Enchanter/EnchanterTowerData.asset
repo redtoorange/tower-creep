@@ -16,4 +16,26 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: 93843610544817b46b60bdafa2359ee4, type: 3}
   towerName: Enchanter
   towerPrefab: {fileID: 2370983001602584492, guid: 4430d622e4abe484f8de9933424101b8, type: 3}
-  towerInformation: 
+  towerInformation: "Enchantment Tower v1 [Peasant]\r\nKeywords: No Attack, Toggle
+    Ability (Enchantment x3) , Passive Ability (Element), Elemental Effects (Possession),
+    Magic Attack, On Hit.\r\nAttributes: Short Range\r\nRange: X Squares\r\n\t-Toggled
+    Ability (Enchantment x3): Choose one of three options to become the current Passive
+    Ability. Selections are Fire, Lightning, and Ice.\r\n-Passive Ability(Element):The
+    chosen element will apply flat damage corresponding to its type on top of the
+    tower\u2019s current damage.\r\nDamage Added: X / X / X\r\n-Passive Ability(Element):While
+    this tower is being controlled by the player it will apply the corresponding
+    element effect. \r\nBurn (Fire): Will apply a static Damage over Time effect,
+    timer will reset with a new application of the effect.. (Hidden Bonus) Slowly
+    degrades physical type resistances while dot is applied.\r\nDamage per Tick:
+    X / X  / X\t\t\t\tDuration: Xs / Xs / Xs\r\nChain Lightning (Lightning): After
+    a target has been hit with this effect, the damage will chain to an enemy, then
+    the next after that X times.\r\nDamage: X / X  / X\t\t\t\t\tTargets: Xs / Xs
+    / Xs\r\nBrittle (Cold): Applies a stacking debuff with every hit. Each stack
+    of debuff applies a negative % to all physical resistances.\r\nResistance %:
+    X / X / X\r\n-Passive Ability: An effect or ability that occurs without activation.\r\n-Activated
+    Ability: An ability that must be activated or toggled by the player. Some activated
+    abilities may cost a specific class resource. After an ability has been activated,
+    it must finish a cooldown period before being activated again. \r\n-Magic Attack:
+    Magic attacks are applied against a target\u2019s magic armor and resistance
+    instead of their physical armor before damage is determined.\r\n-On Hit: On hit
+    effects are applied when a target is hit by the tower with this keyword"
