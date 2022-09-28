@@ -34,7 +34,8 @@ namespace TowerCreep.Interface.Tooltip
 
         public virtual Vector2 GetPosition()
         {
-            return new Vector2(transform.position.x, transform.position.y) + targetOffset;
+            Vector2 pos = transform.position;
+            return pos + targetOffset;
         }
     }
 }

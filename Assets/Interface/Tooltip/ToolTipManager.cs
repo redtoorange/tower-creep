@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TowerCreep.Interface.Tooltip
 {
@@ -11,6 +12,9 @@ namespace TowerCreep.Interface.Tooltip
         private List<ToolTipTarget> allTargets;
         private ToolTipTarget currentTarget;
         private float elapsedDelay;
+
+        private RectTransform rectTransform;
+        private Camera mainCamera;
 
 
         private void Start()
@@ -24,18 +28,41 @@ namespace TowerCreep.Interface.Tooltip
             }
 
             toolTipDisplay.Hide();
+
+            rectTransform = GetComponent<RectTransform>();
+            mainCamera = Camera.main;
         }
 
         private void Update()
         {
-            if (!ReferenceEquals(currentTarget, null) && elapsedDelay < toolTipDelay)
+            if (!ReferenceEquals(currentTarget, null))
             {
-                elapsedDelay += Time.deltaTime;
-                if (elapsedDelay >= toolTipDelay)
+                if (elapsedDelay < toolTipDelay)
                 {
-                    toolTipDisplay.SetTarget(currentTarget);
+                    elapsedDelay += Time.deltaTime;
+                    if (elapsedDelay >= toolTipDelay)
+                    {
+                        toolTipDisplay.SetPosition(CalculateTooltipPosition());
+                        toolTipDisplay.SetTarget(currentTarget);
+                    }
+                }
+                else
+                {
+                    toolTipDisplay.SetPosition(CalculateTooltipPosition());
                 }
             }
+        }
+
+        private Vector2 CalculateTooltipPosition()
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform,
+                Mouse.current.position.ReadValue(),
+                mainCamera,
+                out Vector2 pos
+            );
+            Debug.Log(pos);
+            return pos;
         }
 
         private void HandleOnMouseEnter(ToolTipTarget target)
