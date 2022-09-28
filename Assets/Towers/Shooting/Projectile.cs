@@ -18,7 +18,7 @@ namespace TowerCreep.Towers.Shooting
 
         public void FireAt(Enemy.Enemy enemy)
         {
-            if (enemy != null)
+            if (!ReferenceEquals(enemy, null))
             {
                 Vector2 position = transform.position;
                 targetPoint = enemy.transform.position;

@@ -16,7 +16,7 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
 
         public Sprite GetSprite()
         {
-            if (towerData != null)
+            if (!ReferenceEquals(towerData, null))
             {
                 return towerData.towerIcon;
             }

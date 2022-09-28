@@ -161,7 +161,7 @@ namespace TowerCreep.Enemy
         {
             Enemy e = Instantiate(currentWaveDef.enemyBasePrefab, transform);
 
-            if (mobMovementRoutePath != null && mobMovementRoutePath.positionCount > 0)
+            if (!ReferenceEquals(mobMovementRoutePath, null) && mobMovementRoutePath.positionCount > 0)
             {
                 e.Initialize(routePosition, currentWaveDef.monsterData);
                 e.transform.position = routePosition[0];

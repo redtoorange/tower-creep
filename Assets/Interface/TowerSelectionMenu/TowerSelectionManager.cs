@@ -58,7 +58,7 @@ namespace TowerCreep
 
         private void HandleOnAvailableSlotRightClicked(AvailableTowerSlot slot)
         {
-            if (slot.GetTowerData() != null)
+            if (!ReferenceEquals(slot.GetTowerData(), null))
             {
                 AddTowerToNextSlot(slot.GetTowerData());
             }
@@ -66,7 +66,7 @@ namespace TowerCreep
 
         private void HandleOnAvailableSlotDoubleClicked(AvailableTowerSlot slot)
         {
-            if (slot.GetTowerData() != null)
+            if (!ReferenceEquals(slot.GetTowerData(), null))
             {
                 towerDetailsPanel.ShowTowerData(slot.GetTowerData());
             }
@@ -74,7 +74,7 @@ namespace TowerCreep
 
         private void HandleOnSelectedSlotDoubleClicked(SelectedTowerSlot slot)
         {
-            if (slot.GetTowerData() != null)
+            if (!ReferenceEquals(slot.GetTowerData(), null))
             {
                 towerDetailsPanel.ShowTowerData(slot.GetTowerData());
             }
@@ -104,7 +104,7 @@ namespace TowerCreep
             int count = 0;
             for (int i = 0; i < selectedTowerSlots.Count; i++)
             {
-                if (selectedTowerSlots[i].GetTowerData() != null)
+                if (!ReferenceEquals(selectedTowerSlots[i].GetTowerData(), null))
                 {
                     count++;
                 }

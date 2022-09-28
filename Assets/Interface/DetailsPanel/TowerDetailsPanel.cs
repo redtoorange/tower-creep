@@ -26,7 +26,7 @@ namespace TowerCreep.Interface.DetailsPanel
 
         public void ShowTowerData(TowerData towerData)
         {
-            if (towerData != null)
+            if (!ReferenceEquals(towerData, null))
             {
                 iconDisplay.sprite = towerData.towerIcon;
                 nameDisplay.text = towerData.towerName;

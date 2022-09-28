@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3352644825280256689}
   - component: {fileID: 755843281778696093}
   - component: {fileID: 8881790824386075428}
+  - component: {fileID: 4135365582668977673}
   m_Layer: 5
   m_Name: SelectedSlot
   m_TagString: Untagged
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerIconDisplay: {fileID: 877756045642091751}
+  slotNumber: 1
 --- !u!114 &8881790824386075428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba930b50fa3a4d10a6bd95e3fb1a8628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotNumber: 0
   numberDisplay: {fileID: 1257562443733964085}
   numberImages:
   - {fileID: 21300000, guid: a336c8db530dbd44382703a7d001e6fa, type: 3}
@@ -144,6 +145,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7f76169c2ddff6b4992c01cba2a93432, type: 3}
   - {fileID: 21300000, guid: b76bd16ac31a8f84d9df3f15a1827902, type: 3}
   - {fileID: 21300000, guid: 1b4ee21e003cb9d4e9e6e39635d85db8, type: 3}
+--- !u!114 &4135365582668977673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257562443545146977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75707231cc3347aa9f3047d08ae10bd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTip: 
+  targetOffset: {x: 0, y: 0}
 --- !u!1 &1257562443733964087
 GameObject:
   m_ObjectHideFlags: 0

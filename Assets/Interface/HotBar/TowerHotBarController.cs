@@ -82,7 +82,7 @@ namespace TowerCreep.Interface.HotBar
 
         private void HandleSetTowerAsAvailable(TowerCollectionSlot collectionSlot, bool available)
         {
-            if (collectionSlot.CollectionHotBarSlot != null)
+            if (!ReferenceEquals(collectionSlot.CollectionHotBarSlot, null))
             {
                 collectionSlot.CollectionHotBarSlot.SetAvailable(available);
             }
@@ -97,14 +97,14 @@ namespace TowerCreep.Interface.HotBar
         {
             if (newSlot != currentSlot)
             {
-                if (currentSlot != null)
+                if (!ReferenceEquals(currentSlot, null))
                 {
                     currentSlot.SetSelected(false);
                 }
 
                 currentSlot = newSlot;
 
-                if (currentSlot != null && currentSlot.IsAvailable)
+                if (!ReferenceEquals(currentSlot, null) && currentSlot.IsAvailable)
                 {
                     currentSlot.SetSelected(true);
                     OnBuildingSelected?.Invoke(currentSlot.GetCollectionSlotData());

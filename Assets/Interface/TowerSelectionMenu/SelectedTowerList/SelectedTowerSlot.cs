@@ -24,7 +24,7 @@ namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
         {
             this.towerData = towerData;
 
-            if (towerData != null)
+            if (!ReferenceEquals(towerData, null))
             {
                 towerIconDisplay.sprite = towerData.towerIcon;
                 towerIconDisplay.gameObject.SetActive(true);
@@ -43,7 +43,7 @@ namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
 
         public Sprite GetSprite()
         {
-            if (towerData != null)
+            if (!ReferenceEquals(towerData, null))
             {
                 return towerData.towerIcon;
             }

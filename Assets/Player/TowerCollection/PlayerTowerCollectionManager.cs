@@ -16,11 +16,11 @@ namespace TowerCreep.Player.TowerCollection
         {
             List<TowerData> towerCollection = GameManager.S.GetTowerCollectionData();
 
-            if (towerCollection != null)
+            if (!ReferenceEquals(towerCollection, null))
             {
                 SetTowerCollection(towerCollection);
             }
-            else if (debuggingInitialTowerData != null && debuggingInitialTowerData.Count > 0)
+            else if (!ReferenceEquals(debuggingInitialTowerData, null) && debuggingInitialTowerData.Count > 0)
             {
                 Debug.Log("Using debugging tower data");
                 SetTowerCollection(debuggingInitialTowerData);
@@ -39,7 +39,7 @@ namespace TowerCreep.Player.TowerCollection
             for (int i = 0; i < selectedTowers.Count; i++)
             {
                 TowerCollectionSlot newSlot = new TowerCollectionSlot();
-                if (selectedTowers[i] != null)
+                if (!ReferenceEquals(selectedTowers[i], null))
                 {
                     newSlot.Initialize(selectedTowers[i]);
                 }

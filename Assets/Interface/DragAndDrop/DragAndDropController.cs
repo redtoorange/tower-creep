@@ -83,7 +83,7 @@ namespace TowerCreep.Interface.DragAndDrop
 
         private void HandleDragTower(InputAction.CallbackContext context)
         {
-            if (hoveredSource != null)
+            if (!ReferenceEquals(hoveredSource, null))
             {
                 dragAndDropImage.GetComponentInChildren<Image>().sprite = hoveredSource.GetDragAndDropSprite();
                 dragAndDropData = hoveredSource.GetDragAndDropData();
@@ -99,7 +99,7 @@ namespace TowerCreep.Interface.DragAndDrop
             {
                 dragAndDropImage.gameObject.SetActive(false);
                 dragging = false;
-                if (hoveredSink != null)
+                if (!ReferenceEquals(hoveredSink, null))
                 {
                     hoveredSink.DropData(dragAndDropData);
                 }

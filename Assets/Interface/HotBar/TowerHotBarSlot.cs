@@ -48,7 +48,7 @@ namespace TowerCreep.Interface.HotBar
         {
             this.collectionSlot = collectionSlot;
 
-            if (collectionSlot != null && collectionSlot.CollectionTowerData != null)
+            if (!ReferenceEquals(collectionSlot, null) && !ReferenceEquals(collectionSlot.CollectionTowerData, null))
             {
                 towerDisplayImage.gameObject.SetActive(true);
                 SetAvailable(true);
