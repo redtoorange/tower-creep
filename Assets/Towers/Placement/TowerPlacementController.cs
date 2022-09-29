@@ -88,7 +88,7 @@ namespace TowerCreep.Towers.Placement
             if (hoveredTile != tempHovered || tileIsDirty)
             {
                 hoveredTile = tempHovered;
-                isValidPlacement = hoveredTile != null &&
+                isValidPlacement = !ReferenceEquals(hoveredTile, null) &&
                                    !hoveredTile.isOccupied;
                 UpdatePlacementIcon();
 

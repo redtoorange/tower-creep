@@ -1,89 +1,70 @@
 ﻿using System;
 using TowerCreep.Towers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
 {
-    public class SelectedTowerSlot : HoverableSlot
+    public class SelectedTowerSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     {
-        public static Action<SelectedTowerSlot> OnRemoveFromSelected;
-        public static Action<SelectedTowerSlot> OnOpenManual;
-        public Action OnTowerDataChanged;
+        public static Action<SelectedTowerSlot> OnSelectedSlotDataChanged;
+        public static Action<SelectedTowerSlot> OnSelectedSlotDoubleClicked;
 
-        [SerializeField] private Sprite defaultSlotTexture;
-        [SerializeField] private GameObject previewPrefab;
-
+        [SerializeField] private Image towerIconDisplay;
         private TowerData towerData;
-        [SerializeField] private Image towerDisplay;
+        [SerializeField] int slotNumber = 1;
 
         private void Start()
         {
-            towerDisplay.sprite = defaultSlotTexture;
+            GetComponent<NumberedSlot>().SetNumber(slotNumber);
         }
 
-        public object GetDragData(Vector2 position)
+        public void SetTowerData(TowerData towerData)
         {
-            if (towerData == null) return null;
+            this.towerData = towerData;
 
-            // TextureRect tr = new TextureRect();
-            // tr.Texture = towerData.towerIcon;
-            // SetDragPreview(tr);
-            return new TowerSwapPayload(towerData, this);
-        }
-
-        public bool CanDropData(Vector2 position, object data)
-        {
-            return data is TowerSelectionPayload || data is TowerSwapPayload;
-        }
-
-        public void DropData(Vector2 position, object data)
-        {
-            if (data is TowerSelectionPayload payload)
+            if (!ReferenceEquals(towerData, null))
             {
-                SetTowerData(payload.towerData);
+                towerIconDisplay.sprite = towerData.towerIcon;
+                towerIconDisplay.gameObject.SetActive(true);
             }
-            else if (data is TowerSwapPayload swapPayload)
+            else
             {
-                if (towerData == null)
-                {
-                    swapPayload.sourceSlot.ClearTowerData();
-                }
-                else
-                {
-                    swapPayload.sourceSlot.SetTowerData(towerData);
-                }
-
-                SetTowerData(swapPayload.towerData);
+                towerIconDisplay.gameObject.SetActive(false);
             }
+
+            OnSelectedSlotDataChanged?.Invoke(this);
         }
 
-        public void ClearTowerData()
-        {
-            towerData = null;
-            towerDisplay.sprite = defaultSlotTexture;
-            // HintTooltip = null;
-            OnTowerDataChanged?.Invoke();
-        }
-
-        public void SetTowerData(TowerData data)
-        {
-            towerData = data;
-            towerDisplay.sprite = towerData.towerIcon;
-            // HintTooltip = data.towerName;
-            OnTowerDataChanged?.Invoke();
-        }
-
-        protected override void HandleDoubleLeftClicked() => OnRemoveFromSelected?.Invoke(this);
-
-        protected override void HandleRightClicked()
-        {
-            if (towerData != null)
-            {
-                OnOpenManual?.Invoke(this);
-            }
-        }
+        public int GetSlotNumber() => slotNumber;
 
         public TowerData GetTowerData() => towerData;
+
+        public Sprite GetSprite()
+        {
+            if (!ReferenceEquals(towerData, null))
+            {
+                return towerData.towerIcon;
+            }
+
+            return null;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount == 2)
+            {
+                OnSelectedSlotDoubleClicked?.Invoke(this);
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                SetTowerData(null);
+            }
+        }
     }
 }

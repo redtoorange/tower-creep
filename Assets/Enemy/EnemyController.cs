@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TowerCreep.Enemy.EnemyControllerEvents;
-using TowerCreep.Enemy.Resources.Waves;
+using TowerCreep.Enemy.WaveData;
 using UnityEngine;
 
 namespace TowerCreep.Enemy
@@ -161,7 +161,7 @@ namespace TowerCreep.Enemy
         {
             Enemy e = Instantiate(currentWaveDef.enemyBasePrefab, transform);
 
-            if (mobMovementRoutePath != null && mobMovementRoutePath.positionCount > 0)
+            if (!ReferenceEquals(mobMovementRoutePath, null) && mobMovementRoutePath.positionCount > 0)
             {
                 e.Initialize(routePosition, currentWaveDef.monsterData);
                 e.transform.position = routePosition[0];

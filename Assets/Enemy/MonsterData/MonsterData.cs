@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TowerCreep.Enemy.Resources.MonsterData
+namespace TowerCreep.Enemy.MonsterData
 {
     [CreateAssetMenu(fileName = "Data", menuName = "TowerCreep/MonsterData", order = 1)]
     public class MonsterData : ScriptableObject

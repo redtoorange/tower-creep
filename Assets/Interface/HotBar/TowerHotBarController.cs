@@ -20,25 +20,50 @@ namespace TowerCreep.Interface.HotBar
 
         private void Start()
         {
-            List<TowerCollectionSlot> towerCollection = PlayerTowerCollectionManager.S.GetTowerCollection();
+            SetupInput();
+        }
+
+        public void Initialize(List<TowerCollectionSlot> towerCollection)
+        {
+            if (towerCollection == null) return;
+
             for (int i = 0; i < towerSlots.Count; i++)
             {
                 TowerHotBarSlot hbs = towerSlots[i];
                 hbs.OnButtonSlotPressed += HandleOnButtonSlotPressed;
-                if (towerCollection != null && i < towerCollection.Count)
+                if (i < towerCollection.Count)
                 {
                     TowerCollectionSlot tcs = towerCollection[i];
-                    hbs.CollectionSlot = tcs;
+                    hbs.SetCollectionSlotData(tcs);
                     tcs.CollectionHotBarSlot = hbs;
                 }
             }
-
-            TowerPlacementController.OnStopPlacingTower += HandleStopPlacingTower;
-            TowerController.OnSetTowerAsAvailable += (slot) => HandleSetTowerAsAvailable(slot, true);
-            TowerPlacementController.OnSetTowerAsUsed += (slot) => HandleSetTowerAsAvailable(slot, false);
-
-            SetupInput();
         }
+
+        private void OnEnable()
+        {
+            TowerPlacementController.OnStopPlacingTower += HandleStopPlacingTower;
+            TowerController.OnSetTowerAsAvailable += SetTowerAsAvailable;
+            TowerPlacementController.OnSetTowerAsUsed += SetTowerAsUsed;
+        }
+
+        private void OnDisable()
+        {
+            TowerPlacementController.OnStopPlacingTower -= HandleStopPlacingTower;
+            TowerController.OnSetTowerAsAvailable -= SetTowerAsAvailable;
+            TowerPlacementController.OnSetTowerAsUsed -= SetTowerAsUsed;
+        }
+
+        private void SetTowerAsUsed(TowerCollectionSlot slot)
+        {
+            HandleSetTowerAsAvailable(slot, false);
+        }
+
+        private void SetTowerAsAvailable(TowerCollectionSlot slot)
+        {
+            HandleSetTowerAsAvailable(slot, true);
+        }
+
 
         private void SetupInput()
         {
@@ -57,7 +82,7 @@ namespace TowerCreep.Interface.HotBar
 
         private void HandleSetTowerAsAvailable(TowerCollectionSlot collectionSlot, bool available)
         {
-            if (collectionSlot.CollectionHotBarSlot != null)
+            if (!ReferenceEquals(collectionSlot.CollectionHotBarSlot, null))
             {
                 collectionSlot.CollectionHotBarSlot.SetAvailable(available);
             }
@@ -72,17 +97,17 @@ namespace TowerCreep.Interface.HotBar
         {
             if (newSlot != currentSlot)
             {
-                if (currentSlot != null)
+                if (!ReferenceEquals(currentSlot, null))
                 {
                     currentSlot.SetSelected(false);
                 }
 
                 currentSlot = newSlot;
 
-                if (currentSlot != null && currentSlot.IsAvailable)
+                if (!ReferenceEquals(currentSlot, null) && currentSlot.IsAvailable)
                 {
                     currentSlot.SetSelected(true);
-                    OnBuildingSelected?.Invoke(currentSlot.CollectionSlot);
+                    OnBuildingSelected?.Invoke(currentSlot.GetCollectionSlotData());
                 }
             }
         }

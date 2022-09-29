@@ -1,6 +1,5 @@
 ﻿using System;
 using TowerCreep.Enemy.HealthBar;
-using TowerCreep.Enemy.Resources.MonsterData;
 using TowerCreep.Map.Portals;
 using UnityEngine;
 
@@ -20,7 +19,7 @@ namespace TowerCreep.Enemy
         public static Action<Enemy> OnNeedsNewPath;
         public static Action<Enemy> OnNeedsToResetToSpawn;
 
-        [SerializeField] private MonsterData enemyData;
+        [SerializeField] private MonsterData.MonsterData enemyData;
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private SpriteRenderer monsterSpriteRenderer;
         [SerializeField] private EnemyHealthBar healthBar;
@@ -33,7 +32,7 @@ namespace TowerCreep.Enemy
         [SerializeField] private float navigationThreshold = 0.1f;
         private int routeIndex;
 
-        public void Initialize(Vector2[] movementPath, MonsterData enemyData)
+        public void Initialize(Vector2[] movementPath, MonsterData.MonsterData enemyData)
         {
             this.movementPath = movementPath;
 

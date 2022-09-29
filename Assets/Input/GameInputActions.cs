@@ -342,6 +342,74 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TowerSelection"",
+            ""id"": ""7c73602b-c238-45e7-a583-b85f34dfe8a2"",
+            ""actions"": [
+                {
+                    ""name"": ""TowerDrag"",
+                    ""type"": ""Button"",
+                    ""id"": ""54988bd9-e338-441f-94c5-02d7095621a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenDescription"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d5c89c3-7231-4798-9e33-5e0410e50df3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AddTower"",
+                    ""type"": ""Button"",
+                    ""id"": ""1daab2f0-c849-4f6c-9330-08a446ca0f29"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0d94f210-8333-43e3-bfc3-86256264368b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold(duration=0.05,pressPoint=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TowerDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01821edc-6f11-43b4-87d0-f4c8c963ba09"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDescription"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87f75d57-b49a-45ef-8a56-347d464d6949"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddTower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -380,6 +448,11 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         m_BuildBarKeys_Slot_7 = m_BuildBarKeys.FindAction("Slot_7", throwIfNotFound: true);
         m_BuildBarKeys_Slot_8 = m_BuildBarKeys.FindAction("Slot_8", throwIfNotFound: true);
         m_BuildBarKeys_Slot_9 = m_BuildBarKeys.FindAction("Slot_9", throwIfNotFound: true);
+        // TowerSelection
+        m_TowerSelection = asset.FindActionMap("TowerSelection", throwIfNotFound: true);
+        m_TowerSelection_TowerDrag = m_TowerSelection.FindAction("TowerDrag", throwIfNotFound: true);
+        m_TowerSelection_OpenDescription = m_TowerSelection.FindAction("OpenDescription", throwIfNotFound: true);
+        m_TowerSelection_AddTower = m_TowerSelection.FindAction("AddTower", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -589,6 +662,55 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         }
     }
     public BuildBarKeysActions @BuildBarKeys => new BuildBarKeysActions(this);
+
+    // TowerSelection
+    private readonly InputActionMap m_TowerSelection;
+    private ITowerSelectionActions m_TowerSelectionActionsCallbackInterface;
+    private readonly InputAction m_TowerSelection_TowerDrag;
+    private readonly InputAction m_TowerSelection_OpenDescription;
+    private readonly InputAction m_TowerSelection_AddTower;
+    public struct TowerSelectionActions
+    {
+        private @GameInputActions m_Wrapper;
+        public TowerSelectionActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TowerDrag => m_Wrapper.m_TowerSelection_TowerDrag;
+        public InputAction @OpenDescription => m_Wrapper.m_TowerSelection_OpenDescription;
+        public InputAction @AddTower => m_Wrapper.m_TowerSelection_AddTower;
+        public InputActionMap Get() { return m_Wrapper.m_TowerSelection; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TowerSelectionActions set) { return set.Get(); }
+        public void SetCallbacks(ITowerSelectionActions instance)
+        {
+            if (m_Wrapper.m_TowerSelectionActionsCallbackInterface != null)
+            {
+                @TowerDrag.started -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnTowerDrag;
+                @TowerDrag.performed -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnTowerDrag;
+                @TowerDrag.canceled -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnTowerDrag;
+                @OpenDescription.started -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnOpenDescription;
+                @OpenDescription.performed -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnOpenDescription;
+                @OpenDescription.canceled -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnOpenDescription;
+                @AddTower.started -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnAddTower;
+                @AddTower.performed -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnAddTower;
+                @AddTower.canceled -= m_Wrapper.m_TowerSelectionActionsCallbackInterface.OnAddTower;
+            }
+            m_Wrapper.m_TowerSelectionActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @TowerDrag.started += instance.OnTowerDrag;
+                @TowerDrag.performed += instance.OnTowerDrag;
+                @TowerDrag.canceled += instance.OnTowerDrag;
+                @OpenDescription.started += instance.OnOpenDescription;
+                @OpenDescription.performed += instance.OnOpenDescription;
+                @OpenDescription.canceled += instance.OnOpenDescription;
+                @AddTower.started += instance.OnAddTower;
+                @AddTower.performed += instance.OnAddTower;
+                @AddTower.canceled += instance.OnAddTower;
+            }
+        }
+    }
+    public TowerSelectionActions @TowerSelection => new TowerSelectionActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -616,5 +738,11 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         void OnSlot_7(InputAction.CallbackContext context);
         void OnSlot_8(InputAction.CallbackContext context);
         void OnSlot_9(InputAction.CallbackContext context);
+    }
+    public interface ITowerSelectionActions
+    {
+        void OnTowerDrag(InputAction.CallbackContext context);
+        void OnOpenDescription(InputAction.CallbackContext context);
+        void OnAddTower(InputAction.CallbackContext context);
     }
 }

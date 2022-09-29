@@ -47,7 +47,7 @@ namespace TowerCreep.Levels
             newLevel.OnPlayerExitedLevel += HandleDungeonLevelComplete;
             instancedLevels.Add(newLevel);
 
-            if (currentLevel != null)
+            if (!ReferenceEquals(currentLevel, null))
             {
                 Destroy(currentLevel);
                 instancedLevels.Remove(currentLevel);
@@ -68,7 +68,7 @@ namespace TowerCreep.Levels
         private void FadeOutComplete()
         {
             LoadNextLevel();
-            if (currentLevel != null)
+            if (!ReferenceEquals(currentLevel, null))
             {
                 TransitionController.S.FadeIn();
             }

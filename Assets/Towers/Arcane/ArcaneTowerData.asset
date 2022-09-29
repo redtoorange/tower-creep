@@ -16,4 +16,15 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: b7692928264460344a12066a032767e7, type: 3}
   towerName: Arcane Tower
   towerPrefab: {fileID: 4935235318904667842, guid: cadd4d578cb745e43bf86c5f6680305a, type: 3}
-  towerInformation: 
+  towerInformation: "Arcane (Mage)\r\nKeywords: Passive Ability (Magic Missile),
+    Tracking, Magic Attack \r\nAttributes: Medium Range, Slow Attack Speed, Medium
+    Damage\r\nRange: X Squares, Speed: X, Damage Type: Magic (Arcane)\r\nDamage:
+    X / X / X\r\n -Passive Ability - Magic Missile: Once a target has been selected,
+    this tower will continue to attack this target regardless of range. Shot will
+    always track and hit the target. \r\n-Magic (Arcane): This damage will ignore
+    armor and instead be applied against the target\u2019s Magic (Arcane) Resistance
+    value.\r\n-Passive Ability: An effect or ability that occurs without activation.\r\n-Tracking:
+    An attack or effect that will always follow a target regardless of range until
+    the target is dead or unable to be targeted.\r\n-Magic Attack: Magic attacks
+    are applied against a target\u2019s magic armor and resistance instead of their
+    physical armor before damage is determined."
