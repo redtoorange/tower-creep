@@ -6462,7 +6462,7 @@ MonoBehaviour:
   initialWait: 3
   enemyWaveDefs:
   - {fileID: 11400000, guid: a2fb1c0bfd26368409222d8e483d0c18, type: 2}
-  spawnerState: 1
+  spawnerState: 0
   waveCooldown: 3
   mobMovementRoutePath: {fileID: 1770541915260568668}
 --- !u!1001 &1770541914766886110

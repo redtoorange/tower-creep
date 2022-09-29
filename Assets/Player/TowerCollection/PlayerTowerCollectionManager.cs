@@ -1,34 +1,35 @@
 ﻿using System.Collections.Generic;
+using TowerCreep.Interface.HotBar;
 using TowerCreep.Towers;
+using TowerCreep.Utility;
 using UnityEngine;
 
 namespace TowerCreep.Player.TowerCollection
 {
     public class PlayerTowerCollectionManager : MonoBehaviour
     {
-        public static PlayerTowerCollectionManager S;
-
         private List<TowerCollectionSlot> playerTowerCollection;
         [SerializeField] private List<TowerData> debuggingInitialTowerData;
+        private TowerHotBarController hotbar;
 
-        private void Awake()
+        private void Start()
         {
-            if (S == null)
-            {
-                S = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Debug.LogError("Multiple PlayerTowerCollectionManager detected");
-                Destroy(this);
-                enabled = false;
-            }
+            List<TowerData> towerCollection = GameManager.S.GetTowerCollectionData();
 
-            if (debuggingInitialTowerData != null && debuggingInitialTowerData.Count > 0)
+            if (!ReferenceEquals(towerCollection, null))
+            {
+                SetTowerCollection(towerCollection);
+            }
+            else if (!ReferenceEquals(debuggingInitialTowerData, null) && debuggingInitialTowerData.Count > 0)
             {
                 Debug.Log("Using debugging tower data");
                 SetTowerCollection(debuggingInitialTowerData);
+            }
+
+            hotbar = FindObjectOfType<TowerHotBarController>();
+            if (hotbar)
+            {
+                hotbar.Initialize(playerTowerCollection);
             }
         }
 
@@ -38,14 +39,12 @@ namespace TowerCreep.Player.TowerCollection
             for (int i = 0; i < selectedTowers.Count; i++)
             {
                 TowerCollectionSlot newSlot = new TowerCollectionSlot();
-                newSlot.Initialize(selectedTowers[i]);
+                if (!ReferenceEquals(selectedTowers[i], null))
+                {
+                    newSlot.Initialize(selectedTowers[i]);
+                }
                 playerTowerCollection.Add(newSlot);
             }
-        }
-
-        public List<TowerCollectionSlot> GetTowerCollection()
-        {
-            return playerTowerCollection;
         }
     }
 }

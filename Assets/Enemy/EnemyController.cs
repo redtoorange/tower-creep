@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TowerCreep.Enemy.EnemyControllerEvents;
-using TowerCreep.Enemy.Resources.Waves;
+using TowerCreep.Enemy.WaveData;
 using UnityEngine;
 
 namespace TowerCreep.Enemy
@@ -74,9 +74,6 @@ namespace TowerCreep.Enemy
                 case MobSpawnerState.NotStarted:
                 case MobSpawnerState.Done:
                     return;
-                case MobSpawnerState.Initial:
-                    ProcessInitialState(Time.deltaTime);
-                    break;
                 case MobSpawnerState.Idle:
                     ProcessIdleState();
                     break;
@@ -160,26 +157,11 @@ namespace TowerCreep.Enemy
             }
         }
 
-        private void ProcessInitialState(float delta)
-        {
-            waveCooldownElapsed += delta;
-
-            OnEnemyControllerEvent?.Invoke(
-                new EnemyControlledTimedEvent(this, EnemyControllerEventType.CooldownStarted, initialWait)
-            );
-
-            if (waveCooldownElapsed >= initialWait)
-            {
-                spawnerState = MobSpawnerState.Idle;
-                waveCooldownElapsed = 0;
-            }
-        }
-
         public void SpawnWave()
         {
             Enemy e = Instantiate(currentWaveDef.enemyBasePrefab, transform);
 
-            if (mobMovementRoutePath != null && mobMovementRoutePath.positionCount > 0)
+            if (!ReferenceEquals(mobMovementRoutePath, null) && mobMovementRoutePath.positionCount > 0)
             {
                 e.Initialize(routePosition, currentWaveDef.monsterData);
                 e.transform.position = routePosition[0];
@@ -195,7 +177,7 @@ namespace TowerCreep.Enemy
         {
             if (spawnerState == MobSpawnerState.NotStarted)
             {
-                spawnerState = MobSpawnerState.Initial;
+                spawnerState = MobSpawnerState.Idle;
             }
         }
     }

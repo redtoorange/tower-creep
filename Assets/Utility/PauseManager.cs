@@ -47,7 +47,6 @@ namespace TowerCreep.Utility
 
         public void SetGamePaused(bool paused)
         {
-            Debug.Log("Trying to set game paused to: " + paused);
             if (paused == isGamePaused) return;
 
             if (paused)

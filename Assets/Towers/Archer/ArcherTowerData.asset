@@ -16,4 +16,14 @@ MonoBehaviour:
   disabledTowerIcon: {fileID: 21300000, guid: 48bbc166601b80f4f83c4c6d78a4379e, type: 3}
   towerName: Archer
   towerPrefab: {fileID: 7367271184813491224, guid: ffc78908a6e6f9e4895434ea365edeed, type: 3}
-  towerInformation: Some random crap
+  towerInformation: " Arrow (Ranger Class)\r\nKeywords: Piercing, Passive Ability\r\nAttributes:
+    Long Range, Medium attack speed, Medium-Low damage, Physical.\r\nRange: X Squares,
+    Speed: X, Damage Type: Physical\r\nDamage:X / X / X\t\t\t\tPiercing %: X% / X%
+    / X%\r\n               \tPassive Ability: Volley (Rain of Arrows) \u2013 After
+    landing 5 killing blows, the next attack will be an AoE of 3x3. Kills from this
+    attack won\u2019t be counted towards the 5 kill requirement. Damage for each
+    target hit will be the same as default damage and piercing % for the current
+    upgrade.\r\n-Piercing: A percentage of damage ignores the target's armor.\r\n-Passive
+    ability: An effect or ability that occurs without activation.\r\n-Physical Attack:
+    Physical attacks are applied against a target\u2019s armor value before damage
+    is determined."

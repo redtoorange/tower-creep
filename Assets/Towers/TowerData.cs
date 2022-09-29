@@ -9,6 +9,7 @@ namespace TowerCreep.Towers
         public Sprite disabledTowerIcon;
         public string towerName = "Test Data";
         public Tower towerPrefab;
+        [TextArea(15, 20)]
         public string towerInformation = "";
     }
 }

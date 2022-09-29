@@ -1,6 +1,7 @@
 using System;
 using TowerCreep.Enemy;
 using TowerCreep.Enemy.EnemyControllerEvents;
+using TowerCreep.Interface.BuildPhase;
 using TowerCreep.Map.Doors;
 using TowerCreep.Player;
 using UnityEngine;
@@ -25,7 +26,15 @@ namespace TowerCreep.Levels.DungeonLevels
             doorController.OnPlayerHasExitedRoom += HandlePlayerExitedRoom;
 
             EnemyController.OnEnemyControllerEvent += HandleEnemyControllerEvent;
+            BuildPhaseController.OnBuildPhaseComplete += StartLevel;
         }
+
+        private void OnDisable()
+        {
+            EnemyController.OnEnemyControllerEvent -= HandleEnemyControllerEvent;
+            BuildPhaseController.OnBuildPhaseComplete -= StartLevel;
+        }
+
 
         private void HandlePlayerExitedRoom()
         {
@@ -37,13 +46,8 @@ namespace TowerCreep.Levels.DungeonLevels
         {
             doorController.LockAllDoors();
             OnPlayerEnteredLevel?.Invoke(this);
-            StartLevel();
         }
 
-        private void OnDisable()
-        {
-            EnemyController.OnEnemyControllerEvent -= HandleEnemyControllerEvent;
-        }
 
         private void HandleEnemyControllerEvent(EnemyControllerEvent ece)
         {

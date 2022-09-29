@@ -18,7 +18,6 @@ namespace TowerCreep.Map.Doors
         {
             if (ece.controller == enemyController && ece.type == EnemyControllerEventType.AllWavesComplete)
             {
-                Debug.Log("Unlocking all doors");
                 UnlockAllExits();
             }
         }

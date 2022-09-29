@@ -46,7 +46,7 @@ namespace TowerCreep.Towers.Shooting
                 return;
             }
 
-            if (currentEnemy != null)
+            if (!ReferenceEquals(currentEnemy, null))
             {
                 FireShot();
                 currentCooldown = shootingDelay;

@@ -12,8 +12,11 @@ namespace TowerCreep.Player.TowerCollection
 
         public void Initialize(TowerData data)
         {
-            CollectionTowerData = data;
-            TowerProgressionData = new TowerProgressionData();
+            if (data)
+            {
+                CollectionTowerData = data;
+                TowerProgressionData = new TowerProgressionData();
+            }
         }
     }
 }
