@@ -1,6 +1,5 @@
 ﻿using TowerCreep.Interface.DragAndDrop;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
 {
@@ -12,7 +11,7 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
         {
             towerSlot = GetComponent<AvailableTowerSlot>();
         }
-        
+
         public override object GetDragAndDropData()
         {
             return new TowerSelectionPayload(towerSlot.GetTowerData());
@@ -21,6 +20,11 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
         public override Sprite GetDragAndDropSprite()
         {
             return towerSlot.GetSprite();
+        }
+
+        public override bool CanStartDragging()
+        {
+            return towerSlot.GetTowerData() != null && towerSlot.IsAvailable();
         }
     }
 }

@@ -24,5 +24,10 @@ namespace TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList
         {
             return towerSlot.GetSprite();
         }
+
+        public override bool CanStartDragging()
+        {
+            return towerSlot.GetTowerData() != null;
+        }
     }
 }

@@ -61,7 +61,6 @@ namespace TowerCreep.Interface.Tooltip
                 mainCamera,
                 out Vector2 pos
             );
-            Debug.Log(pos);
             return pos;
         }
 

@@ -1,3 +1,5 @@
+using TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList;
+using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,12 +15,12 @@ namespace TowerCreep.Interface.DragAndDrop
         private bool dragging = false;
         private bool validDropSink = false;
         private GameInputActions gameInputActions;
-        
+
         private DragAndDropSource hoveredSource;
         private DragAndDropSink hoveredSink;
-        
+
         private object dragAndDropData;
-        
+
 
         private void Start()
         {
@@ -83,7 +85,7 @@ namespace TowerCreep.Interface.DragAndDrop
 
         private void HandleDragTower(InputAction.CallbackContext context)
         {
-            if (!ReferenceEquals(hoveredSource, null))
+            if (!ReferenceEquals(hoveredSource, null) && hoveredSource.CanStartDragging())
             {
                 dragAndDropImage.GetComponentInChildren<Image>().sprite = hoveredSource.GetDragAndDropSprite();
                 dragAndDropData = hoveredSource.GetDragAndDropData();

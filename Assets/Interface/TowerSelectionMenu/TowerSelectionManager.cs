@@ -13,6 +13,8 @@ namespace TowerCreep
     {
         public static TowerSelectionManager S;
 
+        [SerializeField] private List<AvailableTowerSlot> availableTowerSlots;
+        private List<TowerData> availableTowers;
         [SerializeField] private List<SelectedTowerSlot> selectedTowerSlots;
         [SerializeField] private TowerSelectionButtonController towerSelectionButtonController;
         [SerializeField] private TowerDetailsPanel towerDetailsPanel;
@@ -31,6 +33,18 @@ namespace TowerCreep
             }
         }
 
+        private void Start()
+        {
+            availableTowers = new List<TowerData>();
+            for (int i = 0; i < availableTowerSlots.Count; i++)
+            {
+                if (availableTowerSlots[i].IsAvailable())
+                {
+                    availableTowers.Add(availableTowerSlots[i].GetTowerData());
+                }
+            }
+        }
+
         private void OnEnable()
         {
             SelectedTowerSlot.OnSelectedSlotDataChanged += HandleOnSelectedSlotDataChanged;
@@ -41,6 +55,7 @@ namespace TowerCreep
 
             towerSelectionButtonController.OnResetPressed += ClearSelectedTowers;
             towerSelectionButtonController.OnReadyPressed += HandleReadyPressed;
+            towerSelectionButtonController.OnRandomPressed += HandleRandomPressed;
         }
 
 
@@ -54,6 +69,7 @@ namespace TowerCreep
 
             towerSelectionButtonController.OnResetPressed -= ClearSelectedTowers;
             towerSelectionButtonController.OnReadyPressed -= HandleReadyPressed;
+            towerSelectionButtonController.OnRandomPressed -= HandleRandomPressed;
         }
 
         private void HandleOnAvailableSlotRightClicked(AvailableTowerSlot slot)
@@ -131,6 +147,19 @@ namespace TowerCreep
 
             GameManager.S.SetTowerCollectionData(selectedTowers);
             GameManager.S.ChangeToGame();
+        }
+
+        private void HandleRandomPressed()
+        {
+            for (int i = 0; i < selectedTowerSlots.Count; i++)
+            {
+                if (selectedTowerSlots[i].GetTowerData() == null)
+                {
+                    selectedTowerSlots[i].SetTowerData(
+                        availableTowers[Random.Range(0, availableTowers.Count)]
+                    );
+                }
+            }
         }
     }
 }

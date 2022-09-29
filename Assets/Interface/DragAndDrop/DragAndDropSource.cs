@@ -19,6 +19,11 @@ namespace TowerCreep.Interface.DragAndDrop
             OnDnDSourceMouseExit?.Invoke(this);
         }
 
+        public virtual bool CanStartDragging()
+        {
+            return true;
+        }
+
         public abstract object GetDragAndDropData();
         public abstract Sprite GetDragAndDropSprite();
     }

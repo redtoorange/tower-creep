@@ -2,6 +2,7 @@
 using TowerCreep.Towers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
 {
@@ -11,6 +12,25 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
         public static Action<AvailableTowerSlot> OnAvailableSlotDoubleClicked;
 
         [SerializeField] private TowerData towerData;
+        [SerializeField] private bool available = false;
+
+        private Image towerImage;
+
+        private void Start()
+        {
+            towerImage = GetComponent<Image>();
+            if (towerData != null)
+            {
+                if (available)
+                {
+                    towerImage.sprite = towerData.towerIcon;
+                }
+                else
+                {
+                    towerImage.sprite = towerData.disabledTowerIcon;
+                }
+            }
+        }
 
         public TowerData GetTowerData() => towerData;
 
@@ -31,13 +51,20 @@ namespace TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList
                 OnAvailableSlotDoubleClicked?.Invoke(this);
             }
         }
-        
+
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (!available) return;
+            
             if (eventData.button == PointerEventData.InputButton.Right)
             {
                 OnAvailableSlotRightClicked?.Invoke(this);
             }
+        }
+
+        public bool IsAvailable()
+        {
+            return towerData != null && available;
         }
     }
 }
