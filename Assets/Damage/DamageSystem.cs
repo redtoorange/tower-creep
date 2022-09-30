@@ -22,40 +22,71 @@ namespace TowerCreep.Damage
 
         public float ProcessAttack(Attack attack, Defender defender)
         {
-            float totalDamage = 0.0f;
+            int totalDamage = 0;
             Defense defense = defender.GetDefense();
 
             foreach (DamageSource source in attack.DamageSources)
             {
-                float rolledDamage = Random.Range(source.damageMinAmount, source.damageMaxAmount);
+                int rolledDamage = Random.Range(source.damageMinAmount, source.damageMaxAmount + 1);
+                Debug.Log($"Damage Source [{source.damageType}, {source.damageSubType}] rolled {rolledDamage} damage");
 
                 if (source.damageType == DamageType.True)
                 {
                     totalDamage += rolledDamage;
+                    Debug.Log($"\tTrue damage, {rolledDamage} damage applied");
                 }
                 else
                 {
-                    totalDamage += CalculateDamageReduction(source, defense.DamageSinks, rolledDamage);
+                    int temp = CalculateDamageReduction(source, defense.DamageSinks, rolledDamage);
+                    Debug.Log($"\tReduced damage of {temp} applied");
+                    totalDamage += temp;
                 }
             }
 
+            Debug.Log($"Total damage: {totalDamage}");
             return totalDamage;
         }
 
-        private float CalculateDamageReduction(DamageSource source, List<DamageSink> sinks, float amount)
+        private int CalculateDamageReduction(DamageSource source, List<DamageSink> sinks, int amount)
         {
-            float totalPercent = 0.0f;
+            bool hasNoSubtype = false;
+            DamageSink noSubtype = new DamageSink();
+            bool hasMatchingSubtype = false;
+            DamageSink matchingSubtype = new DamageSink();
+
             foreach (DamageSink sink in sinks)
             {
-                if (sink.defenseType == source.damageType && (sink.defenseSubType == DamageSubType.None ||
-                                                              sink.defenseSubType == source.damageSubType))
+                if (sink.defenseType == source.damageType)
                 {
-                    totalPercent += sink.defensePercent;
+                    if (sink.defenseSubType == DamageSubType.None)
+                    {
+                        Debug.Log($"\tMatching Type without a subtype: {sink.defensePercent}");
+                        hasNoSubtype = true;
+                        noSubtype = sink;
+                    }
+                    else if (sink.defenseSubType == source.damageSubType)
+                    {
+                        Debug.Log($"\tMatching Type and Subtype: {sink.defensePercent}");
+                        hasMatchingSubtype = true;
+                        matchingSubtype = sink;
+                    }
                 }
             }
 
-            float damageModifier = amount * totalPercent;
-            return amount - damageModifier;
+            int modifiedDamage = amount;
+            if (hasMatchingSubtype)
+            {
+                int modifier = Mathf.FloorToInt(modifiedDamage * matchingSubtype.defensePercent);
+                modifiedDamage -= modifier;
+            }
+
+            if (hasNoSubtype)
+            {
+                int modifier = Mathf.FloorToInt(modifiedDamage * noSubtype.defensePercent);
+                modifiedDamage -= modifier;
+            }
+
+            return modifiedDamage;
         }
     }
 }

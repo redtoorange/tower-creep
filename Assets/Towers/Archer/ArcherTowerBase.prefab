@@ -85,6 +85,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[1].damageType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[2].damageType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[1].damageSubType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[2].damageSubType
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[0].damageMaxAmount
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[0].damageMinAmount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[1].damageMaxAmount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[1].damageMinAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[2].damageMaxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[2].damageMinAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 772009346673346716, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -183,5 +227,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetingPriority: 0
   towerRangeDetection: {fileID: 5237442302969043118}
-  shootingDelay: 0.5
+  shootingDelay: 1
   projectilePrefab: {fileID: 153109226857323618, guid: c70bf1387062efe4cbab420d98917c52, type: 3}

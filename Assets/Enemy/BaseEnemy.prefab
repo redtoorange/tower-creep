@@ -184,6 +184,12 @@ MonoBehaviour:
   - defenseType: 0
     defenseSubType: 0
     defensePercent: 0.5
+  - defenseType: 0
+    defenseSubType: 2
+    defensePercent: 0.5
+  - defenseType: 1
+    defenseSubType: 4
+    defensePercent: -0.5
 --- !u!1001 &6008650522446134496
 PrefabInstance:
   m_ObjectHideFlags: 0

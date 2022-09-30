@@ -7,7 +7,7 @@ namespace TowerCreep.Damage
     {
         public DamageType damageType;
         public DamageSubType damageSubType;
-        public float damageMinAmount;
-        public float damageMaxAmount;
+        public int damageMinAmount;
+        public int damageMaxAmount;
     }
 }
