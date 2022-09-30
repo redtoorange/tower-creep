@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BatData
   m_EditorClassIdentifier: 
   mobSprite: {fileID: 21300000, guid: b64066f5dba7a1248870f02ee6007e4f, type: 3}
-  mobHealth: 1
+  mobHealth: 10
   mobSpeed: 5
   mobDamage: 1
+  damageSinks: []

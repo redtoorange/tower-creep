@@ -89,6 +89,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[0].damageMaxAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.data[0].damageMinAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 772009346673346689, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
       propertyPath: m_Sprite
       value: 

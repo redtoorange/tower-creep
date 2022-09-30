@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyBasePrefab: {fileID: 4987203987885677576, guid: d121d9cafd6a03645870ba15c03f8be3, type: 3}
   monsterData: {fileID: 11400000, guid: 5c6a566acad61874c9c7897f632ae5e9, type: 2}
-  spawnCount: 10
-  spawnInterval: 1
+  spawnCount: 20
+  spawnInterval: 0.5

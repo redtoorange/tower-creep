@@ -4725,7 +4725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerData: {fileID: 11400000, guid: 638ce027a97113f449279128364b66e7, type: 2}
-  available: 1
+  available: 0
 --- !u!114 &1125859279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6969,7 +6969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerData: {fileID: 11400000, guid: abba989b2708b194c947bfab8c0a9f80, type: 2}
-  available: 1
+  available: 0
 --- !u!114 &1904796945
 MonoBehaviour:
   m_ObjectHideFlags: 0

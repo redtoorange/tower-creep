@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TowerCreep.Damage;
 using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
@@ -55,13 +56,16 @@ namespace TowerCreep.Towers.Shooting
 
         private void FireShot()
         {
-            Projectile projectile = Instantiate(
-                projectilePrefab,
-                transform.position,
-                Quaternion.identity,
-                transform
-            );
-            projectile.FireAt(currentEnemy);
+            if (TryGetComponent(out Attacker a))
+            {
+                Projectile projectile = Instantiate(
+                    projectilePrefab,
+                    transform.position,
+                    Quaternion.identity,
+                    transform
+                );
+                projectile.FireAt(a.GetAttack(), currentEnemy);
+            }
         }
 
         private void HandleEnemyDie(Enemy.Enemy enemy)
