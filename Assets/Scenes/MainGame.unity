@@ -1548,6 +1548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116224824}
   - component: {fileID: 2116224823}
+  - component: {fileID: 2116224825}
   m_Layer: 0
   m_Name: DamageSystem
   m_TagString: Untagged
@@ -1582,6 +1583,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2116224825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116224822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b15a2c356945698b2d7a6e4802018d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 3025426581868088057, guid: 0dc6fdb6255de974f87f074f48977b53, type: 3}
 --- !u!224 &2117876310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6954467967516999415, guid: 0173a66d3f446284bb77d8e1180bc308, type: 3}

@@ -180,16 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cfa49ce88004ad99002266983996ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSinks:
-  - defenseType: 0
-    defenseSubType: 0
-    defensePercent: 0.5
-  - defenseType: 0
-    defenseSubType: 2
-    defensePercent: 0.5
-  - defenseType: 1
-    defenseSubType: 4
-    defensePercent: -0.5
+  damageSinks: []
 --- !u!1001 &6008650522446134496
 PrefabInstance:
   m_ObjectHideFlags: 0

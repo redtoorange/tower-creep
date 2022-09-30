@@ -11,5 +11,10 @@ namespace TowerCreep.Damage
         {
             return new Defense { DamageSinks = damageSinks };
         }
+
+        public void SetDamageSinks(List<DamageSink> enemyDataDamageSinks)
+        {
+            damageSinks = enemyDataDamageSinks;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using TowerCreep.Damage;
 using TowerCreep.Enemy.HealthBar;
 using TowerCreep.Map.Portals;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace TowerCreep.Enemy
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private SpriteRenderer monsterSpriteRenderer;
         [SerializeField] private EnemyHealthBar healthBar;
+        [SerializeField] private Defender defender;
 
         private float maxHealth = 10.0f;
         private float health = 10.0f;
@@ -31,6 +33,11 @@ namespace TowerCreep.Enemy
         private Vector2[] movementPath;
         [SerializeField] private float navigationThreshold = 0.1f;
         private int routeIndex;
+
+        private void Awake()
+        {
+            defender = GetComponent<Defender>();
+        }
 
         public void Initialize(Vector2[] movementPath, MonsterData.MonsterData enemyData)
         {
@@ -41,6 +48,8 @@ namespace TowerCreep.Enemy
             health = maxHealth;
             speed = enemyData.mobSpeed;
             monsterSpriteRenderer.sprite = enemyData.mobSprite;
+
+            defender.SetDamageSinks(this.enemyData.damageSinks);
         }
 
         public virtual void Die()
@@ -54,6 +63,8 @@ namespace TowerCreep.Enemy
         {
             health -= damage;
             healthBar.SetFillPercent(health / maxHealth);
+
+            DamagePopupController.S.CreatePopup(transform.position, damage.ToString("0"));
 
             if (health <= 0)
             {
