@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace TowerCreep
 {
-    public class TowerSelectionManager : MonoBehaviour
+    public class TowerSelectionMenuController : MonoBehaviour
     {
-        public static TowerSelectionManager S;
+        public static TowerSelectionMenuController S;
 
         [SerializeField] private List<AvailableTowerSlot> availableTowerSlots;
         private List<TowerData> availableTowers;
@@ -27,7 +27,7 @@ namespace TowerCreep
             }
             else
             {
-                Debug.LogError("Two TowerSelectionManager's detected");
+                Debug.LogError("Two TowerSelectionMenuController's detected");
                 enabled = false;
                 Destroy(this);
             }

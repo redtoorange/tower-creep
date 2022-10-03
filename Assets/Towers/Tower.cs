@@ -33,5 +33,20 @@ namespace TowerCreep.Towers
         {
             return collectionSlot;
         }
+        
+        private void OnMouseEnter()
+        {
+            Debug.Log("OnMouseEnter()");
+        }
+
+        private void OnMouseExit()
+        {
+            Debug.Log("OnMouseExit()");
+        }
+
+        private void OnMouseOver()
+        {
+            Debug.Log("OnMouseOver()");
+        }
     }
 }

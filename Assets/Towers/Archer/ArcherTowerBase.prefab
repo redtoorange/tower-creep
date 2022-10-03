@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeDetector
       objectReference: {fileID: 0}
+    - target: {fileID: 5511873692122852957, guid: 9dc63e3c9cdb21e4881834d29df590c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6459930608621703409, guid: 9dc63e3c9cdb21e4881834d29df590c3, type: 3}
       propertyPath: m_RootOrder
       value: -1

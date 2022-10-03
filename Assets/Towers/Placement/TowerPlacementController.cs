@@ -1,7 +1,6 @@
 using System;
 using TowerCreep.Interface.HotBar;
 using TowerCreep.Player.TowerCollection;
-using TowerCreep.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +8,7 @@ namespace TowerCreep.Towers.Placement
 {
     public class TowerPlacementController : MonoBehaviour
     {
+        public static Action OnStartPlacingTower;
         public static Action OnStopPlacingTower;
         public static Action<TowerCollectionSlot> OnSetTowerAsUsed;
 
@@ -69,30 +69,14 @@ namespace TowerCreep.Towers.Placement
             if (!selectedTower.IsPlaced)
             {
                 currentlySelectedTower = selectedTower;
+                OnStartPlacingTower?.Invoke();
                 isPlacingTower = true;
             }
             else
             {
                 currentlySelectedTower = null;
                 isPlacingTower = false;
-            }
-        }
-
-        private void Update()
-        {
-            // if (!isPlacingTower || currentlySelectedTower == null) return;
-
-            if (!isPlacingTower) return;
-
-            BuildableTile tempHovered = GetHoveredTile();
-            if (hoveredTile != tempHovered || tileIsDirty)
-            {
-                hoveredTile = tempHovered;
-                isValidPlacement = !ReferenceEquals(hoveredTile, null) &&
-                                   !hoveredTile.isOccupied;
-                UpdatePlacementIcon();
-
-                tileIsDirty = false;
+                OnStopPlacingTower?.Invoke();
             }
         }
 
@@ -168,6 +152,20 @@ namespace TowerCreep.Towers.Placement
             currentlySelectedTower = null;
             tileIsDirty = true;
             StopPlacingTower();
+        }
+
+        public void ProcessUpdate()
+        {
+            BuildableTile tempHovered = GetHoveredTile();
+            if (hoveredTile != tempHovered || tileIsDirty)
+            {
+                hoveredTile = tempHovered;
+                isValidPlacement = !ReferenceEquals(hoveredTile, null) &&
+                                   !hoveredTile.isOccupied;
+                UpdatePlacementIcon();
+
+                tileIsDirty = false;
+            }
         }
     }
 }
