@@ -274,7 +274,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 512
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -2242,7 +2242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3760084196195673874, guid: 36bd7e95d1107334e8af09bd31b2b7ae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -76.33165
       objectReference: {fileID: 0}
     - target: {fileID: 3760084196195673874, guid: 36bd7e95d1107334e8af09bd31b2b7ae, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -23,21 +23,15 @@ namespace TowerCreep.Towers.Placement
         [SerializeField] private GameObject invalidPlacementIcon;
         [SerializeField] private ContactFilter2D buildableTileFilter;
 
-        private GameInputActions inputActions;
+        
         private Camera mainCamera;
 
         private void Start()
         {
             mainCamera = Camera.main;
-
-            inputActions = new GameInputActions();
-            inputActions.Enable();
-
-            inputActions.PlayerActions.StopBuilding.performed += HandleStopBuildingPressed;
-            inputActions.PlayerActions.PlaceBuilding.performed += HandlePlaceBuildingPressed;
         }
 
-        private void HandlePlaceBuildingPressed(InputAction.CallbackContext obj)
+        public void HandleLeftClick(InputAction.CallbackContext obj)
         {
             if (isPlacingTower)
             {
@@ -45,7 +39,7 @@ namespace TowerCreep.Towers.Placement
             }
         }
 
-        private void HandleStopBuildingPressed(InputAction.CallbackContext obj)
+        public void HandleRightClick(InputAction.CallbackContext obj)
         {
             if (isPlacingTower)
             {

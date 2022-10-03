@@ -10,9 +10,27 @@ namespace TowerCreep.Towers.Selection
 
         private Camera camera;
 
+        private Tower hoveredTower;
+        private Tower selectedTower;
+
         private void Awake()
         {
             camera = Camera.main;
+        }
+
+        private void OnEnable()
+        {
+            Tower.OnTowerSelectionStateChange += HandleTowerSelectionChange;
+        }
+
+        private void OnDisable()
+        {
+            Tower.OnTowerSelectionStateChange -= HandleTowerSelectionChange;
+        }
+
+        private void HandleTowerSelectionChange(TowerSelectionStateChange stateChange)
+        {
+            Debug.Log("Processed a state change for " + stateChange.tower.gameObject.name);
         }
 
         public void ProcessUpdate()
@@ -20,7 +38,16 @@ namespace TowerCreep.Towers.Selection
             List<Tower> towers = CheckForTower();
             if (towers.Count == 1)
             {
-                Debug.Log("Hovering Over " + towers[0].gameObject.name);
+                hoveredTower = towers[0];
+                hoveredTower.SetHovered(true);
+            }
+            else
+            {
+                if (!ReferenceEquals(hoveredTower, null))
+                {
+                    hoveredTower.SetHovered(false);
+                    hoveredTower = null;
+                }
             }
         }
 
@@ -45,6 +72,29 @@ namespace TowerCreep.Towers.Selection
             }
 
             return towers;
+        }
+
+        public void HandleLeftClick(InputAction.CallbackContext callbackContext)
+        {
+            if (!ReferenceEquals(hoveredTower, null))
+            {
+                if (!ReferenceEquals(selectedTower, null))
+                {
+                    selectedTower.SetSelected(false);
+                }
+
+                hoveredTower.SetSelected(true);
+                selectedTower = hoveredTower;
+            }
+        }
+
+        public void HandleRightClick(InputAction.CallbackContext callbackContext)
+        {
+            if (!ReferenceEquals(selectedTower, null))
+            {
+                selectedTower.SetSelected(false);
+                selectedTower = null;
+            }
         }
     }
 }
