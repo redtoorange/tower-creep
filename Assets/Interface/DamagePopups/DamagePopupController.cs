@@ -1,7 +1,6 @@
-﻿using TowerCreep.Interface.DamagePopups;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TowerCreep
+namespace TowerCreep.Interface.DamagePopups
 {
     public class DamagePopupController : MonoBehaviour
     {

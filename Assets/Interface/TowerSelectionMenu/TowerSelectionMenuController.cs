@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using TowerCreep.Interface.DetailsPanel;
-using TowerCreep.Interface.TowerSelectionMenu;
 using TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList;
 using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
 using TowerCreep.Towers;
 using TowerCreep.Utility;
 using UnityEngine;
 
-namespace TowerCreep
+namespace TowerCreep.Interface.TowerSelectionMenu
 {
-    public class TowerSelectionManager : MonoBehaviour
+    public class TowerSelectionMenuController : MonoBehaviour
     {
-        public static TowerSelectionManager S;
+        public static TowerSelectionMenuController S;
 
         [SerializeField] private List<AvailableTowerSlot> availableTowerSlots;
         private List<TowerData> availableTowers;
@@ -27,7 +26,7 @@ namespace TowerCreep
             }
             else
             {
-                Debug.LogError("Two TowerSelectionManager's detected");
+                Debug.LogError("Two TowerSelectionMenuController's detected");
                 enabled = false;
                 Destroy(this);
             }
