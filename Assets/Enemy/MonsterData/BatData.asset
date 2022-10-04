@@ -16,4 +16,5 @@ MonoBehaviour:
   mobHealth: 10
   mobSpeed: 5
   mobDamage: 1
+  experienceValue: 10
   damageSinks: []

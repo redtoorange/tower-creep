@@ -81,5 +81,10 @@ namespace TowerCreep.Towers
                 hoveredSprite.enabled = true;
             }
         }
+
+        public void RewardExperience(int amount)
+        {
+            collectionSlot.TowerProgressionData.GiveExperience(amount);
+        }
     }
 }

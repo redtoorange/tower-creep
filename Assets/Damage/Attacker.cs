@@ -9,7 +9,7 @@ namespace TowerCreep.Damage
 
         public Attack GetAttack()
         {
-            return new Attack { DamageSources = damageSources };
+            return new Attack(this, damageSources);
         }
     }
 }
