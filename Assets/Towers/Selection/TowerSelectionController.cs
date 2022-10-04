@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,9 @@ namespace TowerCreep.Towers.Selection
 {
     public class TowerSelectionController : MonoBehaviour
     {
+        public Action<Tower> OnTowerSelected;
+        public Action<Tower> OnTowerDeSelected;
+
         [SerializeField] private ContactFilter2D towerFilter;
 
         private Camera camera;
@@ -30,7 +34,17 @@ namespace TowerCreep.Towers.Selection
 
         private void HandleTowerSelectionChange(TowerSelectionStateChange stateChange)
         {
-            Debug.Log("Processed a state change for " + stateChange.tower.gameObject.name);
+            if (stateChange.newSelectedState != stateChange.oldSelectedState)
+            {
+                if (stateChange.newSelectedState == TowerSelectionState.Selected)
+                {
+                    OnTowerSelected?.Invoke(stateChange.tower);
+                }
+                else if (stateChange.newSelectedState == TowerSelectionState.DeSelected)
+                {
+                    OnTowerDeSelected?.Invoke(stateChange.tower);
+                }
+            }
         }
 
         public void ProcessUpdate()

@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using TowerCreep.Interface.DetailsPanel;
-using TowerCreep.Interface.TowerSelectionMenu;
 using TowerCreep.Interface.TowerSelectionMenu.AvailableTowerList;
 using TowerCreep.Interface.TowerSelectionMenu.SelectedTowerList;
 using TowerCreep.Towers;
 using TowerCreep.Utility;
 using UnityEngine;
 
-namespace TowerCreep
+namespace TowerCreep.Interface.TowerSelectionMenu
 {
     public class TowerSelectionMenuController : MonoBehaviour
     {
