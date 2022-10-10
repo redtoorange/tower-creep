@@ -14,9 +14,11 @@ namespace TowerCreep.Towers.Shooting
 
         private void Awake()
         {
-            UpdateCircle();
             SetShow(false);
+        }
 
+        private void Start()
+        {
             Tower tower = GetComponentInParent<Tower>();
             if (!ReferenceEquals(tower, null))
             {
@@ -40,7 +42,6 @@ namespace TowerCreep.Towers.Shooting
             // Avoid updating the circle for very tiny changes
             if (Mathf.Epsilon < Mathf.Abs(this.radius - radius))
             {
-                Debug.Log("Updated circle");
                 this.radius = radius;
                 UpdateCircle();
             }
@@ -70,6 +71,11 @@ namespace TowerCreep.Towers.Shooting
 
         public void SetShow(bool shouldShow)
         {
+            if (shouldShow)
+            {
+                UpdateCircle();
+            }
+
             lineRenderer.enabled = shouldShow;
         }
     }

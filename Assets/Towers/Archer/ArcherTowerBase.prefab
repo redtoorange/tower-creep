@@ -69,17 +69,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dc63e3c9cdb21e4881834d29df590c3, type: 3}
---- !u!114 &5237442302969043118 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5170546464662803219, guid: 9dc63e3c9cdb21e4881834d29df590c3, type: 3}
-  m_PrefabInstance: {fileID: 1111925783681698749}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536eb98c508439a438061e7d4b985c3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6253268090581408588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6459930608621703409, guid: 9dc63e3c9cdb21e4881834d29df590c3, type: 3}
@@ -2323,6 +2312,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetingPriority: 0
-  towerRangeDetection: {fileID: 5237442302969043118}
   shootingDelay: 1
   projectilePrefab: {fileID: 153109226857323618, guid: c70bf1387062efe4cbab420d98917c52, type: 3}
