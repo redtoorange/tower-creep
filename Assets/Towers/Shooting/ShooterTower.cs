@@ -8,7 +8,10 @@ namespace TowerCreep.Towers.Shooting
     public class ShooterTower : MonoBehaviour
     {
         [SerializeField] private TargetingPriority targetingPriority;
-        [SerializeField] private TowerRangeDetection towerRangeDetection;
+
+        private TowerRangeDetection towerRangeDetection;
+        private TowerRangePreview towerRangePreview;
+
         [SerializeField] private float shootingDelay = 0.5f;
         [SerializeField] private Projectile projectilePrefab;
 
@@ -19,6 +22,12 @@ namespace TowerCreep.Towers.Shooting
 
         private TowerProgressionData towerProgressionData;
         private TowerLevelData towerLevelData;
+
+        private void Awake()
+        {
+            towerRangeDetection = GetComponentInChildren<TowerRangeDetection>();
+            towerRangePreview = GetComponentInChildren<TowerRangePreview>();
+        }
 
         private void Start()
         {
@@ -46,8 +55,10 @@ namespace TowerCreep.Towers.Shooting
                 float shotsPerMinute = records[0].Speed;
                 float shotsPerSecond = shotsPerMinute / 60.0f;
                 shootingDelay = 1.0f / shotsPerSecond;
-                
-                towerRangeDetection.SetRange(records[0].Range);
+
+                int range = Mathf.RoundToInt(records[0].Range);
+                towerRangeDetection.SetRange(range);
+                towerRangePreview.SetRange(range);
             }
         }
 
@@ -64,7 +75,7 @@ namespace TowerCreep.Towers.Shooting
         {
             towerRangeDetection.OnEnemyHasEnteredRange -= AddEnemy;
             towerRangeDetection.OnEnemyHasExitedRange -= RemoveEnemy;
-
+            towerProgressionData.OnTowerLevelChangeChange -= ParseAttacks;
             Enemy.Enemy.OnDie -= HandleEnemyDie;
         }
 

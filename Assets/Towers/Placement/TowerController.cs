@@ -9,6 +9,7 @@ namespace TowerCreep.Towers.Placement
     public class TowerController : MonoBehaviour
     {
         public static Action<TowerCollectionSlot> OnSetTowerAsAvailable;
+        public static Action<Tower> OnTowerRemoved;
 
         private List<Tower> controlledTowers;
         [SerializeField] private DungeonLevel currentDungeonLevel;
@@ -37,6 +38,9 @@ namespace TowerCreep.Towers.Placement
 
         private void DeconstructTower(Tower which)
         {
+            which.SetHovered(false);
+            which.SetSelected(false);
+            OnTowerRemoved?.Invoke(which);
             TowerCollectionSlot collectionSlot = which.GetCollectionSlotData();
             collectionSlot.IsPlaced = false;
             OnSetTowerAsAvailable?.Invoke(collectionSlot);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TowerCreep.Towers.Placement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,20 @@ namespace TowerCreep.Towers.Selection
         private void OnEnable()
         {
             Tower.OnTowerSelectionStateChange += HandleTowerSelectionChange;
+            TowerController.OnTowerRemoved += HandleTowerRemoved;
+        }
+
+        private void HandleTowerRemoved(Tower which)
+        {
+            if (ReferenceEquals(which, hoveredTower))
+            {
+                hoveredTower = null;
+            }
+
+            if (ReferenceEquals(which, selectedTower))
+            {
+                selectedTower = null;
+            }
         }
 
         private void OnDisable()

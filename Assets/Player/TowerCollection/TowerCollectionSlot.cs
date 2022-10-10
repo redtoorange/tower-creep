@@ -1,4 +1,5 @@
-﻿using TowerCreep.Interface.HotBar;
+﻿using System.Collections.Generic;
+using TowerCreep.Interface.HotBar;
 using TowerCreep.Towers;
 
 namespace TowerCreep.Player.TowerCollection
@@ -19,6 +20,11 @@ namespace TowerCreep.Player.TowerCollection
                 TowerProgressionData = new TowerProgressionData();
                 TowerLevelData = TowerLevelDataManager.S.GetLevelData(data);
             }
+        }
+
+        public List<TowerLevelDataRecord> GetCurrentLevelRecordData()
+        {
+            return TowerLevelData.GetData(TowerProgressionData.CurrentLevel);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace TowerCreep.Towers
 
         public Action OnTowerPlaced;
         public Action OnTowerRemoved;
+        public Action OnTowerSelected;
+        public Action OnTowerDeselected;
 
         [SerializeField] private SpriteRenderer towerSprite;
         [SerializeField] private SpriteRenderer hoveredSprite;
@@ -51,6 +53,15 @@ namespace TowerCreep.Towers
                 ));
                 selectionState = newState;
                 UpdateVisual();
+
+                if (selectionState == TowerSelectionState.Selected)
+                {
+                    OnTowerSelected?.Invoke();
+                }
+                else
+                {
+                    OnTowerDeselected?.Invoke();
+                }
             }
         }
 
