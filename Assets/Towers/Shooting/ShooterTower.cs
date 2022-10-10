@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TowerCreep.Damage;
+using TowerCreep.Player.TowerCollection;
 using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
@@ -16,11 +17,36 @@ namespace TowerCreep.Towers.Shooting
         private Enemy.Enemy currentEnemy;
         private float currentCooldown = 0.0f;
 
+        private TowerProgressionData towerProgressionData;
+        private TowerLevelData towerLevelData;
 
         private void Start()
         {
             allEnemiesInRange = new List<Enemy.Enemy>();
             attacker = GetComponent<Attacker>();
+
+            Tower tower = GetComponent<Tower>();
+            TowerCollectionSlot collectionSlot = tower.GetCollectionSlotData();
+
+            towerProgressionData = collectionSlot.TowerProgressionData;
+            towerProgressionData.OnTowerLevelChangeChange += ParseAttacks;
+            towerLevelData = collectionSlot.TowerLevelData;
+
+            ParseAttacks();
+        }
+
+        private void ParseAttacks()
+        {
+            List<TowerLevelDataRecord> records = towerLevelData.GetData(
+                towerProgressionData.CurrentLevel
+            );
+
+            if (records.Count > 0)
+            {
+                float shotsPerMinute = records[0].Speed;
+                float shotsPerSecond = shotsPerMinute / 60.0f;
+                shootingDelay = 1.0f / shotsPerSecond;
+            }
         }
 
         private void OnEnable()
