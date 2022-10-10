@@ -9,18 +9,20 @@ namespace TowerCreep.Towers.Shooting
         [SerializeField] private float radius = 3.0f;
         [SerializeField] private float lineThickness = 0.1f;
 
-        private LineRenderer lineRenderer;
+        [SerializeField] private LineRenderer lineRenderer;
         private int pointCount;
 
         private void Awake()
         {
-            lineRenderer = GetComponent<LineRenderer>();
-            ConstructCircle();
+            UpdateCircle();
             SetShow(false);
 
             Tower tower = GetComponentInParent<Tower>();
-            tower.OnTowerSelected += HandleSelected;
-            tower.OnTowerDeselected += HandleDeselected;
+            if (!ReferenceEquals(tower, null))
+            {
+                tower.OnTowerSelected += HandleSelected;
+                tower.OnTowerDeselected += HandleDeselected;
+            }
         }
 
         private void HandleDeselected()
@@ -36,15 +38,16 @@ namespace TowerCreep.Towers.Shooting
         public void SetRange(float radius)
         {
             // Avoid updating the circle for very tiny changes
-            if (Mathf.Epsilon > Mathf.Abs(this.radius - radius))
+            if (Mathf.Epsilon < Mathf.Abs(this.radius - radius))
             {
+                Debug.Log("Updated circle");
                 this.radius = radius;
-                ConstructCircle();
+                UpdateCircle();
             }
         }
 
-        [ContextMenu("ConstructCircle()")]
-        private void ConstructCircle()
+        [ContextMenu("UpdateCircle()")]
+        public void UpdateCircle()
         {
             pointCount = (int)(2.0f * Mathf.PI / smoothness) + 1;
 

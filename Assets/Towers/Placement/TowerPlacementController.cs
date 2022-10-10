@@ -19,11 +19,10 @@ namespace TowerCreep.Towers.Placement
         private bool isValidPlacement = false;
         private bool tileIsDirty = false;
 
-        [SerializeField] private GameObject validPlacementIcon;
-        [SerializeField] private GameObject invalidPlacementIcon;
         [SerializeField] private ContactFilter2D buildableTileFilter;
+        [SerializeField] private TowerPlacementGhost towerPlacementGhost;
 
-        
+
         private Camera mainCamera;
 
         private void Start()
@@ -63,6 +62,7 @@ namespace TowerCreep.Towers.Placement
             if (!selectedTower.IsPlaced)
             {
                 currentlySelectedTower = selectedTower;
+                towerPlacementGhost.SetData(currentlySelectedTower);
                 OnStartPlacingTower?.Invoke();
                 isPlacingTower = true;
             }
@@ -102,27 +102,15 @@ namespace TowerCreep.Towers.Placement
 
         private void UpdatePlacementIcon()
         {
-            if (hoveredTile == null)
+            if (ReferenceEquals(hoveredTile, null))
             {
-                validPlacementIcon.SetActive(false);
-                invalidPlacementIcon.SetActive(false);
+                towerPlacementGhost.SetShown(false);
             }
             else
             {
-                if (isValidPlacement)
-                {
-                    validPlacementIcon.SetActive(true);
-                    invalidPlacementIcon.SetActive(false);
-                    validPlacementIcon.transform.position =
-                        hoveredTile.transform.position;
-                }
-                else
-                {
-                    validPlacementIcon.SetActive(false);
-                    invalidPlacementIcon.SetActive(true);
-                    invalidPlacementIcon.transform.position =
-                        hoveredTile.transform.position;
-                }
+                towerPlacementGhost.SetShown(true);
+                towerPlacementGhost.SetValid(isValidPlacement);
+                towerPlacementGhost.SetPosition(hoveredTile.transform.position);
             }
         }
 
