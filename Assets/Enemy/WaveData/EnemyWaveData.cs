@@ -9,5 +9,6 @@ namespace TowerCreep.Enemy.WaveData
         [SerializeField] public MonsterData.MonsterData monsterData;
         [SerializeField] public int spawnCount = 10;
         [SerializeField] public float spawnInterval = 1.0f;
+        [SerializeField] public int experienceCompletionValue = 0;
     }
 }

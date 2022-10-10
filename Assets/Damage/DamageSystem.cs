@@ -27,7 +27,7 @@ namespace TowerCreep.Damage
 
             foreach (DamageSource source in attack.DamageSources)
             {
-                int rolledDamage = Random.Range(source.damageMinAmount, source.damageMaxAmount + 1);
+                int rolledDamage = Mathf.RoundToInt(Random.Range(source.damageMinAmount, source.damageMaxAmount));
                 Debug.Log($"Damage Source [{source.damageType}, {source.damageSubType}] rolled {rolledDamage} damage");
 
                 if (source.damageType == DamageType.True)

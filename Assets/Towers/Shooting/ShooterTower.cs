@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TowerCreep.Damage;
+using TowerCreep.Player.TowerCollection;
 using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
@@ -11,14 +12,43 @@ namespace TowerCreep.Towers.Shooting
         [SerializeField] private float shootingDelay = 0.5f;
         [SerializeField] private Projectile projectilePrefab;
 
+        private Attacker attacker;
         private List<Enemy.Enemy> allEnemiesInRange;
         private Enemy.Enemy currentEnemy;
         private float currentCooldown = 0.0f;
 
+        private TowerProgressionData towerProgressionData;
+        private TowerLevelData towerLevelData;
 
         private void Start()
         {
             allEnemiesInRange = new List<Enemy.Enemy>();
+            attacker = GetComponent<Attacker>();
+
+            Tower tower = GetComponent<Tower>();
+            TowerCollectionSlot collectionSlot = tower.GetCollectionSlotData();
+
+            towerProgressionData = collectionSlot.TowerProgressionData;
+            towerProgressionData.OnTowerLevelChangeChange += ParseAttacks;
+            towerLevelData = collectionSlot.TowerLevelData;
+
+            ParseAttacks();
+        }
+
+        private void ParseAttacks()
+        {
+            List<TowerLevelDataRecord> records = towerLevelData.GetData(
+                towerProgressionData.CurrentLevel
+            );
+
+            if (records.Count > 0)
+            {
+                float shotsPerMinute = records[0].Speed;
+                float shotsPerSecond = shotsPerMinute / 60.0f;
+                shootingDelay = 1.0f / shotsPerSecond;
+                
+                towerRangeDetection.SetRange(records[0].Range);
+            }
         }
 
         private void OnEnable()
@@ -56,7 +86,7 @@ namespace TowerCreep.Towers.Shooting
 
         private void FireShot()
         {
-            if (TryGetComponent(out Attacker a))
+            if (!ReferenceEquals(attacker, null))
             {
                 Projectile projectile = Instantiate(
                     projectilePrefab,
@@ -64,7 +94,7 @@ namespace TowerCreep.Towers.Shooting
                     Quaternion.identity,
                     transform
                 );
-                projectile.FireAt(a.GetAttack(), currentEnemy);
+                projectile.FireAt(attacker.GetAttack(), currentEnemy);
             }
         }
 

@@ -43,6 +43,7 @@ namespace TowerCreep.Player.TowerCollection
                 {
                     newSlot.Initialize(selectedTowers[i]);
                 }
+
                 playerTowerCollection.Add(newSlot);
             }
         }

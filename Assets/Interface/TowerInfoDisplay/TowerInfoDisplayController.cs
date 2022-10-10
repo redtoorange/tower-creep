@@ -16,6 +16,10 @@ namespace TowerCreep.Interface.TowerInfoDisplay
         [SerializeField] private TMP_Text towerName;
         [SerializeField] private Slider experienceSlider;
         [SerializeField] private TMP_Text levelDisplay;
+        [SerializeField] private TMP_Text experienceNumbersDisplay;
+        [SerializeField] private GameObject levelUpButton;
+
+        private TowerProgressionData currentProgressData;
 
         private void Awake()
         {
@@ -32,6 +36,12 @@ namespace TowerCreep.Interface.TowerInfoDisplay
         private void HandleTowerDeSelected(Tower tower)
         {
             towerDetailsDisplay.SetActive(false);
+
+            if (!ReferenceEquals(currentProgressData, null))
+            {
+                currentProgressData.OnDataProgressionChange -= UpdateProgressData;
+                currentProgressData = null;
+            }
         }
 
         private void HandleTowerSelected(Tower tower)
@@ -41,14 +51,29 @@ namespace TowerCreep.Interface.TowerInfoDisplay
                 TowerCollectionSlot towerCollectionData = tower.GetCollectionSlotData();
                 towerImage.sprite = towerCollectionData.CollectionTowerData.towerIcon;
                 towerName.text = towerCollectionData.CollectionTowerData.towerName;
-                experienceSlider.value = towerCollectionData.TowerProgressionData.GetExperiencePercent();
-                levelDisplay.text = $"Level {towerCollectionData.TowerProgressionData.CurrentLevel}";
+
+                currentProgressData = towerCollectionData.TowerProgressionData;
+                currentProgressData.OnDataProgressionChange += UpdateProgressData;
+                UpdateProgressData();
                 towerDetailsDisplay.SetActive(true);
             }
             else
             {
                 towerDetailsDisplay.SetActive(false);
+                if (!ReferenceEquals(currentProgressData, null))
+                {
+                    currentProgressData.OnDataProgressionChange -= UpdateProgressData;
+                    currentProgressData = null;
+                }
             }
+        }
+
+        private void UpdateProgressData()
+        {
+            experienceSlider.value = currentProgressData.GetExperiencePercent();
+            levelDisplay.text = $"Level {currentProgressData.CurrentLevel}";
+            experienceNumbersDisplay.text =
+                $"{currentProgressData.CurrentExperience}/{currentProgressData.RequiredExperience}";
         }
     }
 }

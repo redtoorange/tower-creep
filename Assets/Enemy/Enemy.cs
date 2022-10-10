@@ -3,6 +3,7 @@ using TowerCreep.Damage;
 using TowerCreep.Enemy.HealthBar;
 using TowerCreep.Interface.DamagePopups;
 using TowerCreep.Map.Portals;
+using TowerCreep.Towers;
 using UnityEngine;
 
 namespace TowerCreep.Enemy
@@ -60,7 +61,7 @@ namespace TowerCreep.Enemy
             Destroy(gameObject);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, Attacker attacker)
         {
             health -= damage;
             healthBar.SetFillPercent(health / maxHealth);
@@ -69,6 +70,11 @@ namespace TowerCreep.Enemy
 
             if (health <= 0)
             {
+                if (attacker.TryGetComponent(out Tower tower))
+                {
+                    tower.RewardExperience(enemyData.experienceValue);
+                }
+
                 Die();
             }
         }

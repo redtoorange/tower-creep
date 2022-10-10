@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerIcon: {fileID: 21300000, guid: 28065ff778453a84ca6e53bb2a82b748, type: 3}
   disabledTowerIcon: {fileID: 21300000, guid: b7692928264460344a12066a032767e7, type: 3}
-  towerName: Arcane Tower
+  towerName: Arcane
   towerPrefab: {fileID: 4935235318904667842, guid: cadd4d578cb745e43bf86c5f6680305a, type: 3}
   towerInformation: "Arcane (Mage)\r\nKeywords: Passive Ability (Magic Missile),
     Tracking, Magic Attack \r\nAttributes: Medium Range, Slow Attack Speed, Medium

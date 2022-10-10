@@ -11,6 +11,7 @@ namespace TowerCreep.Enemy.MonsterData
         [SerializeField] public int mobHealth = 10;
         [SerializeField] public float mobSpeed = 50;
         [SerializeField] public int mobDamage = 1;
+        [SerializeField] public int experienceValue = 1;
 
         [SerializeField] public List<DamageSink> damageSinks;
     }
