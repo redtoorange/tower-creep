@@ -1,5 +1,6 @@
 ﻿using TowerCreep.Towers;
 using UnityEngine;
+using UnityJSON;
 
 namespace TowerCreep
 {
@@ -21,6 +22,8 @@ namespace TowerCreep
                 archerData = TowerDataParser.LoadTowerLevelData("Archer");
                 arcaneData = TowerDataParser.LoadTowerLevelData("Arcane");
                 daggerData = TowerDataParser.LoadTowerLevelData("Dagger");
+
+                Debug.Log(JSON.Serialize(archerData.GetData(1)));
             }
             else
             {

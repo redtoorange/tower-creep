@@ -7,7 +7,18 @@ namespace TowerCreep.Damage
     {
         public DamageType damageType;
         public DamageSubType damageSubType;
-        public int damageMinAmount;
-        public int damageMaxAmount;
+        public float damageMinAmount;
+        public float damageMaxAmount;
+
+        public static DamageSource FromData(TowerLevelDataRecord record)
+        {
+            return new DamageSource()
+            {
+                damageType = record.PrimaryType,
+                damageSubType = record.SubType,
+                damageMinAmount = record.MinDamage,
+                damageMaxAmount = record.MaxDamage
+            };
+        }
     }
 }

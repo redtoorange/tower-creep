@@ -4,7 +4,8 @@ namespace TowerCreep.Player.TowerCollection
 {
     public class TowerProgressionData
     {
-        public Action OnDataChange;
+        public Action OnDataProgressionChange;
+        public Action OnTowerLevelChangeChange;
 
         public int CurrentLevel
         {
@@ -41,9 +42,10 @@ namespace TowerCreep.Player.TowerCollection
                 CurrentLevel++;
                 CurrentExperience -= RequiredExperience;
                 RequiredExperience *= 2;
+                OnTowerLevelChangeChange?.Invoke();
             }
 
-            OnDataChange?.Invoke();
+            OnDataProgressionChange?.Invoke();
         }
     }
 }

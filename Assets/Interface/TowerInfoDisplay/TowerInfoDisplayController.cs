@@ -39,7 +39,7 @@ namespace TowerCreep.Interface.TowerInfoDisplay
 
             if (!ReferenceEquals(currentProgressData, null))
             {
-                currentProgressData.OnDataChange -= UpdateProgressData;
+                currentProgressData.OnDataProgressionChange -= UpdateProgressData;
                 currentProgressData = null;
             }
         }
@@ -53,7 +53,7 @@ namespace TowerCreep.Interface.TowerInfoDisplay
                 towerName.text = towerCollectionData.CollectionTowerData.towerName;
 
                 currentProgressData = towerCollectionData.TowerProgressionData;
-                currentProgressData.OnDataChange += UpdateProgressData;
+                currentProgressData.OnDataProgressionChange += UpdateProgressData;
                 UpdateProgressData();
                 towerDetailsDisplay.SetActive(true);
             }
@@ -62,7 +62,7 @@ namespace TowerCreep.Interface.TowerInfoDisplay
                 towerDetailsDisplay.SetActive(false);
                 if (!ReferenceEquals(currentProgressData, null))
                 {
-                    currentProgressData.OnDataChange -= UpdateProgressData;
+                    currentProgressData.OnDataProgressionChange -= UpdateProgressData;
                     currentProgressData = null;
                 }
             }
