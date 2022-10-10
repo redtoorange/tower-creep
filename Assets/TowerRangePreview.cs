@@ -1,38 +1,44 @@
-using System;
 using UnityEngine;
 
 namespace TowerCreep
 {
-    public class CircleDraw : MonoBehaviour
+    [RequireComponent(typeof(LineRenderer))]
+    public class TowerRangePreview : MonoBehaviour
     {
         [SerializeField] private float smoothness = 0.01f;
-        [SerializeField] private float radius = 3f;
+        [SerializeField] private float radius = 3.0f;
         [SerializeField] private float lineThickness = 0.1f;
 
         private LineRenderer lineRenderer;
         private int pointCount;
 
-        private void Start()
+        private void Awake()
         {
+            lineRenderer = GetComponent<LineRenderer>();
             ConstructCircle();
+            SetShow(false);
         }
 
-        private void Update()
+        public void SetRange(float radius)
         {
-            ConstructCircle();
+            // Avoid updating the circle for very tiny changes
+            if (Mathf.Epsilon > Mathf.Abs(this.radius - radius))
+            {
+                this.radius = radius;
+                ConstructCircle();
+            }
         }
 
-        [ContextMenu("Do Something")]
+        [ContextMenu("ConstructCircle()")]
         private void ConstructCircle()
         {
             pointCount = (int)(2.0f * Mathf.PI / smoothness) + 1;
 
-            lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.startWidth = lineThickness;
             lineRenderer.endWidth = lineThickness;
             lineRenderer.positionCount = pointCount;
             lineRenderer.textureScale = new Vector2(radius / 10.0f, 1.0f);
-            
+
             Vector3 transformPosition = transform.position;
             float theta = 0.0f;
 
@@ -43,6 +49,11 @@ namespace TowerCreep
                 float y = radius * Mathf.Sin(theta) + transformPosition.y;
                 lineRenderer.SetPosition(i, new Vector3(x, y, 0));
             }
+        }
+
+        public void SetShow(bool shouldShow)
+        {
+            lineRenderer.enabled = shouldShow;
         }
     }
 }
