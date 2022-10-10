@@ -1037,9 +1037,9 @@ MonoBehaviour:
   debuggingInitialTowerData:
   - {fileID: 11400000, guid: 48048dc383470e84b90a01cf36d967af, type: 2}
   - {fileID: 11400000, guid: 93f44b0a8a8eb7b42bf8f9f5fa9c3256, type: 2}
+  - {fileID: 11400000, guid: 1022dfdec08fc9f43ba67ef9b6684a9c, type: 2}
   - {fileID: 11400000, guid: abba989b2708b194c947bfab8c0a9f80, type: 2}
   - {fileID: 11400000, guid: 638ce027a97113f449279128364b66e7, type: 2}
-  - {fileID: 11400000, guid: 1022dfdec08fc9f43ba67ef9b6684a9c, type: 2}
   - {fileID: 11400000, guid: c75a77ca645175c4395f257aedc88fde, type: 2}
   - {fileID: 11400000, guid: b80508ad528db054795350f18dcdce2c, type: 2}
 --- !u!224 &1178232686 stripped

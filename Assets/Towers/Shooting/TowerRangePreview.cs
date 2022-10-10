@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TowerCreep
+namespace TowerCreep.Towers.Shooting
 {
     [RequireComponent(typeof(LineRenderer))]
     public class TowerRangePreview : MonoBehaviour
@@ -17,6 +17,20 @@ namespace TowerCreep
             lineRenderer = GetComponent<LineRenderer>();
             ConstructCircle();
             SetShow(false);
+
+            Tower tower = GetComponentInParent<Tower>();
+            tower.OnTowerSelected += HandleSelected;
+            tower.OnTowerDeselected += HandleDeselected;
+        }
+
+        private void HandleDeselected()
+        {
+            SetShow(false);
+        }
+
+        private void HandleSelected()
+        {
+            SetShow(true);
         }
 
         public void SetRange(float radius)

@@ -21,19 +21,33 @@ namespace TowerCreep.Towers
 
         private void Start()
         {
-            TowerPlacementController.OnStartPlacingTower += () => currentInputMode = PlayerInputMode.Placement;
-            TowerPlacementController.OnStopPlacingTower += () => currentInputMode = PlayerInputMode.Selection;
+            TowerPlacementController.OnStartPlacingTower += StartPlacingMode;
+            TowerPlacementController.OnStopPlacingTower += StopPlacingMode;
 
             inputActions = new GameInputActions();
-            
-            inputActions = new GameInputActions();
-            inputActions.Enable();
-
             inputActions.PlayerActions.StopBuilding.performed += HandleRightClick;
             inputActions.PlayerActions.PlaceBuilding.performed += HandleLeftClick;
-            
             inputActions.Enable();
         }
+        
+        private void OnDisable()
+        {
+            inputActions.Disable();
+            TowerPlacementController.OnStartPlacingTower -= StartPlacingMode;
+            TowerPlacementController.OnStopPlacingTower -= StopPlacingMode;
+        }
+
+        private void StopPlacingMode()
+        {
+            currentInputMode = PlayerInputMode.Selection;
+        }
+
+        private void StartPlacingMode()
+        {
+            currentInputMode = PlayerInputMode.Placement;
+        }
+
+        
 
         private void HandleLeftClick(InputAction.CallbackContext obj)
         {
