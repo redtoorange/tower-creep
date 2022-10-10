@@ -20,17 +20,14 @@ namespace TowerCreep.Towers.Placement
                 for (int y = bounds.y; y < bounds.size.y; y++)
                 {
                     Vector3Int pos = new(x, y);
-                    if (buildableTilemap.HasTile(pos))
-                    {
-                        BuildableTile tile = Instantiate(buildingSlotPrefab,
-                            buildableTilemap.GetCellCenterWorld(pos),
-                            Quaternion.identity,
-                            transform
-                        );
+                    BuildableTile tile = Instantiate(buildingSlotPrefab,
+                        buildableTilemap.GetCellCenterWorld(pos),
+                        Quaternion.identity,
+                        transform
+                    );
 
-                        tile.isOccupied = false;
-                        tile.towerController = towerController;
-                    }
+                    tile.isOccupied = !buildableTilemap.HasTile(pos);
+                    tile.towerController = towerController;
                 }
             }
 

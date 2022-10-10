@@ -1,3 +1,4 @@
+using TowerCreep.Damage;
 using UnityEngine;
 
 namespace TowerCreep.Towers.Shooting
@@ -6,7 +7,6 @@ namespace TowerCreep.Towers.Shooting
     {
         // SerializeFielded Properties
         [SerializeField] private float speed = 100.0f;
-        [SerializeField] private float damage = 1.0f;
         [SerializeField] private bool keepOnMap = true;
 
         // External Nodes
@@ -15,9 +15,11 @@ namespace TowerCreep.Towers.Shooting
         // Internal State
         private Vector2 targetPoint;
         private Vector2 targetDirection;
+        private Attack attack;
 
-        public void FireAt(Enemy.Enemy enemy)
+        public void FireAt(Attack attack, Enemy.Enemy enemy)
         {
+            this.attack = attack;
             if (!ReferenceEquals(enemy, null))
             {
                 Vector2 position = transform.position;
@@ -35,7 +37,11 @@ namespace TowerCreep.Towers.Shooting
         {
             if (col.collider.TryGetComponent(out Enemy.Enemy e))
             {
-                e.TakeDamage(damage);
+                if (e.TryGetComponent(out Defender d))
+                {
+                    float damage = DamageSystem.S.ProcessAttack(attack, d);
+                    e.TakeDamage(damage, attack.source);
+                }
                 Destroy(gameObject);
             }
             else

@@ -1,7 +1,6 @@
 using System;
 using TowerCreep.Interface.HotBar;
 using TowerCreep.Player.TowerCollection;
-using TowerCreep.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +8,7 @@ namespace TowerCreep.Towers.Placement
 {
     public class TowerPlacementController : MonoBehaviour
     {
+        public static Action OnStartPlacingTower;
         public static Action OnStopPlacingTower;
         public static Action<TowerCollectionSlot> OnSetTowerAsUsed;
 
@@ -19,25 +19,18 @@ namespace TowerCreep.Towers.Placement
         private bool isValidPlacement = false;
         private bool tileIsDirty = false;
 
-        [SerializeField] private GameObject validPlacementIcon;
-        [SerializeField] private GameObject invalidPlacementIcon;
         [SerializeField] private ContactFilter2D buildableTileFilter;
+        [SerializeField] private TowerPlacementGhost towerPlacementGhost;
 
-        private GameInputActions inputActions;
+
         private Camera mainCamera;
 
         private void Start()
         {
             mainCamera = Camera.main;
-
-            inputActions = new GameInputActions();
-            inputActions.Enable();
-
-            inputActions.PlayerActions.StopBuilding.performed += HandleStopBuildingPressed;
-            inputActions.PlayerActions.PlaceBuilding.performed += HandlePlaceBuildingPressed;
         }
 
-        private void HandlePlaceBuildingPressed(InputAction.CallbackContext obj)
+        public void HandleLeftClick(InputAction.CallbackContext obj)
         {
             if (isPlacingTower)
             {
@@ -45,7 +38,7 @@ namespace TowerCreep.Towers.Placement
             }
         }
 
-        private void HandleStopBuildingPressed(InputAction.CallbackContext obj)
+        public void HandleRightClick(InputAction.CallbackContext obj)
         {
             if (isPlacingTower)
             {
@@ -69,30 +62,15 @@ namespace TowerCreep.Towers.Placement
             if (!selectedTower.IsPlaced)
             {
                 currentlySelectedTower = selectedTower;
+                towerPlacementGhost.SetData(currentlySelectedTower);
+                OnStartPlacingTower?.Invoke();
                 isPlacingTower = true;
             }
             else
             {
                 currentlySelectedTower = null;
                 isPlacingTower = false;
-            }
-        }
-
-        private void Update()
-        {
-            // if (!isPlacingTower || currentlySelectedTower == null) return;
-
-            if (!isPlacingTower) return;
-
-            BuildableTile tempHovered = GetHoveredTile();
-            if (hoveredTile != tempHovered || tileIsDirty)
-            {
-                hoveredTile = tempHovered;
-                isValidPlacement = !ReferenceEquals(hoveredTile, null) &&
-                                   !hoveredTile.isOccupied;
-                UpdatePlacementIcon();
-
-                tileIsDirty = false;
+                OnStopPlacingTower?.Invoke();
             }
         }
 
@@ -124,27 +102,15 @@ namespace TowerCreep.Towers.Placement
 
         private void UpdatePlacementIcon()
         {
-            if (hoveredTile == null)
+            if (ReferenceEquals(hoveredTile, null))
             {
-                validPlacementIcon.SetActive(false);
-                invalidPlacementIcon.SetActive(false);
+                towerPlacementGhost.SetShown(false);
             }
             else
             {
-                if (isValidPlacement)
-                {
-                    validPlacementIcon.SetActive(true);
-                    invalidPlacementIcon.SetActive(false);
-                    validPlacementIcon.transform.position =
-                        hoveredTile.transform.position;
-                }
-                else
-                {
-                    validPlacementIcon.SetActive(false);
-                    invalidPlacementIcon.SetActive(true);
-                    invalidPlacementIcon.transform.position =
-                        hoveredTile.transform.position;
-                }
+                towerPlacementGhost.SetShown(true);
+                towerPlacementGhost.SetValid(isValidPlacement);
+                towerPlacementGhost.SetPosition(hoveredTile.transform.position);
             }
         }
 
@@ -168,6 +134,20 @@ namespace TowerCreep.Towers.Placement
             currentlySelectedTower = null;
             tileIsDirty = true;
             StopPlacingTower();
+        }
+
+        public void ProcessUpdate()
+        {
+            BuildableTile tempHovered = GetHoveredTile();
+            if (hoveredTile != tempHovered || tileIsDirty)
+            {
+                hoveredTile = tempHovered;
+                isValidPlacement = !ReferenceEquals(hoveredTile, null) &&
+                                   !hoveredTile.isOccupied;
+                UpdatePlacementIcon();
+
+                tileIsDirty = false;
+            }
         }
     }
 }

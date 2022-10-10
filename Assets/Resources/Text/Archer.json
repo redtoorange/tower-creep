@@ -1,0 +1,112 @@
+﻿{
+  "1": {
+    "Level": 1,
+    "MinDamage": 100,
+    "MaxDamage": 120,
+    "Speed": 100,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "2": {
+    "Level": 2,
+    "MinDamage": 120,
+    "MaxDamage": 144,
+    "Speed": 114.99999999999999,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "3": {
+    "Level": 3,
+    "MinDamage": 144,
+    "MaxDamage": 172.79999999999998,
+    "Speed": 132.24999999999997,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "4": {
+    "Level": 4,
+    "MinDamage": 172.79999999999998,
+    "MaxDamage": 207.35999999999999,
+    "Speed": 152.08749999999995,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "5": {
+    "Level": 5,
+    "MinDamage": 207.35999999999999,
+    "MaxDamage": 248.83199999999997,
+    "Speed": 174.90062499999993,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "6": {
+    "Level": 6,
+    "MinDamage": 248.83199999999997,
+    "MaxDamage": 298.59839999999997,
+    "Speed": 201.1357187499999,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "7": {
+    "Level": 7,
+    "MinDamage": 298.59839999999997,
+    "MaxDamage": 358.31807999999995,
+    "Speed": 231.30607656249987,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "8": {
+    "Level": 8,
+    "MinDamage": 358.31807999999995,
+    "MaxDamage": 429.98169599999994,
+    "Speed": 266.0019880468748,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "9": {
+    "Level": 9,
+    "MinDamage": 429.98169599999994,
+    "MaxDamage": 515.9780351999999,
+    "Speed": 305.902286253906,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  },
+  "10": {
+    "Level": 10,
+    "MinDamage": 515.9780351999999,
+    "MaxDamage": 619.1736422399998,
+    "Speed": 351.7876291919919,
+    "Range": 10,
+    "AOE": 0,
+    "Abilities": "N/A",
+    "Primary Type": "Physical",
+    "Subtype": "Piercing"
+  }
+}

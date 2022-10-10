@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using TowerCreep.Enemy.EnemyControllerEvents;
 using TowerCreep.Enemy.WaveData;
+using TowerCreep.Player.TowerCollection;
+using TowerCreep.Towers.Placement;
 using UnityEngine;
 
 namespace TowerCreep.Enemy
@@ -31,6 +33,9 @@ namespace TowerCreep.Enemy
         private List<Enemy> enemies;
         private Vector2[] routePosition;
 
+        // Tower Interactions
+        private TowerController towerController;
+        
         private void Start()
         {
             enemies = new List<Enemy>();
@@ -42,6 +47,8 @@ namespace TowerCreep.Enemy
             {
                 routePosition[i] = transform.TransformPoint(mobMovementRoutePath.GetPosition(i));
             }
+
+            towerController = FindObjectOfType<TowerController>();
         }
 
         private void OnEnable()
@@ -109,6 +116,12 @@ namespace TowerCreep.Enemy
             if (enemies.Count == 0)
             {
                 spawnerState = MobSpawnerState.Cooldown;
+                
+                // Reward all towers
+                if (currentWaveDef.experienceCompletionValue > 0)
+                {
+                    towerController.GiveExperienceToAll(currentWaveDef.experienceCompletionValue);
+                }
             }
         }
 
