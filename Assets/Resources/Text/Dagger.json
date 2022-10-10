@@ -1,0 +1,72 @@
+﻿{
+  "1": {
+    "Damage": 10,
+    "Speed": 300,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "2": {
+    "Damage": 12,
+    "Speed": 345,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "3": {
+    "Damage": 14.399999999999999,
+    "Speed": 396.74999999999994,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "4": {
+    "Damage": 17.279999999999998,
+    "Speed": 456.2624999999999,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "5": {
+    "Damage": 20.735999999999997,
+    "Speed": 524.7018749999999,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "6": {
+    "Damage": 24.883199999999995,
+    "Speed": 603.4071562499998,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "7": {
+    "Damage": 29.85983999999999,
+    "Speed": 693.9182296874998,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "8": {
+    "Damage": 35.83180799999999,
+    "Speed": 798.0059641406247,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "9": {
+    "Damage": 42.99816959999998,
+    "Speed": 917.7068587617183,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  },
+  "10": {
+    "Damage": 51.59780351999998,
+    "Speed": 1055.362887575976,
+    "Range": 1,
+    "AOE": 0,
+    "Abilities": "Weaken"
+  }
+}

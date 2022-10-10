@@ -5,10 +5,28 @@ namespace TowerCreep.Player.TowerCollection
     public class TowerProgressionData
     {
         public Action OnDataChange;
-        
-        public int CurrentLevel = 1;
-        public int CurrentExperience = 0;
-        public int RequiredExperience = 100;
+
+        public int CurrentLevel
+        {
+            get => currentLevel;
+            private set => currentLevel = value;
+        }
+        private int currentLevel = 1;
+
+
+        public int CurrentExperience
+        {
+            get => currentExperience;
+            private set => currentExperience = value;
+        }
+        public int currentExperience = 0;
+
+        public int RequiredExperience
+        {
+            get => requiredExperience;
+            private set => requiredExperience = value;
+        }
+        public int requiredExperience = 100;
 
         public float GetExperiencePercent()
         {
@@ -24,7 +42,7 @@ namespace TowerCreep.Player.TowerCollection
                 CurrentExperience -= RequiredExperience;
                 RequiredExperience *= 2;
             }
-            
+
             OnDataChange?.Invoke();
         }
     }
