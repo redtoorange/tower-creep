@@ -3,6 +3,7 @@ using TowerCreep.Interface.HotBar;
 using TowerCreep.Towers;
 using TowerCreep.Utility;
 using UnityEngine;
+using UnityJSON;
 
 namespace TowerCreep.Player.TowerCollection
 {
@@ -31,6 +32,8 @@ namespace TowerCreep.Player.TowerCollection
             {
                 hotbar.Initialize(playerTowerCollection);
             }
+
+            Debug.Log(JSON.Serialize(TowerDataParser.LoadTowerLevelData().Archer));
         }
 
         public void SetTowerCollection(List<TowerData> selectedTowers)

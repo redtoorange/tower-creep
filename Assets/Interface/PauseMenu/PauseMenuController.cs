@@ -1,4 +1,3 @@
-using System;
 using TowerCreep.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,11 +14,11 @@ namespace TowerCreep.Interface.PauseMenu
         {
             PauseManager.S.OnGamePaused += ShowPauseMenu;
             PauseManager.S.OnGameUnpaused += HidePauseMenu;
-            
+
             inputActions = new GameInputActions();
             inputActions.PlayerActions.PauseGame.performed += HandlePauseAction;
             inputActions.Enable();
-            
+
             if (PauseManager.S.IsGamePaused())
             {
                 ShowPauseMenu();
