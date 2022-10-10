@@ -46,6 +46,8 @@ namespace TowerCreep.Towers.Shooting
                 float shotsPerMinute = records[0].Speed;
                 float shotsPerSecond = shotsPerMinute / 60.0f;
                 shootingDelay = 1.0f / shotsPerSecond;
+                
+                towerRangeDetection.SetRange(records[0].Range);
             }
         }
 
