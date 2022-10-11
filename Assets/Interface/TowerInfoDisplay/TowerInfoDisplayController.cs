@@ -19,6 +19,13 @@ namespace TowerCreep.Interface.TowerInfoDisplay
         [SerializeField] private TMP_Text experienceNumbersDisplay;
         [SerializeField] private GameObject levelUpButton;
 
+        [Header("Stat Blocks")]
+        [SerializeField] private TMP_Text damageTextDisplay;
+        [SerializeField] private TMP_Text rangeTextDisplay;
+        [SerializeField] private TMP_Text speedTextDisplay;
+        [SerializeField] private TMP_Text aoeTextDisplay;
+
+        private TowerCollectionSlot towerCollectionData;
         private TowerProgressionData currentProgressData;
 
         private void Awake()
@@ -48,7 +55,7 @@ namespace TowerCreep.Interface.TowerInfoDisplay
         {
             if (!ReferenceEquals(tower, null))
             {
-                TowerCollectionSlot towerCollectionData = tower.GetCollectionSlotData();
+                towerCollectionData = tower.GetCollectionSlotData();
                 towerImage.sprite = towerCollectionData.CollectionTowerData.towerIcon;
                 towerName.text = towerCollectionData.CollectionTowerData.towerName;
 
@@ -74,6 +81,12 @@ namespace TowerCreep.Interface.TowerInfoDisplay
             levelDisplay.text = $"Level {currentProgressData.CurrentLevel}";
             experienceNumbersDisplay.text =
                 $"{currentProgressData.CurrentExperience}/{currentProgressData.RequiredExperience}";
+
+            TowerLevelDataRecord record = towerCollectionData.GetCurrentLevelRecordData()[0];
+            damageTextDisplay.text = ((record.MaxDamage + record.MinDamage) / 2.0f).ToString("0");
+            rangeTextDisplay.text = record.Range.ToString("0");
+            speedTextDisplay.text = (record.Speed / 60.0f).ToString("N2");
+            aoeTextDisplay.text = record.AOE.ToString("0");
         }
     }
 }
