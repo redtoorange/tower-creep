@@ -39,7 +39,6 @@ namespace TowerCreep.Interface.PauseMenu
 
         private void HandlePauseAction(InputAction.CallbackContext obj)
         {
-            Debug.Log("Got some input");
             if (PauseManager.S.IsGamePaused())
             {
                 PauseManager.S.SetGamePaused(false);
