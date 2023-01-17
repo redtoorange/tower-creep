@@ -40,7 +40,7 @@ namespace TowerCreep.Towers.Shooting
                 if (e.TryGetComponent(out Defender d))
                 {
                     float damage = DamageSystem.S.ProcessAttack(attack, d);
-                    e.TakeDamage(damage, attack.source);
+                    e.GetHealthComponent().TakeDamage(damage, attack.source);
                 }
 
                 Destroy(gameObject);

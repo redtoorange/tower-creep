@@ -1,8 +1,5 @@
 ﻿using System;
 using TowerCreep.Damage;
-using TowerCreep.Interface.DamagePopups;
-using TowerCreep.Interface.HealthBar;
-using TowerCreep.Towers;
 using UnityEngine;
 
 namespace TowerCreep.Enemy
@@ -24,33 +21,27 @@ namespace TowerCreep.Enemy
         [SerializeField] private MonsterData.MonsterData enemyData;
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private SpriteRenderer monsterSpriteRenderer;
-        [SerializeField] private EnemyHealthBar healthBar;
         [SerializeField] private Defender defender;
+        [SerializeField] private EnemyHealth enemyHealth;
 
-        private float maxHealth = 10.0f;
-        private float health = 10.0f;
         private float speed = 15.0f;
 
         private Vector2[] movementPath;
         [SerializeField] private float navigationThreshold = 0.1f;
         private int routeIndex;
 
-        private void Awake()
-        {
-            defender = GetComponent<Defender>();
-        }
-
         public void Initialize(Vector2[] movementPath, MonsterData.MonsterData enemyData)
         {
             this.movementPath = movementPath;
 
             this.enemyData = enemyData;
-            maxHealth = enemyData.mobHealth;
-            health = maxHealth;
             speed = enemyData.mobSpeed;
             monsterSpriteRenderer.sprite = enemyData.mobSprite;
 
             defender.SetDamageSinks(this.enemyData.damageSinks);
+
+            enemyHealth.Initialize(this.enemyData.mobHealth, this.enemyData.experienceValue);
+            enemyHealth.OnDie += Die;
         }
 
         public virtual void Die()
@@ -59,25 +50,6 @@ namespace TowerCreep.Enemy
             monsterSpriteRenderer.enabled = false;
             Destroy(gameObject);
         }
-
-        public void TakeDamage(float damage, Attacker attacker)
-        {
-            health -= damage;
-            healthBar.SetFillPercent(health / maxHealth);
-
-            DamagePopupController.S.CreatePopup(transform.position, damage.ToString("0"));
-
-            if (health <= 0)
-            {
-                if (attacker.TryGetComponent(out Tower tower))
-                {
-                    tower.RewardExperience(enemyData.experienceValue);
-                }
-
-                Die();
-            }
-        }
-
 
         private void FixedUpdate()
         {
@@ -109,5 +81,7 @@ namespace TowerCreep.Enemy
             routeIndex = 0;
             transform.position = movementPath[routeIndex];
         }
+
+        public EnemyHealth GetHealthComponent() => enemyHealth;
     }
 }

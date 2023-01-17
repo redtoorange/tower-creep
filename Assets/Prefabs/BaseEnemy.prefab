@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4987203987885677575}
   - component: {fileID: 4987203987885677576}
+  - component: {fileID: 1677695994317426053}
+  - component: {fileID: -4913351148083005999}
   - component: {fileID: 3844062340968877641}
   - component: {fileID: 5866317515771450984}
   - component: {fileID: 1241624497941649164}
-  - component: {fileID: -4913351148083005999}
   m_Layer: 7
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -52,8 +53,35 @@ MonoBehaviour:
   enemyData: {fileID: 0}
   rigidbody2D: {fileID: 5866317515771450984}
   monsterSpriteRenderer: {fileID: 3844062340968877641}
-  healthBar: {fileID: 4372745537315749315}
+  defender: {fileID: -4913351148083005999}
+  enemyHealth: {fileID: 1677695994317426053}
   navigationThreshold: 0.1
+--- !u!114 &1677695994317426053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987203987885677574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1eaa391d454f41a5403747af45b8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 4372745537315749315}
+--- !u!114 &-4913351148083005999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987203987885677574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfa49ce88004ad99002266983996ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageSinks: []
 --- !u!212 &3844062340968877641
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -168,19 +196,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
---- !u!114 &-4913351148083005999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4987203987885677574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cfa49ce88004ad99002266983996ae2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSinks: []
 --- !u!1001 &6008650522446134496
 PrefabInstance:
   m_ObjectHideFlags: 0
