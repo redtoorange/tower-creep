@@ -1,0 +1,20 @@
+{
+    "name": "TowerCreep",
+    "rootNamespace": "TowerCreep",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:e03282b4c79e28240863c989d4edfa25",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:a2ef993bfdb214c41a26227fdb0ec0bf",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
