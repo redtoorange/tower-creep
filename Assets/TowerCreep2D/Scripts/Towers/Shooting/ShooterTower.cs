@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TowerCreep.TowerCreep2D.Scripts.Damage;
 using TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection;
-using TowerCreep.TowerCreep2D.Scripts.Towers.TowerLevelData;
+using TowerCreep.TowerCreep2D.Scripts.Towers.TowerClassProgression;
 using UnityEngine;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Towers.Shooting
@@ -21,8 +21,8 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Shooting
         private Enemy.Enemy currentEnemy;
         private float currentCooldown = 0.0f;
 
-        private TowerProgressionData towerProgressionData;
-        private TowerLevelData.TowerLevelData towerLevelData;
+        private TowerInstanceProgressionData towerInstanceProgressionData;
+        private TowerClassProgressionData towerClassProgressionData;
 
         private void Awake()
         {
@@ -36,19 +36,19 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Shooting
             attacker = GetComponent<Attacker>();
 
             Tower tower = GetComponent<Tower>();
-            TowerCollectionSlot collectionSlot = tower.GetCollectionSlotData();
+            PlayerPartySlot collectionSlot = tower.GetCollectionSlotData();
 
-            towerProgressionData = collectionSlot.TowerProgressionData;
-            towerProgressionData.OnTowerLevelChangeChange += ParseAttacks;
-            towerLevelData = collectionSlot.TowerLevelData;
+            towerInstanceProgressionData = collectionSlot.TowerInstanceProgressionData;
+            towerInstanceProgressionData.OnTowerInstanceLevelChange += ParseAttacks;
+            towerClassProgressionData = collectionSlot.TowerClassProgressionData;
 
             ParseAttacks();
         }
 
         private void ParseAttacks()
         {
-            List<TowerLevelDataRecord> records = towerLevelData.GetData(
-                towerProgressionData.CurrentLevel
+            List<TowerClassProgressionDataRecord> records = towerClassProgressionData.GetData(
+                towerInstanceProgressionData.CurrentLevel
             );
 
             if (records.Count > 0)
@@ -76,7 +76,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Shooting
         {
             towerRangeDetection.OnEnemyHasEnteredRange -= AddEnemy;
             towerRangeDetection.OnEnemyHasExitedRange -= RemoveEnemy;
-            towerProgressionData.OnTowerLevelChangeChange -= ParseAttacks;
+            towerInstanceProgressionData.OnTowerInstanceLevelChange -= ParseAttacks;
             Enemy.Enemy.OnDie -= HandleEnemyDie;
         }
 

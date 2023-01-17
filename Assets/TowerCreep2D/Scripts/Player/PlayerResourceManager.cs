@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using TowerCreep.TowerCreep2D.Scripts.Map.Portals;
 using TowerCreep.TowerCreep2D.Scripts.Utility;
 using UnityEngine;
-using Portal = TowerCreep.TowerCreep2D.Scripts.Map.Portals.Portal;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Player
 {
@@ -38,12 +38,12 @@ namespace TowerCreep.TowerCreep2D.Scripts.Player
             OnResourceChange?.Invoke(PlayerResourceType.Mana, 0, startingMana);
             OnResourceChange?.Invoke(PlayerResourceType.Health, 100, startingHealth);
 
-            Portal.OnEnemyReachedExit += PlayerTakeDamage;
+            ExitPortal.OnEnemyReachedExit += PlayerTakeDamage;
         }
 
         private void OnDisable()
         {
-            Portal.OnEnemyReachedExit -= PlayerTakeDamage;
+            ExitPortal.OnEnemyReachedExit -= PlayerTakeDamage;
         }
 
         public bool HasRequiredAmount(int requiredAmount, PlayerResourceType type)

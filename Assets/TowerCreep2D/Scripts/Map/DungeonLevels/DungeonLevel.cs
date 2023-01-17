@@ -6,7 +6,7 @@ using TowerCreep.TowerCreep2D.Scripts.Map.Doors;
 using TowerCreep.TowerCreep2D.Scripts.Player;
 using UnityEngine;
 
-namespace TowerCreep.TowerCreep2D.Scripts.Levels.DungeonLevels
+namespace TowerCreep.TowerCreep2D.Scripts.Map.DungeonLevels
 {
     public class DungeonLevel : MonoBehaviour
     {

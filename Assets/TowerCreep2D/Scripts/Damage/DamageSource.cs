@@ -1,5 +1,5 @@
 ﻿using System;
-using TowerCreep.TowerCreep2D.Scripts.Towers.TowerLevelData;
+using TowerCreep.TowerCreep2D.Scripts.Towers.TowerClassProgression;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Damage
 {
@@ -11,7 +11,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Damage
         public float damageMinAmount;
         public float damageMaxAmount;
 
-        public static DamageSource FromData(TowerLevelDataRecord record)
+        public static DamageSource FromData(TowerClassProgressionDataRecord record)
         {
             return new DamageSource()
             {

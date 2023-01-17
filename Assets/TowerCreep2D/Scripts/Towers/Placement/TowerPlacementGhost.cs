@@ -1,6 +1,6 @@
 ﻿using TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection;
 using TowerCreep.TowerCreep2D.Scripts.Towers.Shooting;
-using TowerCreep.TowerCreep2D.Scripts.Towers.TowerLevelData;
+using TowerCreep.TowerCreep2D.Scripts.Towers.TowerClassProgression;
 using UnityEngine;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Towers.Placement
@@ -22,10 +22,10 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Placement
             SetShown(false);
         }
 
-        public void SetData(TowerCollectionSlot slotData)
+        public void SetData(PlayerPartySlot slotData)
         {
             spriteRenderer.sprite = slotData.CollectionTowerData.towerIcon;
-            TowerLevelDataRecord record = slotData.GetCurrentLevelRecordData()[0];
+            TowerClassProgressionDataRecord record = slotData.GetCurrentLevelRecordData()[0];
             towerRangePreview.SetRange(record.Range);
         }
 

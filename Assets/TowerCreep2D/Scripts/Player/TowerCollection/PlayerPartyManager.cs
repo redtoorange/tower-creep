@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection
 {
-    public class PlayerTowerCollectionManager : MonoBehaviour
+    public class PlayerPartyManager : MonoBehaviour
     {
-        private List<TowerCollectionSlot> playerTowerCollection;
+        private List<PlayerPartySlot> playerParty;
         [SerializeField] private List<TowerData> debuggingInitialTowerData;
         private TowerHotBarController hotbar;
 
         private void Start()
         {
-            List<TowerData> towerCollection = GameManager.S.GetTowerCollectionData();
+            List<TowerData> towerCollection = GameManager.S.GetSelectedPlayerParty();
 
             if (!ReferenceEquals(towerCollection, null))
             {
@@ -29,22 +29,22 @@ namespace TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection
             hotbar = FindObjectOfType<TowerHotBarController>();
             if (hotbar)
             {
-                hotbar.Initialize(playerTowerCollection);
+                hotbar.Initialize(playerParty);
             }
         }
 
         public void SetTowerCollection(List<TowerData> selectedTowers)
         {
-            playerTowerCollection = new List<TowerCollectionSlot>();
+            playerParty = new List<PlayerPartySlot>();
             for (int i = 0; i < selectedTowers.Count; i++)
             {
-                TowerCollectionSlot newSlot = new TowerCollectionSlot();
+                PlayerPartySlot newSlot = new PlayerPartySlot();
                 if (!ReferenceEquals(selectedTowers[i], null))
                 {
                     newSlot.Initialize(selectedTowers[i]);
                 }
 
-                playerTowerCollection.Add(newSlot);
+                playerParty.Add(newSlot);
             }
         }
     }

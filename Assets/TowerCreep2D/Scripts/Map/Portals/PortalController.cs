@@ -1,15 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Map.Portals
 {
     public class PortalController : MonoBehaviour
     {
-        [SerializeField] private Portal spawnPortal;
-        [SerializeField] private Portal exitPortal;
+        [SerializeField] private List<SpawnPortal> spawnPortals;
+        [SerializeField] private List<ExitPortal> exitPortals;
 
-        private void Start()
-        {
-            exitPortal.ExitInitialize(spawnPortal);
-        }
+        public List<SpawnPortal> GetSpawnPortals() => spawnPortals;
+        public List<ExitPortal> GetExitPortals() => exitPortals;
     }
 }

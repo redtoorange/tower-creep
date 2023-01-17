@@ -10,10 +10,10 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Placement
     {
         public static Action OnStartPlacingTower;
         public static Action OnStopPlacingTower;
-        public static Action<TowerCollectionSlot> OnSetTowerAsUsed;
+        public static Action<PlayerPartySlot> OnSetTowerAsUsed;
 
         private BuildableTile hoveredTile;
-        private TowerCollectionSlot currentlySelectedTower;
+        private PlayerPartySlot currentlySelectedTower;
         private bool isPlacingTower;
 
         private bool isValidPlacement = false;
@@ -57,7 +57,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Placement
             TowerHotBarController.OnBuildingSelected -= HandleEnterBuildingPlaceMode;
         }
 
-        private void HandleEnterBuildingPlaceMode(TowerCollectionSlot selectedTower)
+        private void HandleEnterBuildingPlaceMode(PlayerPartySlot selectedTower)
         {
             if (!selectedTower.IsPlaced)
             {

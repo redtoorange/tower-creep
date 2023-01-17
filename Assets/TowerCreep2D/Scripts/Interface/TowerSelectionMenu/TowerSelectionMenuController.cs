@@ -144,7 +144,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.TowerSelectionMenu
                 selectedTowers.Add(selectedTowerSlots[i].GetTowerData());
             }
 
-            GameManager.S.SetTowerCollectionData(selectedTowers);
+            GameManager.S.SetPlayerParty(selectedTowers);
             GameManager.S.ChangeToGame();
         }
 

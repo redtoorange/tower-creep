@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection;
 using TowerCreep.TowerCreep2D.Scripts.Towers;
-using TowerCreep.TowerCreep2D.Scripts.Towers.TowerLevelData;
+using TowerCreep.TowerCreep2D.Scripts.Towers.TowerClassProgression;
 using UnityEngine;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Damage
@@ -11,18 +11,18 @@ namespace TowerCreep.TowerCreep2D.Scripts.Damage
         [SerializeField] private List<DamageSource> damageSources;
 
         private Tower tower;
-        private TowerCollectionSlot collectionSlot;
-        private TowerProgressionData towerProgressionData;
-        private TowerLevelData towerLevelData;
+        private PlayerPartySlot collectionSlot;
+        private TowerInstanceProgressionData towerInstanceProgressionData;
+        private TowerClassProgressionData towerClassProgressionData;
 
         private void Start()
         {
             tower = GetComponent<Tower>();
             collectionSlot = tower.GetCollectionSlotData();
 
-            towerProgressionData = collectionSlot.TowerProgressionData;
-            towerProgressionData.OnTowerLevelChangeChange += ParseAttacks;
-            towerLevelData = collectionSlot.TowerLevelData;
+            towerInstanceProgressionData = collectionSlot.TowerInstanceProgressionData;
+            towerInstanceProgressionData.OnTowerInstanceLevelChange += ParseAttacks;
+            towerClassProgressionData = collectionSlot.TowerClassProgressionData;
 
             ParseAttacks();
         }
@@ -30,10 +30,10 @@ namespace TowerCreep.TowerCreep2D.Scripts.Damage
         private void ParseAttacks()
         {
             damageSources = new List<DamageSource>();
-            List<TowerLevelDataRecord> records = towerLevelData.GetData(
-                towerProgressionData.CurrentLevel
+            List<TowerClassProgressionDataRecord> records = towerClassProgressionData.GetData(
+                towerInstanceProgressionData.CurrentLevel
             );
-            foreach (TowerLevelDataRecord record in records)
+            foreach (TowerClassProgressionDataRecord record in records)
             {
                 damageSources.Add(DamageSource.FromData(record));
             }

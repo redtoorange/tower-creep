@@ -1,5 +1,5 @@
 ﻿using System;
-using TowerCreep.TowerCreep2D.Scripts.Levels;
+using TowerCreep.TowerCreep2D.Scripts.Map;
 using UnityEngine;
 
 namespace TowerCreep.TowerCreep2D.Scripts.Interface.BuildPhase

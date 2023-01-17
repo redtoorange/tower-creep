@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using TowerCreep.TowerCreep2D.Scripts.Levels.DungeonLevels;
+using TowerCreep.TowerCreep2D.Scripts.Map.DungeonLevels;
 using TowerCreep.TowerCreep2D.Scripts.Player;
 using TowerCreep.TowerCreep2D.Scripts.Utility;
 using UnityEngine;
 
-namespace TowerCreep.TowerCreep2D.Scripts.Levels
+namespace TowerCreep.TowerCreep2D.Scripts.Map
 {
     public class LevelManager : MonoBehaviour
     {

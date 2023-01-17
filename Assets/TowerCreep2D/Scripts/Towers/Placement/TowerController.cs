@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using TowerCreep.TowerCreep2D.Scripts.Levels.DungeonLevels;
+using TowerCreep.TowerCreep2D.Scripts.Map.DungeonLevels;
 using TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Placement
 {
     public class TowerController : MonoBehaviour
     {
-        public static Action<TowerCollectionSlot> OnSetTowerAsAvailable;
+        public static Action<PlayerPartySlot> OnSetTowerAsAvailable;
         public static Action<Tower> OnTowerRemoved;
 
         private List<Tower> controlledTowers;
@@ -41,7 +41,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers.Placement
             which.SetHovered(false);
             which.SetSelected(false);
             OnTowerRemoved?.Invoke(which);
-            TowerCollectionSlot collectionSlot = which.GetCollectionSlotData();
+            PlayerPartySlot collectionSlot = which.GetCollectionSlotData();
             collectionSlot.IsPlaced = false;
             OnSetTowerAsAvailable?.Invoke(collectionSlot);
         }

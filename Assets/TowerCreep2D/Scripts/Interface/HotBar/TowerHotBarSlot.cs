@@ -12,7 +12,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
         public Action<TowerHotBarSlot> OnButtonSlotPressed;
 
         [SerializeField] private Sprite numberSprite;
-        private TowerCollectionSlot collectionSlot;
+        private PlayerPartySlot collectionSlot;
 
         // Internal Nodes
         [SerializeField] private Image selectedBorderImage;
@@ -42,9 +42,9 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
             numberImage.sprite = numberSprite;
         }
 
-        public TowerCollectionSlot GetCollectionSlotData() => collectionSlot;
+        public PlayerPartySlot GetCollectionSlotData() => collectionSlot;
 
-        public void SetCollectionSlotData(TowerCollectionSlot collectionSlot)
+        public void SetCollectionSlotData(PlayerPartySlot collectionSlot)
         {
             this.collectionSlot = collectionSlot;
 

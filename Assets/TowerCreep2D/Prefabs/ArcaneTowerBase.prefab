@@ -79,6 +79,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
+      propertyPath: damageSources.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8308577784658099555, guid: cdace0d5f6b077e42988543379dfb741, type: 3}
       propertyPath: damageSources.Array.data[0].damageType
       value: 1
       objectReference: {fileID: 0}

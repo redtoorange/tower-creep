@@ -5735,71 +5735,96 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 3607343978209890141}
     m_ColliderPaths:
-    - - X: -50000000
-        Y: -50000000
-      - X: -70000000
-        Y: -50000000
-      - X: -70000000
-        Y: 30000000
-      - X: -50000000
-        Y: 30000000
-      - X: -50000000
-        Y: 50000000
-      - X: -80000000
-        Y: 50000000
-      - X: -80000000
-        Y: -80000000
-      - X: -50000000
-        Y: -80000000
-    - - X: 110000000
-        Y: 50000000
-      - X: -20000000
-        Y: 50000000
-      - X: -20000000
-        Y: 30000000
-      - X: 100000000
-        Y: 30000000
-      - X: 100000000
-        Y: -50000000
-      - X: -20000000
-        Y: -50000000
-      - X: -20000000
-        Y: -80000000
-      - X: 110000000
-        Y: -80000000
-    - - X: -20000000
-        Y: -80000000
-      - X: -50000000
-        Y: -80000000
-      - X: -50000000
-        Y: -90000000
-      - X: -20000000
-        Y: -90000000
+    - - X: 110000096
+        Y: -80000040
+      - X: 110000096
+        Y: 50000044
+      - X: 110000040
+        Y: 50000100
+      - X: -20000040
+        Y: 50000100
+      - X: -20000100
+        Y: 50000044
+      - X: -20000100
+        Y: 29999960
+      - X: -20000040
+        Y: 29999900
+      - X: 99999904
+        Y: 29999900
+      - X: 99999904
+        Y: -49999900
+      - X: -20000040
+        Y: -49999900
+      - X: -20000100
+        Y: -49999956
+      - X: -20000100
+        Y: -79999896
+      - X: -49999900
+        Y: -79999896
+      - X: -49999900
+        Y: -49999956
+      - X: -49999956
+        Y: -49999900
+      - X: -69999896
+        Y: -49999900
+      - X: -69999896
+        Y: 29999900
+      - X: -49999956
+        Y: 29999900
+      - X: -49999900
+        Y: 29999960
+      - X: -49999900
+        Y: 50000044
+      - X: -49999956
+        Y: 50000100
+      - X: -80000040
+        Y: 50000100
+      - X: -80000096
+        Y: 50000044
+      - X: -80000096
+        Y: -80000040
+      - X: -80000040
+        Y: -80000096
+      - X: -50000100
+        Y: -80000096
+      - X: -50000100
+        Y: -90000040
+      - X: -50000044
+        Y: -90000096
+      - X: -19999960
+        Y: -90000096
+      - X: -19999900
+        Y: -90000040
+      - X: -19999900
+        Y: -80000096
+      - X: 110000040
+        Y: -80000096
   m_CompositePaths:
     m_Paths:
-    - - {x: 10.99997, y: -8}
-      - {x: 10.99997, y: 5}
-      - {x: -2, y: 4.999971}
-      - {x: -1.9999708, y: 3}
-      - {x: 10, y: 2.9999707}
-      - {x: 9.99997, y: -5}
-      - {x: -2, y: -5.000029}
-      - {x: -1.9999708, y: -8}
-    - - {x: -5.000029, y: -8}
-      - {x: -5.000029, y: -5}
-      - {x: -7, y: -4.9999704}
-      - {x: -6.9999704, y: 3}
-      - {x: -5, y: 3.0000293}
-      - {x: -5.000029, y: 5}
-      - {x: -8, y: 4.999971}
-      - {x: -7.9999704, y: -8}
-    - - {x: -2.0000293, y: -9}
-      - {x: -2.0000293, y: -8}
-      - {x: -5, y: -8.00003}
-      - {x: -4.999971, y: -9}
+    - - {x: -5.000019, y: -8.00001}
+      - {x: -5.000025, y: -4.99999}
+      - {x: -6.9999895, y: -4.999961}
+      - {x: -6.99996, y: 2.99999}
+      - {x: -4.99999, y: 3.0000253}
+      - {x: -5.000025, y: 5.00001}
+      - {x: -8.00001, y: 4.999975}
+      - {x: -7.9999747, y: -8.00001}
+    - - {x: -2.00001, y: -7.99998}
+      - {x: 11.00001, y: -7.9999747}
+      - {x: 10.999974, y: 5.00001}
+      - {x: -2.00001, y: 4.999975}
+      - {x: -1.9999748, y: 2.99999}
+      - {x: 9.99999, y: 2.9999607}
+      - {x: 9.999961, y: -4.99999}
+      - {x: -2.00001, y: -5.000025}
+    - - {x: -2.0000253, y: -9.00001}
+      - {x: -2.0000193, y: -7.9999895}
+      - {x: -5.00001, y: -8.000019}
+      - {x: -4.999975, y: -9.00001}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 3607343978209890080}
 --- !u!1 &3607343978245315939
 GameObject:
   m_ObjectHideFlags: 0
@@ -5824,7 +5849,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3607343978245315939}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5992,8 +6017,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876af11e974cd374e8295ed98a90c65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPortal: {fileID: 3607343978549073734}
-  exitPortal: {fileID: 3607343978138252527}
+  spawnPortals:
+  - {fileID: 5739206102486667163}
+  exitPortals:
+  - {fileID: 6226052753555998410}
 --- !u!1 &3627562392890924985
 GameObject:
   m_ObjectHideFlags: 0
@@ -6116,15 +6143,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3649732807096157729, guid: 6a80b961edc8fe94ba78d361efd4b56e, type: 3}
   m_PrefabInstance: {fileID: 47754653865185637}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3607343978549073734 stripped
+--- !u!114 &5739206102486667163 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3649732807096157731, guid: 6a80b961edc8fe94ba78d361efd4b56e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5696043146886602494, guid: 6a80b961edc8fe94ba78d361efd4b56e, type: 3}
   m_PrefabInstance: {fileID: 47754653865185637}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a390eac482350eb4492cdfa31d7f0b28, type: 3}
+  m_Script: {fileID: 11500000, guid: f2a081c5ec7448888264b35af9c6c014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1164652097677723296
@@ -6349,14 +6376,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9045938634963937114, guid: 1a46eadf0714ad649891ba3c449c11ec, type: 3}
   m_PrefabInstance: {fileID: 5730405558588199863}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3607343978138252527 stripped
+--- !u!114 &6226052753555998410 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9045938634963937112, guid: 1a46eadf0714ad649891ba3c449c11ec, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1864803059240965501, guid: 1a46eadf0714ad649891ba3c449c11ec, type: 3}
   m_PrefabInstance: {fileID: 5730405558588199863}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a390eac482350eb4492cdfa31d7f0b28, type: 3}
+  m_Script: {fileID: 11500000, guid: 4977499b58dd4aa992730042cef1ef0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

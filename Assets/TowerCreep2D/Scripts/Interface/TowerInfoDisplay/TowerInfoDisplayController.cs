@@ -2,7 +2,7 @@ using TMPro;
 using TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection;
 using TowerCreep.TowerCreep2D.Scripts.Towers;
 using TowerCreep.TowerCreep2D.Scripts.Towers.Selection;
-using TowerCreep.TowerCreep2D.Scripts.Towers.TowerLevelData;
+using TowerCreep.TowerCreep2D.Scripts.Towers.TowerClassProgression;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,8 +26,8 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.TowerInfoDisplay
         [SerializeField] private TMP_Text speedTextDisplay;
         [SerializeField] private TMP_Text aoeTextDisplay;
 
-        private TowerCollectionSlot towerCollectionData;
-        private TowerProgressionData currentProgressData;
+        private PlayerPartySlot playerPartyData;
+        private TowerInstanceProgressionData currentProgressData;
 
         private void Awake()
         {
@@ -47,7 +47,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.TowerInfoDisplay
 
             if (!ReferenceEquals(currentProgressData, null))
             {
-                currentProgressData.OnDataProgressionChange -= UpdateProgressData;
+                currentProgressData.OnTowerInstanceProgressionChange -= UpdateProgressData;
                 currentProgressData = null;
             }
         }
@@ -56,12 +56,12 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.TowerInfoDisplay
         {
             if (!ReferenceEquals(tower, null))
             {
-                towerCollectionData = tower.GetCollectionSlotData();
-                towerImage.sprite = towerCollectionData.CollectionTowerData.towerIcon;
-                towerName.text = towerCollectionData.CollectionTowerData.towerName;
+                playerPartyData = tower.GetCollectionSlotData();
+                towerImage.sprite = playerPartyData.CollectionTowerData.towerIcon;
+                towerName.text = playerPartyData.CollectionTowerData.towerName;
 
-                currentProgressData = towerCollectionData.TowerProgressionData;
-                currentProgressData.OnDataProgressionChange += UpdateProgressData;
+                currentProgressData = playerPartyData.TowerInstanceProgressionData;
+                currentProgressData.OnTowerInstanceProgressionChange += UpdateProgressData;
                 UpdateProgressData();
                 towerDetailsDisplay.SetActive(true);
             }
@@ -70,7 +70,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.TowerInfoDisplay
                 towerDetailsDisplay.SetActive(false);
                 if (!ReferenceEquals(currentProgressData, null))
                 {
-                    currentProgressData.OnDataProgressionChange -= UpdateProgressData;
+                    currentProgressData.OnTowerInstanceProgressionChange -= UpdateProgressData;
                     currentProgressData = null;
                 }
             }
@@ -83,7 +83,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.TowerInfoDisplay
             experienceNumbersDisplay.text =
                 $"{currentProgressData.CurrentExperience}/{currentProgressData.RequiredExperience}";
 
-            TowerLevelDataRecord record = towerCollectionData.GetCurrentLevelRecordData()[0];
+            TowerClassProgressionDataRecord record = playerPartyData.GetCurrentLevelRecordData()[0];
             damageTextDisplay.text = ((record.MaxDamage + record.MinDamage) / 2.0f).ToString("0");
             rangeTextDisplay.text = record.Range.ToString("0");
             speedTextDisplay.text = (record.Speed / 60.0f).ToString("N2");

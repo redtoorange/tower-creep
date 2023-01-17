@@ -2,10 +2,10 @@
 
 namespace TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection
 {
-    public class TowerProgressionData
+    public class TowerInstanceProgressionData
     {
-        public Action OnDataProgressionChange;
-        public Action OnTowerLevelChangeChange;
+        public Action OnTowerInstanceProgressionChange;
+        public Action OnTowerInstanceLevelChange;
 
         public int CurrentLevel
         {
@@ -42,10 +42,10 @@ namespace TowerCreep.TowerCreep2D.Scripts.Player.TowerCollection
                 CurrentLevel++;
                 CurrentExperience -= RequiredExperience;
                 RequiredExperience *= 2;
-                OnTowerLevelChangeChange?.Invoke();
+                OnTowerInstanceLevelChange?.Invoke();
             }
 
-            OnDataProgressionChange?.Invoke();
+            OnTowerInstanceProgressionChange?.Invoke();
         }
     }
 }

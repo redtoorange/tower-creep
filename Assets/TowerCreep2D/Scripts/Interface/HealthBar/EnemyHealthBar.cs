@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TowerCreep.TowerCreep2D.Scripts.Enemy.HealthBar
+namespace TowerCreep.TowerCreep2D.Scripts.Interface.HealthBar
 {
     public class EnemyHealthBar : MonoBehaviour
     {

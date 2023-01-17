@@ -9,7 +9,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
     public class TowerHotBarController : MonoBehaviour
     {
         // External Events
-        public static Action<TowerCollectionSlot> OnBuildingSelected;
+        public static Action<PlayerPartySlot> OnBuildingSelected;
 
         // External Nodes
         [SerializeField] private List<TowerHotBarSlot> towerSlots;
@@ -23,7 +23,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
             SetupInput();
         }
 
-        public void Initialize(List<TowerCollectionSlot> towerCollection)
+        public void Initialize(List<PlayerPartySlot> towerCollection)
         {
             if (towerCollection == null) return;
 
@@ -33,7 +33,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
                 hbs.OnButtonSlotPressed += HandleOnButtonSlotPressed;
                 if (i < towerCollection.Count)
                 {
-                    TowerCollectionSlot tcs = towerCollection[i];
+                    PlayerPartySlot tcs = towerCollection[i];
                     hbs.SetCollectionSlotData(tcs);
                     tcs.CollectionHotBarSlot = hbs;
                 }
@@ -54,12 +54,12 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
             TowerPlacementController.OnSetTowerAsUsed -= SetTowerAsUsed;
         }
 
-        private void SetTowerAsUsed(TowerCollectionSlot slot)
+        private void SetTowerAsUsed(PlayerPartySlot slot)
         {
             HandleSetTowerAsAvailable(slot, false);
         }
 
-        private void SetTowerAsAvailable(TowerCollectionSlot slot)
+        private void SetTowerAsAvailable(PlayerPartySlot slot)
         {
             HandleSetTowerAsAvailable(slot, true);
         }
@@ -80,7 +80,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Interface.HotBar
             inputActions.Enable();
         }
 
-        private void HandleSetTowerAsAvailable(TowerCollectionSlot collectionSlot, bool available)
+        private void HandleSetTowerAsAvailable(PlayerPartySlot collectionSlot, bool available)
         {
             if (!ReferenceEquals(collectionSlot.CollectionHotBarSlot, null))
             {

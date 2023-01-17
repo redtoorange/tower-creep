@@ -8,7 +8,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Utility
     public class GameManager : MonoBehaviour
     {
         public static GameManager S;
-        private List<TowerData> collectionData;
+        private List<TowerData> selectedPlayerParty;
 
         private void Awake()
         {
@@ -49,14 +49,14 @@ namespace TowerCreep.TowerCreep2D.Scripts.Utility
             SceneManager.LoadScene("LoseScreen");
         }
 
-        public void SetTowerCollectionData(List<TowerData> collectionData)
+        public void SetPlayerParty(List<TowerData> selectedPlayerParty)
         {
-            this.collectionData = collectionData;
+            this.selectedPlayerParty = selectedPlayerParty;
         }
 
-        public List<TowerData> GetTowerCollectionData()
+        public List<TowerData> GetSelectedPlayerParty()
         {
-            return collectionData;
+            return selectedPlayerParty;
         }
     }
 }

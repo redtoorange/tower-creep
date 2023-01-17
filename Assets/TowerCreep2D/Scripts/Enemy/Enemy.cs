@@ -1,7 +1,7 @@
 ﻿using System;
 using TowerCreep.TowerCreep2D.Scripts.Damage;
-using TowerCreep.TowerCreep2D.Scripts.Enemy.HealthBar;
 using TowerCreep.TowerCreep2D.Scripts.Interface.DamagePopups;
+using TowerCreep.TowerCreep2D.Scripts.Interface.HealthBar;
 using TowerCreep.TowerCreep2D.Scripts.Map.Portals;
 using TowerCreep.TowerCreep2D.Scripts.Towers;
 using UnityEngine;
@@ -100,7 +100,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Enemy
             }
         }
 
-        public void TeleportToSpawn(Portal spawnLocation)
+        public void TeleportToSpawn()
         {
             OnNeedsToResetToSpawn?.Invoke(this);
         }

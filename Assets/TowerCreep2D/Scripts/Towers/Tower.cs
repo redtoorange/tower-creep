@@ -17,12 +17,12 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers
         [SerializeField] private SpriteRenderer towerSprite;
         [SerializeField] private SpriteRenderer hoveredSprite;
         [SerializeField] private SpriteRenderer selectionSprite;
-        private TowerCollectionSlot collectionSlot;
+        private PlayerPartySlot collectionSlot;
 
         private TowerSelectionState selectionState = TowerSelectionState.DeSelected;
         private TowerHoverState hoverState = TowerHoverState.UnHovered;
 
-        public void PlaceTower(TowerCollectionSlot collectionSlot)
+        public void PlaceTower(PlayerPartySlot collectionSlot)
         {
             this.collectionSlot = collectionSlot;
             this.collectionSlot.IsPlaced = true;
@@ -38,7 +38,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers
             OnTowerRemoved?.Invoke();
         }
 
-        public TowerCollectionSlot GetCollectionSlotData()
+        public PlayerPartySlot GetCollectionSlotData()
         {
             return collectionSlot;
         }
@@ -95,7 +95,7 @@ namespace TowerCreep.TowerCreep2D.Scripts.Towers
 
         public void RewardExperience(int amount)
         {
-            collectionSlot.TowerProgressionData.GiveExperience(amount);
+            collectionSlot.TowerInstanceProgressionData.GiveExperience(amount);
         }
     }
 }
